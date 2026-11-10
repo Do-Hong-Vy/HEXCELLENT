@@ -44,6 +44,13 @@ from datetime import date, datetime, timedelta
 from functools import lru_cache
 from pathlib import Path
 
+# Giờ Việt Nam cho mọi mốc thời gian hiển thị / ghi nhật ký: máy chủ đám mây (Streamlit Cloud, Linux) chạy giờ UTC nên lịch sử,
+# audit log, run_id sẽ lệch 7 tiếng. time.tzset() chỉ có trên Unix; Windows dùng giờ máy (đã là giờ Việt Nam) nên không đổi.
+if hasattr(time, "tzset"):
+    import os as _os
+    _os.environ["TZ"] = "Asia/Ho_Chi_Minh"
+    time.tzset()
+
 import numpy as np
 import pandas as pd
 from rank_bm25 import BM25Okapi
@@ -5977,7 +5984,14 @@ def run_ui():
             run = st.button("Chạy đánh giá", icon=":material/play_arrow:", type="primary",
                             help="Đo lại toàn bộ KPI trên Dev-30, Ext-60, Stress-60, Probe-25, Paraphrase-52 (khoảng 1–2 phút)")
             if kpi_csv.exists() and not run:
-                st.caption(f"Cập nhật lúc {datetime.fromtimestamp(kpi_csv.stat().st_mtime):%H:%M %d/%m/%Y}")
+                # thời điểm chạy đánh giá ghi trong run_manifest.json; giờ sửa file chỉ dùng khi thiếu manifest (trên máy chủ
+                # đám mây giờ sửa file là lúc git checkout, không phải lúc đánh giá)
+                when = None
+                try:
+                    when = datetime.fromisoformat(json.loads((OUTPUT_DIR / "run_manifest.json").read_text(encoding="utf-8"))["thời điểm"])
+                except (OSError, ValueError, KeyError, TypeError):
+                    when = datetime.fromtimestamp(kpi_csv.stat().st_mtime)
+                st.caption(f"Cập nhật lúc {when:%H:%M %d/%m/%Y}")
         if run:
             bar = st.progress(0.0)
             ev = run_evaluation(base, lambda n, tot, lab: bar.progress(n / tot, text=lab))

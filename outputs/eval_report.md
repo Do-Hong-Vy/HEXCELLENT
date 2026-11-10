@@ -1,8 +1,8 @@
 # Báo cáo đánh giá – PolicyAssist AI (V1.0)
 
-- Mã lần chạy (run_id): `RUN-20261110-111312-746f69` · thời điểm 10/11/2026 11:13
+- Mã lần chạy (run_id): `RUN-20261110-113148-e54bc1` · thời điểm 10/11/2026 11:32
 - Data Pack: v1-snapshot-2026-10-17 · corpus fingerprint `7357afec5ef0` (toàn bộ Data Pack, corpus_manifest) · `08eaac52973a` (6 file CSV, cách tính trong báo cáo ngày 1 của đội) – cùng một bộ dữ liệu.
-- Mã nguồn `policyassist.py` sha256 `746f699a1e60` · không dùng mô hình ngôn ngữ (pipeline tất định: chạy lại cho cùng kết quả, trừ latency) · hồ sơ đầy đủ: `outputs/run_manifest.json`.
+- Mã nguồn `policyassist.py` sha256 `e54bc1616a48` · không dùng mô hình ngôn ngữ (pipeline tất định: chạy lại cho cùng kết quả, trừ latency) · hồ sơ đầy đủ: `outputs/run_manifest.json`.
 - Đo trên bộ câu hỏi mẫu của BTC và bộ câu do đội gán nhãn/tự viết, không phải người dùng thật.
 
 ## 1. Tập đánh giá
@@ -32,8 +32,8 @@
 | · Precision ABSTAIN | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |  |
 | · Recall ABSTAIN | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |  |
 | 6. Versioning Accuracy | 1.000 (4/4) | 1.000 (6/6) | 1.000 (10/10) | 1.000 (14/14) | 1.000 (6/6) | 1.000 (6/6) | ≥ 0.9 (đội) |
-| 7. Latency trung bình (ms) | 18 | 20 | 19 | 18 | 10 | 18 | ≤ 10000 (đề thi) |
-| · Latency p95 (ms) | 44 | 43 | 44 | 39 | 19 | 41 |  |
+| 7. Latency trung bình (ms) | 34 | 40 | 38 | 41 | 22 | 36 | ≤ 10000 (đề thi) |
+| · Latency p95 (ms) | 97 | 90 | 97 | 85 | 43 | 79 |  |
 | Chỉ số phụ: Source Priority (câu MIXED) | 0.667 (2/3) | 0.444 (4/9) | 0.500 (6/12) | 1.000 (1/1) | — | 0.250 (1/4) | ≥ 0.85 (đội) |
 | Quyết định ANSWER/ABSTAIN đúng | 1.000 (30/30) | 1.000 (60/60) | 1.000 (90/90) | 1.000 (60/60) | 1.000 (25/25) | 1.000 (52/52) |  |
 
@@ -67,8 +67,8 @@
 | · Precision ABSTAIN | — | — | — | — | — | — |  |
 | · Recall ABSTAIN | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |  |
 | 6. Versioning Accuracy | 0.250 | 0.500 | 0.400 | 0.214 | 0.167 | 0.333 | ≥ 0.9 (đội) |
-| 7. Latency trung bình (ms) | 6 | 6 | 6 | 5 | 4 | 5 | ≤ 10000 (đề thi) |
-| · Latency p95 (ms) | 8 | 9 | 9 | 8 | 5 | 7 |  |
+| 7. Latency trung bình (ms) | 11 | 13 | 12 | 12 | 10 | 10 | ≤ 10000 (đề thi) |
+| · Latency p95 (ms) | 17 | 21 | 20 | 17 | 14 | 13 |  |
 | Chỉ số phụ: Source Priority (câu MIXED) | 0.000 | 0.111 | 0.083 | 0.000 | — | 0.000 | ≥ 0.85 (đội) |
 | Quyết định ANSWER/ABSTAIN đúng | 0.867 | 0.833 | 0.844 | 0.867 | 0.440 | 0.808 |  |
 
@@ -104,27 +104,27 @@ Mỗi dòng bật thêm một khối của pipeline so với dòng trước; B2�
 
 | cấu hình | Recall@5 | MRR@5 | Answer Correctness | Citation Accuracy | Unsupported | Abstention P | Abstention R | Abstention F1 | Versioning | Source Priority | quyết định đúng | latency TB (ms) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| B0 – BM25 thuần (baseline) | 0.610 | 0.616 | 0.573 | 0.605 | 0.156 | — | 0.000 | 0.000 | 0.400 | 0.083 | 0.844 | 5.900 |
-| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0.725 | 0.701 | 0.617 | 0.678 | 0.156 | — | 0.000 | 0.000 | 0.400 | 0.083 | 0.844 | 9.600 |
-| B2 – + CHRONOS (chuyển hướng phiên bản) | 0.797 | 0.777 | 0.658 | 0.783 | 0.156 | — | 0.000 | 0.000 | 0.700 | 0.333 | 0.844 | 11.100 |
-| B2′ – B1 + lọc cứng theo ngày | 0.766 | 0.732 | 0.628 | 0.724 | 0.156 | — | 0.000 | 0.000 | 0.600 | 0.083 | 0.844 | 10.100 |
-| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0.904 | 0.884 | 0.676 | 0.961 | 0.156 | — | 0.000 | 0.000 | 1.000 | 0.083 | 0.844 | 21.400 |
-| B4 – + Guard, cổng đủ căn cứ | 0.904 | 0.884 | 0.676 | 0.961 | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.083 | 1.000 | 18.300 |
-| B5 – + soạn nhiều căn cứ, kiểm toán citation | 0.904 | 0.884 | 0.708 | 0.932 | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.500 | 1.000 | 18.800 |
-| B6 – + ngưỡng độ tin cậy (= hệ thống đầy đủ) | 0.904 | 0.884 | 0.708 | 0.932 | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.500 | 1.000 | 19.300 |
+| B0 – BM25 thuần (baseline) | 0.610 | 0.616 | 0.573 | 0.605 | 0.156 | — | 0.000 | 0.000 | 0.400 | 0.083 | 0.844 | 12.400 |
+| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0.725 | 0.701 | 0.617 | 0.678 | 0.156 | — | 0.000 | 0.000 | 0.400 | 0.083 | 0.844 | 21.300 |
+| B2 – + CHRONOS (chuyển hướng phiên bản) | 0.797 | 0.777 | 0.658 | 0.783 | 0.156 | — | 0.000 | 0.000 | 0.700 | 0.333 | 0.844 | 23.900 |
+| B2′ – B1 + lọc cứng theo ngày | 0.766 | 0.732 | 0.628 | 0.724 | 0.156 | — | 0.000 | 0.000 | 0.600 | 0.083 | 0.844 | 20.000 |
+| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0.904 | 0.884 | 0.676 | 0.961 | 0.156 | — | 0.000 | 0.000 | 1.000 | 0.083 | 0.844 | 42.200 |
+| B4 – + Guard, cổng đủ căn cứ | 0.904 | 0.884 | 0.676 | 0.961 | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.083 | 1.000 | 41.600 |
+| B5 – + soạn nhiều căn cứ, kiểm toán citation | 0.904 | 0.884 | 0.708 | 0.932 | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.500 | 1.000 | 43.000 |
+| B6 – + ngưỡng độ tin cậy (= hệ thống đầy đủ) | 0.904 | 0.884 | 0.708 | 0.932 | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.500 | 1.000 | 37.900 |
 
 ## 6. Ablation bỏ từng thành phần (Dev-30 + Probe-25)
 
 | hệ thống | recall_at_5 | answer_accuracy | citation_accuracy | unsupported_rate | abstention_f1 | versioning_accuracy | latency_ms_avg | citation_recall | evidence_mismatch_rate | decision_accuracy | brier | ece |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | B0 – BM25 thuần (baseline) | 0.538 | 0.619 | 0.442 | 0.327 | 0.0 | 0.2 | 5.2 | 0.282 | 0.5 | 0.673 | 0.383 | 0.432 |
-| CHRONOS-LEDGER (đầy đủ) | 0.936 | 0.831 | 0.891 | 0.0 | 1.0 | 1.0 | 13.6 | 0.724 | 0.0 | 1.0 | 0.01 | 0.062 |
-| – bỏ CHRONOS (versioning) | 0.891 | 0.775 | 0.776 | 0.0 | 1.0 | 0.5 | 13.3 | 0.547 | 0.115 | 1.0 | 0.058 | 0.068 |
-| – bỏ Authority rerank | 0.708 | 0.755 | 0.692 | 0.0 | 1.0 | 0.8 | 8.8 | 0.528 | 0.154 | 1.0 | 0.073 | 0.078 |
-| – bỏ truy nguồn FAQ (PRF) | 0.904 | 0.821 | 0.795 | 0.0 | 1.0 | 1.0 | 9.4 | 0.654 | 0.077 | 1.0 | 0.044 | 0.049 |
-| – bỏ cấu trúc Điều | 0.891 | 0.822 | 0.865 | 0.0 | 1.0 | 1.0 | 14.0 | 0.699 | 0.0 | 1.0 | 0.01 | 0.061 |
-| – bỏ Guard & Gate | 0.936 | 0.831 | 0.891 | 0.327 | 0.0 | 1.0 | 16.4 | 0.724 | 0.0 | 0.673 | 0.159 | 0.169 |
-| – bỏ TF-IDF (chỉ BM25) | 0.904 | 0.791 | 0.853 | 0.0 | 1.0 | 1.0 | 11.3 | 0.686 | 0.038 | 1.0 | 0.028 | 0.044 |
+| CHRONOS-LEDGER (đầy đủ) | 0.936 | 0.831 | 0.891 | 0.0 | 1.0 | 1.0 | 13.9 | 0.724 | 0.0 | 1.0 | 0.01 | 0.062 |
+| – bỏ CHRONOS (versioning) | 0.891 | 0.775 | 0.776 | 0.0 | 1.0 | 0.5 | 13.2 | 0.547 | 0.115 | 1.0 | 0.058 | 0.068 |
+| – bỏ Authority rerank | 0.708 | 0.755 | 0.692 | 0.0 | 1.0 | 0.8 | 8.9 | 0.528 | 0.154 | 1.0 | 0.073 | 0.078 |
+| – bỏ truy nguồn FAQ (PRF) | 0.904 | 0.821 | 0.795 | 0.0 | 1.0 | 1.0 | 9.8 | 0.654 | 0.077 | 1.0 | 0.044 | 0.049 |
+| – bỏ cấu trúc Điều | 0.891 | 0.822 | 0.865 | 0.0 | 1.0 | 1.0 | 20.5 | 0.699 | 0.0 | 1.0 | 0.01 | 0.061 |
+| – bỏ Guard & Gate | 0.936 | 0.831 | 0.891 | 0.327 | 0.0 | 1.0 | 33.3 | 0.724 | 0.0 | 0.673 | 0.159 | 0.169 |
+| – bỏ TF-IDF (chỉ BM25) | 0.904 | 0.791 | 0.853 | 0.0 | 1.0 | 1.0 | 30.4 | 0.686 | 0.038 | 1.0 | 0.028 | 0.044 |
 
 ## 7. KPI chính trên giao diện (Dev-30 – đáp án BTC + Probe-25)
 
@@ -136,40 +136,40 @@ Mỗi dòng bật thêm một khối của pipeline so với dòng trước; B2�
 | 4. Unsupported Answer Rate | 0.0 | <= 0.1 | đội đề xuất | ✅ Đạt | 0.327 | 0/37 câu trả lời có nội dung thiếu căn cứ |
 | 5. Abstention Quality (F1) | 1.0 | >= 0.9 | đội đề xuất | ✅ Đạt | 0.0 | Từ chối đúng 18/18 câu cần từ chối · từ chối nhầm 0 (P 1.000 · R 1.000) |
 | 6. Versioning Accuracy | 1.0 | >= 0.9 | đội đề xuất | ✅ Đạt | 0.2 | Đúng 10/10 câu hỏi phiên bản |
-| 7. Latency trung bình (ms) | 16.9 | <= 10000 | đề thi | ✅ Đạt | 5.2 | p95 42 ms · 145 lượt đo |
+| 7. Latency trung bình (ms) | 28.9 | <= 10000 | đề thi | ✅ Đạt | 5.2 | p95 78 ms · 145 lượt đo |
 
 ## 8. KPI tách theo answer_scope (hệ thống đầy đủ)
 
 | tập | phạm vi | số câu | quyết định đúng | Recall@5 | MRR@5 | Answer Correctness | Citation Accuracy | Unsupported | Versioning | Source Priority | latency TB (ms) |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Dev-30 | LEGAL | 10 | 1.000 | 1.000 | 0.950 | 0.877 | 1.000 | 0.000 | — | — | 10.200 |
-| Dev-30 | INTERNAL | 9 | 1.000 | 0.870 | 1.000 | 0.798 | 0.722 | 0.000 | — | — | 26.200 |
-| Dev-30 | MIXED | 3 | 1.000 | 0.833 | 0.833 | 0.717 | 0.889 | 0.000 | — | 0.667 | 41.300 |
-| Dev-30 | VERSIONING | 4 | 1.000 | 1.000 | 1.000 | 0.877 | 1.000 | 0.000 | 1.000 | — | 14.800 |
-| Dev-30 | OUT_OF_SCOPE | 4 | 1.000 | — | — | — | — | — | — | — | 1.000 |
-| Ext-60 | LEGAL | 10 | 1.000 | 1.000 | 0.950 | 0.721 | 1.000 | 0.000 | — | — | 13.000 |
-| Ext-60 | INTERNAL | 25 | 1.000 | 0.860 | 0.829 | 0.696 | 0.940 | 0.000 | — | — | 26.900 |
-| Ext-60 | MIXED | 9 | 1.000 | 0.815 | 0.717 | 0.582 | 0.907 | 0.000 | — | 0.444 | 34.300 |
-| Ext-60 | VERSIONING | 6 | 1.000 | 0.917 | 0.917 | 0.396 | 1.000 | 0.000 | 1.000 | — | 15.200 |
+| Dev-30 | LEGAL | 10 | 1.000 | 1.000 | 0.950 | 0.877 | 1.000 | 0.000 | — | — | 18.700 |
+| Dev-30 | INTERNAL | 9 | 1.000 | 0.870 | 1.000 | 0.798 | 0.722 | 0.000 | — | — | 53.100 |
+| Dev-30 | MIXED | 3 | 1.000 | 0.833 | 0.833 | 0.717 | 0.889 | 0.000 | — | 0.667 | 82.300 |
+| Dev-30 | VERSIONING | 4 | 1.000 | 1.000 | 1.000 | 0.877 | 1.000 | 0.000 | 1.000 | — | 25.200 |
+| Dev-30 | OUT_OF_SCOPE | 4 | 1.000 | — | — | — | — | — | — | — | 1.200 |
+| Ext-60 | LEGAL | 10 | 1.000 | 1.000 | 0.950 | 0.721 | 1.000 | 0.000 | — | — | 24.100 |
+| Ext-60 | INTERNAL | 25 | 1.000 | 0.860 | 0.829 | 0.696 | 0.940 | 0.000 | — | — | 53.300 |
+| Ext-60 | MIXED | 9 | 1.000 | 0.815 | 0.717 | 0.582 | 0.907 | 0.000 | — | 0.444 | 68.400 |
+| Ext-60 | VERSIONING | 6 | 1.000 | 0.917 | 0.917 | 0.396 | 1.000 | 0.000 | 1.000 | — | 31.700 |
 | Ext-60 | OUT_OF_SCOPE | 10 | 1.000 | — | — | — | — | — | — | — | 1.000 |
-| Public-90 | LEGAL | 20 | 1.000 | 1.000 | 0.950 | 0.799 | 1.000 | 0.000 | — | — | 11.600 |
-| Public-90 | INTERNAL | 34 | 1.000 | 0.863 | 0.875 | 0.723 | 0.882 | 0.000 | — | — | 26.700 |
-| Public-90 | MIXED | 12 | 1.000 | 0.819 | 0.746 | 0.616 | 0.903 | 0.000 | — | 0.500 | 36.100 |
-| Public-90 | VERSIONING | 10 | 1.000 | 0.950 | 0.950 | 0.589 | 1.000 | 0.000 | 1.000 | — | 15.000 |
-| Public-90 | OUT_OF_SCOPE | 14 | 1.000 | — | — | — | — | — | — | — | 1.000 |
-| Stress-60 | LEGAL | 7 | 1.000 | 0.929 | 0.833 | 0.654 | 0.786 | 0.000 | — | — | 12.100 |
-| Stress-60 | INTERNAL | 30 | 1.000 | 0.640 | 0.836 | 0.676 | 0.717 | 0.000 | — | — | 25.100 |
-| Stress-60 | VERSIONING | 14 | 1.000 | 0.760 | 0.871 | — | 0.851 | 0.000 | 1.000 | — | 12.600 |
-| Stress-60 | OUT_OF_SCOPE | 8 | 1.000 | — | — | — | — | — | — | — | 7.500 |
-| Stress-60 | MIXED | 1 | 1.000 | 0.600 | 0.500 | — | 0.500 | 0.000 | — | 1.000 | 25.000 |
-| Probe-25 | OUT_OF_SCOPE | 14 | 1.000 | — | — | — | — | — | — | — | 7.000 |
-| Probe-25 | (không nhãn) | 5 | 1.000 | — | — | — | — | 0.000 | — | — | 15.200 |
-| Probe-25 | VERSIONING | 6 | 1.000 | — | — | — | — | 0.000 | 1.000 | — | 11.200 |
-| Paraphrase-52 | LEGAL | 14 | 1.000 | 0.929 | 0.929 | 0.834 | 0.929 | 0.000 | — | — | 12.500 |
-| Paraphrase-52 | INTERNAL | 18 | 1.000 | 0.759 | 0.875 | 0.745 | 0.722 | 0.000 | — | — | 27.800 |
-| Paraphrase-52 | MIXED | 4 | 1.000 | 0.792 | 0.750 | 0.529 | 0.625 | 0.000 | — | 0.250 | 32.200 |
-| Paraphrase-52 | VERSIONING | 6 | 1.000 | 1.000 | 0.917 | 0.877 | 1.000 | 0.000 | 1.000 | — | 12.200 |
-| Paraphrase-52 | OUT_OF_SCOPE | 10 | 1.000 | — | — | — | — | — | — | — | 4.200 |
+| Public-90 | LEGAL | 20 | 1.000 | 1.000 | 0.950 | 0.799 | 1.000 | 0.000 | — | — | 21.400 |
+| Public-90 | INTERNAL | 34 | 1.000 | 0.863 | 0.875 | 0.723 | 0.882 | 0.000 | — | — | 53.200 |
+| Public-90 | MIXED | 12 | 1.000 | 0.819 | 0.746 | 0.616 | 0.903 | 0.000 | — | 0.500 | 71.900 |
+| Public-90 | VERSIONING | 10 | 1.000 | 0.950 | 0.950 | 0.589 | 1.000 | 0.000 | 1.000 | — | 29.100 |
+| Public-90 | OUT_OF_SCOPE | 14 | 1.000 | — | — | — | — | — | — | — | 1.100 |
+| Stress-60 | LEGAL | 7 | 1.000 | 0.929 | 0.833 | 0.654 | 0.786 | 0.000 | — | — | 27.600 |
+| Stress-60 | INTERNAL | 30 | 1.000 | 0.640 | 0.836 | 0.676 | 0.717 | 0.000 | — | — | 58.100 |
+| Stress-60 | VERSIONING | 14 | 1.000 | 0.760 | 0.871 | — | 0.851 | 0.000 | 1.000 | — | 26.400 |
+| Stress-60 | OUT_OF_SCOPE | 8 | 1.000 | — | — | — | — | — | — | — | 14.200 |
+| Stress-60 | MIXED | 1 | 1.000 | 0.600 | 0.500 | — | 0.500 | 0.000 | — | 1.000 | 68.000 |
+| Probe-25 | OUT_OF_SCOPE | 14 | 1.000 | — | — | — | — | — | — | — | 16.200 |
+| Probe-25 | (không nhãn) | 5 | 1.000 | — | — | — | — | 0.000 | — | — | 40.000 |
+| Probe-25 | VERSIONING | 6 | 1.000 | — | — | — | — | 0.000 | 1.000 | — | 20.800 |
+| Paraphrase-52 | LEGAL | 14 | 1.000 | 0.929 | 0.929 | 0.834 | 0.929 | 0.000 | — | — | 27.000 |
+| Paraphrase-52 | INTERNAL | 18 | 1.000 | 0.759 | 0.875 | 0.745 | 0.722 | 0.000 | — | — | 56.300 |
+| Paraphrase-52 | MIXED | 4 | 1.000 | 0.792 | 0.750 | 0.529 | 0.625 | 0.000 | — | 0.250 | 58.800 |
+| Paraphrase-52 | VERSIONING | 6 | 1.000 | 1.000 | 0.917 | 0.877 | 1.000 | 0.000 | 1.000 | — | 26.500 |
+| Paraphrase-52 | OUT_OF_SCOPE | 10 | 1.000 | — | — | — | — | — | — | — | 7.700 |
 
 ## 9. Bảng lỗi (retrieval / citation / abstain / versioning / generation)
 
@@ -200,12 +200,12 @@ Dùng để thay cột kỳ vọng của demo script (ghi trace_id từng case).
 
 | case | mã | reference_date | hành vi kỳ vọng | kỳ vọng | quyết định | citations | chunk được dẫn | độ tin cậy | latency_ms | trace_id | khớp kỳ vọng |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| A – một nguồn | Q001 | 2026-10-17 | ANSWER | LAW01_C001 | ANSWER | LAW01 – Điều 3 khoản 3 | LAW01_C001 | 0.971 | 6 | T20261110-111335-d9e1ad | Có |
-| B1 – nhiều nguồn | Q042 | 2026-10-17 | ANSWER | LAW12_C009;LAW12_C011;SIM02_C006 | ANSWER | LAW12 – Điều 10 khoản 1 điểm b; LAW12 – Điều 10 khoản 1; SIM02 – Điều 7 | LAW12_C009;LAW12_C011;SIM02_C006 | 0.969 | 46 | T20261110-111335-31b88b | Có |
-| B2 – versioning | tự đặt | 2025-05-15 | ANSWER | LAW09 | ANSWER | LAW09 – Điều 1 | LAW09_C001 | 0.969 | 9 | T20261110-111335-6e3099 | Có |
-| B2 – versioning | tự đặt | 2025-06-15 | ANSWER | LAW06 | ANSWER | LAW06 – Điều 12 khoản 1 | LAW06_C016 | 0.970 | 9 | T20261110-111335-23c0b1 | Có |
-| B2 – versioning | tự đặt | 2026-08-15 | ANSWER | LAW12 | ANSWER | LAW12 – Điều 24–25 | LAW12_C014 | 0.969 | 9 | T20261110-111335-e3b778 | Có |
-| C – ABSTAIN | Q077 | 2026-10-17 | ABSTAIN |  | ABSTAIN |  |  | 0.050 | 1 | T20261110-111335-392788 | Có |
+| A – một nguồn | Q001 | 2026-10-17 | ANSWER | LAW01_C001 | ANSWER | LAW01 – Điều 3 khoản 3 | LAW01_C001 | 0.971 | 14 | T20261110-113236-d7459a | Có |
+| B1 – nhiều nguồn | Q042 | 2026-10-17 | ANSWER | LAW12_C009;LAW12_C011;SIM02_C006 | ANSWER | LAW12 – Điều 10 khoản 1 điểm b; LAW12 – Điều 10 khoản 1; SIM02 – Điều 7 | LAW12_C009;LAW12_C011;SIM02_C006 | 0.969 | 102 | T20261110-113236-6453b0 | Có |
+| B2 – versioning | tự đặt | 2025-05-15 | ANSWER | LAW09 | ANSWER | LAW09 – Điều 1 | LAW09_C001 | 0.969 | 15 | T20261110-113236-ef05b9 | Có |
+| B2 – versioning | tự đặt | 2025-06-15 | ANSWER | LAW06 | ANSWER | LAW06 – Điều 12 khoản 1 | LAW06_C016 | 0.970 | 21 | T20261110-113236-b70ebe | Có |
+| B2 – versioning | tự đặt | 2026-08-15 | ANSWER | LAW12 | ANSWER | LAW12 – Điều 24–25 | LAW12_C014 | 0.969 | 28 | T20261110-113236-a5755e | Có |
+| C – ABSTAIN | Q077 | 2026-10-17 | ABSTAIN |  | ABSTAIN |  |  | 0.050 | 2 | T20261110-113236-602615 | Có |
 
 ## 11. Toàn bộ 90 câu public
 
@@ -215,9 +215,9 @@ Dùng để thay cột kỳ vọng của demo script (ghi trace_id từng case).
 - abstained_ids: Q077, Q078, Q079, Q080, Q081, Q082, Q083, Q084, Q085, Q086, Q087, Q088, Q089, Q090
 - citation_in_citation_map: 1.0
 - citation_valid_at_reference_date: 1.0
-- latency_ms_avg: 19.0
-- latency_ms_p95: 41.1
-- latency_ms_max: 61
+- latency_ms_avg: 38.1
+- latency_ms_p95: 90.8
+- latency_ms_max: 119
 
 ## 12. Độ bền với câu hỏi ngoài đáp án mẫu (không dùng để tinh chỉnh)
 

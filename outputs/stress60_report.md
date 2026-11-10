@@ -1,6 +1,6 @@
 # Stress-60 – PolicyAssist AI V1.0
 
-- Thời điểm chạy: 11:13 10/11/2026 · corpus fingerprint 7357afec5ef0
+- Thời điểm chạy: 11:32 10/11/2026 · corpus fingerprint 7357afec5ef0
 - Bộ câu: 60 câu (14 kiểu stress) · ANSWER 52 · ABSTAIN 8 · nhãn: data/eval/stress60_labels.csv (trạng thái: Nháp – kế thừa nhãn từ seed 30, Đã đối chiếu chunk_text 22, Đã kiểm tra corpus không có dữ liệu 8).
 - Recall@5: tỷ lệ chunk kỳ vọng nằm trong 5 chunk đầu (câu bị ABSTAIN tính 0). Citation Accuracy: tỷ lệ citation dẫn đúng nhãn/chunk kỳ vọng (như KPI 3). Versioning: văn bản LAW đầu tiên được dẫn còn hiệu lực tại mốc thuộc tập văn bản kỳ vọng. Phạm vi theo nguồn: chỉ trích LAW → LEGAL, chỉ SIM → INTERNAL, cả hai → MIXED, câu hiệu lực → VERSIONING, ABSTAIN → OUT_OF_SCOPE.
 - Không dùng bộ này để tinh chỉnh ngưỡng.
@@ -9,8 +9,8 @@
 
 | hệ thống | số câu | quyết định đúng | F1 ABSTAIN | Recall@5 | căn cứ đúng top-5 | Citation Accuracy | citation [1] đúng | có citation đúng | đúng văn bản | Versioning | phạm vi nguồn đúng | κ phạm vi nguồn | citation hợp lệ | latency TB (ms) | latency p95 (ms) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| CHRONOS-LEDGER | 60 | 1.0 | 1.0 | 0.71 | 0.981 | 0.758 | 0.769 | 0.885 | 0.981 | 1.0 | 0.95 | 0.927 | 1.0 | 18.5 | 39.0 |
-| B0 – BM25 thuần | 60 | 0.867 | 0.0 | 0.36 | 0.654 | 0.385 | 0.423 | 0.442 | 0.692 | 0.214 | 0.8 | 0.682 | 0.9 | 5.6 | 8.0 |
+| CHRONOS-LEDGER | 60 | 1.0 | 1.0 | 0.71 | 0.981 | 0.758 | 0.769 | 0.885 | 0.981 | 1.0 | 0.95 | 0.927 | 1.0 | 41.1 | 91.2 |
+| B0 – BM25 thuần | 60 | 0.867 | 0.0 | 0.36 | 0.654 | 0.385 | 0.423 | 0.442 | 0.692 | 0.214 | 0.8 | 0.682 | 0.9 | 10.5 | 15.0 |
 
 ## Theo kiểu stress (CHRONOS-LEDGER)
 

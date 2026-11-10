@@ -71,18 +71,18 @@ Recall ABSTAIN,abstention_recall,Paraphrase-52,1.0,,,0.0,,,
 6. Versioning Accuracy,versioning_accuracy,Stress-60,1.0,14/14,1.000–1.000,0.214,≥ 0.9,đội,Đạt
 6. Versioning Accuracy,versioning_accuracy,Probe-25,1.0,6/6,1.000–1.000,0.167,≥ 0.9,đội,Đạt
 6. Versioning Accuracy,versioning_accuracy,Paraphrase-52,1.0,6/6,1.000–1.000,0.333,≥ 0.9,đội,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Dev-30,17.5,30 câu,,5.7,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Ext-60,20.2,60 câu,,6.0,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Public-90,19.3,90 câu,,5.9,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Stress-60,18.3,60 câu,,5.2,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Probe-25,9.6,25 câu,,4.2,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Paraphrase-52,17.7,52 câu,,4.8,≤ 10000,đề thi,Đạt
-Latency p95 (ms),latency_ms_p95,Dev-30,44.2,30 câu,,8.5,,,
-Latency p95 (ms),latency_ms_p95,Ext-60,43.1,60 câu,,9.0,,,
-Latency p95 (ms),latency_ms_p95,Public-90,44.1,90 câu,,9.0,,,
-Latency p95 (ms),latency_ms_p95,Stress-60,39.0,60 câu,,8.0,,,
-Latency p95 (ms),latency_ms_p95,Probe-25,18.6,25 câu,,5.0,,,
-Latency p95 (ms),latency_ms_p95,Paraphrase-52,40.9,52 câu,,7.0,,,
+7. Latency trung bình (ms),latency_ms_avg,Dev-30,33.9,30 câu,,11.1,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Ext-60,39.8,60 câu,,13.1,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Public-90,37.9,90 câu,,12.4,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Stress-60,41.4,60 câu,,11.6,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Probe-25,22.1,25 câu,,9.8,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Paraphrase-52,35.8,52 câu,,9.7,≤ 10000,đề thi,Đạt
+Latency p95 (ms),latency_ms_p95,Dev-30,97.4,30 câu,,17.0,,,
+Latency p95 (ms),latency_ms_p95,Ext-60,89.6,60 câu,,21.0,,,
+Latency p95 (ms),latency_ms_p95,Public-90,97.4,90 câu,,20.5,,,
+Latency p95 (ms),latency_ms_p95,Stress-60,85.2,60 câu,,17.0,,,
+Latency p95 (ms),latency_ms_p95,Probe-25,43.0,25 câu,,14.0,,,
+Latency p95 (ms),latency_ms_p95,Paraphrase-52,79.4,52 câu,,13.4,,,
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Dev-30,0.667,2/3,,0.0,≥ 0.85,đội,Chưa đạt
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Ext-60,0.444,4/9,,0.111,≥ 0.85,đội,Chưa đạt
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Public-90,0.5,6/12,,0.083,≥ 0.85,đội,Chưa đạt

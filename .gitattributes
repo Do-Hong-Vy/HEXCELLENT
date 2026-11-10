@@ -1,0 +1,6 @@
+# Data Pack của BTC và nhãn đánh giá phải giữ nguyên TỪNG BYTE (kể cả xuống dòng CRLF): corpus_manifest kiểm SHA-256 từng file,
+# nếu git đổi CRLF → LF thì bản trên GitHub / Streamlit Cloud sẽ "lệch manifest" và nội dung chunk có thể khác bản gốc.
+data/** -text
+
+# file lệnh Windows luôn dùng CRLF
+*.bat text eol=crlf

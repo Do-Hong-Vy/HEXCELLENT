@@ -37,7 +37,7 @@ Một lệnh `python policyassist.py eval` đo **mọi tập có nhãn** cho h�
 Lệnh này chạy kèm kiểm định ghép cặp, khoảng tin cậy 95%, ablation B0 → B6 và các kịch bản demo. Báo cáo nằm ở `outputs/eval_report.md`, số liệu ở `outputs/kpi_table.csv`.
 
 Thông tin lần chạy:
-- run_id: `RUN-20261110-111312-746f69` (lần chạy cuối; sha256 mã nguồn `746f699a1e60`, khớp `outputs/run_manifest.json`).
+- run_id: `RUN-20261110-113148-e54bc1` (lần chạy cuối; sha256 mã nguồn `e54bc1616a48`, khớp `outputs/run_manifest.json`).
 - Corpus `08eaac52973a` (6 file CSV, cách tính của đội) và `7357afec5ef0` (toàn bộ Data Pack) – hai dấu vân tay của cùng một bộ dữ liệu.
 - Đo trên bộ câu hỏi mẫu, không phải người dùng thật.
 
@@ -57,7 +57,7 @@ Mỗi ô ghi giá trị, kèm (tổng điểm hoặc số câu đúng / số câ
 | 4. Unsupported Answer Rate | **0,000** (0/26) | 0,000 (0/50) | 0,000 (0/76) | 0,000 (0/52) | ≤ 0,10 (đội) |
 | 5. Abstention F1 (Precision / Recall) | **1,000 (1,000 / 1,000)** | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | ≥ 0,90 (đội) |
 | 6. Versioning Accuracy | **1,000** (4/4) | 1,000 (6/6) | 1,000 (10/10) | 1,000 (14/14) | ≥ 0,90 (đội) |
-| 7. Latency trung bình / p95 | **18 / 44 ms** | 20 / 43 ms | 19 / 44 ms | 18 / 39 ms | TB ≤ 10.000 ms (đề thi) |
+| 7. Latency trung bình / p95 | **34 / 97 ms** | 40 / 90 ms | 38 / 97 ms | 41 / 85 ms | TB ≤ 10.000 ms (đề thi) |
 | Source Priority – câu MIXED (chỉ số phụ) | 0,667 (2/3) | 0,444 (4/9) | 0,500 (6/12) | 1,000 (1/1) | ≥ 0,85 (đội) |
 | Quyết định ANSWER/ABSTAIN đúng | 1,000 (30/30) | 1,000 (60/60) | 1,000 (90/90) | 1,000 (60/60) | |
 
@@ -146,7 +146,7 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 | 4 | Unsupported Answer Rate (thấp là tốt) | **0,000** | 0,327 | ≤ 0,10 (đội đề xuất) | 0/37 câu đã trả lời |
 | 5 | Abstention Quality (F1 lớp ABSTAIN) | **1,000** | 0,000 | ≥ 0,90 (đội đề xuất) | P 1,000 · R 1,000 · TP 18 · FP 0 · FN 0 |
 | 6 | Versioning Accuracy | **1,000** | 0,200 | ≥ 0,90 (đội đề xuất) | 10/10 câu |
-| 7 | Latency trung bình | **17 ms** | 5 ms | ≤ 10 giây (đề thi) | p95 42 ms · 145 lượt đo |
+| 7 | Latency trung bình | **29 ms** | 5 ms | ≤ 10 giây (đề thi) | p95 78 ms · 145 lượt đo |
 
 **Nguồn của các chỉ số kèm** (dòng nhỏ dưới mỗi ô; cùng tập Dev-30 + Probe-25 với giá trị chính):
 - MRR@5 và Recall@5 theo văn bản: 26 câu ANSWER của Dev-30.
@@ -174,14 +174,14 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 
 | Cấu hình | Recall@5 | MRR@5 | Answer | Citation | Unsupported | Abstention F1 | Versioning | Source Priority | Latency TB |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| B0 – BM25 thuần | 0,610 | 0,616 | 0,573 | 0,605 | 0,156 | 0,000 | 0,40 | 0,083 | 6 ms |
-| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0,725 | 0,701 | 0,617 | 0,678 | 0,156 | 0,000 | 0,40 | 0,083 | 10 ms |
-| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,658 | 0,783 | 0,156 | 0,000 | 0,70 | 0,333 | 11 ms |
-| B2′ – B1 + lọc cứng theo ngày | 0,766 | 0,732 | 0,628 | 0,724 | 0,156 | 0,000 | 0,60 | 0,083 | 10 ms |
-| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,904 | 0,884 | 0,676 | 0,961 | 0,156 | 0,000 | 1,00 | 0,083 | 21 ms |
-| B4 – + Guard, cổng đủ căn cứ | 0,904 | 0,884 | 0,676 | 0,961 | 0,000 | 1,000 | 1,00 | 0,083 | 18 ms |
-| B5 – + soạn nhiều căn cứ, kiểm toán citation | 0,904 | 0,884 | 0,708 | 0,932 | 0,000 | 1,000 | 1,00 | 0,500 | 19 ms |
-| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,904** | **0,884** | **0,708** | **0,932** | **0,000** | **1,000** | **1,00** | **0,500** | 19 ms |
+| B0 – BM25 thuần | 0,610 | 0,616 | 0,573 | 0,605 | 0,156 | 0,000 | 0,40 | 0,083 | 12 ms |
+| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0,725 | 0,701 | 0,617 | 0,678 | 0,156 | 0,000 | 0,40 | 0,083 | 21 ms |
+| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,658 | 0,783 | 0,156 | 0,000 | 0,70 | 0,333 | 24 ms |
+| B2′ – B1 + lọc cứng theo ngày | 0,766 | 0,732 | 0,628 | 0,724 | 0,156 | 0,000 | 0,60 | 0,083 | 20 ms |
+| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,904 | 0,884 | 0,676 | 0,961 | 0,156 | 0,000 | 1,00 | 0,083 | 42 ms |
+| B4 – + Guard, cổng đủ căn cứ | 0,904 | 0,884 | 0,676 | 0,961 | 0,000 | 1,000 | 1,00 | 0,083 | 42 ms |
+| B5 – + soạn nhiều căn cứ, kiểm toán citation | 0,904 | 0,884 | 0,708 | 0,932 | 0,000 | 1,000 | 1,00 | 0,500 | 43 ms |
+| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,904** | **0,884** | **0,708** | **0,932** | **0,000** | **1,000** | **1,00** | **0,500** | 38 ms |
 
 - Mỗi khối cải thiện một nhóm KPI riêng:
   - B1 tăng Recall@5 (+0,115: 0,610 → 0,725).
