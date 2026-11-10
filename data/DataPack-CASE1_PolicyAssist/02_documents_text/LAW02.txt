@@ -1,0 +1,51 @@
+LAW02 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Nghị định 174/2016/NĐ-CP quy định chi tiết một số điều của Luật Kế toán
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+Nguồn: https://thuvienphapluat.vn/van-ban/Ke-toan-Kiem-toan/Nghi-dinh-174-2016-ND-CP-huong-Luat-ke-toan-336391.aspx
+Trạng thái: ACTIVE (as of 2026-10-17)
+
+[LAW02_C001] Điều 6 – Giá trị của tài liệu kế toán sao chụp
+Tài liệu kế toán sao chụp phải được tạo từ bản chính. Khi đáp ứng điều kiện xác nhận theo quy định, bản sao chụp có giá trị và được lưu trữ như bản chính trong các trường hợp được phép.
+Nguồn định vị: Điều 6 khoản 1
+Citation: LAW02 – Điều 6 khoản 1
+
+[LAW02_C002] Điều 6 – Sao chụp khi bản chính bị giữ, mất hoặc không thể sao chụp
+Khi bản chính bị tạm giữ/tịch thu hoặc bị mất, hủy hoại do nguyên nhân khách quan, đơn vị phải lưu bản sao chụp có xác nhận phù hợp. Nếu không thể sao chụp, cần lập biên bản xác định tài liệu không thể sao chụp.
+Nguồn định vị: Điều 6 khoản 4–6
+Citation: LAW02 – Điều 6 khoản 4–6
+
+[LAW02_C003] Điều 7 – Niêm phong, tạm giữ và biên bản giao nhận
+Khi tài liệu kế toán bị niêm phong, tạm giữ hoặc tịch thu, việc giao nhận phải được lập biên bản nêu lý do, loại và số lượng tài liệu, kỳ kế toán cùng các thông tin cần thiết; đơn vị lưu bản sao chụp theo quy định.
+Nguồn định vị: Điều 7 khoản 1–2
+Citation: LAW02 – Điều 7 khoản 1–2
+
+[LAW02_C004] Điều 8 – Các loại tài liệu phải lưu trữ
+Nhóm tài liệu phải lưu trữ gồm chứng từ kế toán; sổ chi tiết và sổ tổng hợp; báo cáo tài chính/quyết toán; cùng nhiều tài liệu kế toán liên quan như hợp đồng, hồ sơ quyết toán, kiểm kê, kiểm tra, kiểm toán, tiêu hủy, thuế và nghĩa vụ với Nhà nước.
+Nguồn định vị: Điều 8
+Citation: LAW02 – Điều 8
+
+[LAW02_C005] Điều 9 – Bản chính và ngoại lệ khi lưu bản sao
+Về nguyên tắc, tài liệu lưu trữ phải là bản chính. Một số trường hợp được lưu bản sao chụp, ví dụ cần lưu tại nhiều đơn vị, bản chính đang bị tạm giữ/tịch thu, hoặc tài liệu bị mất/hủy hoại và đã thực hiện thủ tục sao chụp theo quy định.
+Nguồn định vị: Điều 9 khoản 1
+Citation: LAW02 – Điều 9 khoản 1
+
+[LAW02_C006] Điều 9 – Yêu cầu tổ chức bảo quản và cung cấp tài liệu
+Đơn vị phải bảo quản tài liệu đầy đủ, an toàn, có quy chế quy định trách nhiệm và quyền của bộ phận/cá nhân. Có thể chọn lưu giấy hoặc điện tử nhưng phải bảo đảm an toàn, bảo mật, khả năng cung cấp thông tin và sắp xếp hồ sơ có hệ thống theo thời gian/kỳ kế toán.
+Nguồn định vị: Điều 9 khoản 2–4
+Citation: LAW02 – Điều 9 khoản 2–4
+
+[LAW02_C007] Điều 10 – Lưu trữ trên phương tiện điện tử
+Đơn vị có thể lựa chọn lưu trữ tài liệu kế toán trên phương tiện điện tử nếu bảo đảm an toàn, bảo mật dữ liệu và khả năng tra cứu trong toàn bộ thời hạn lưu trữ.
+Nguồn định vị: Điều 10 khoản 1
+Citation: LAW02 – Điều 10 khoản 1
+
+[LAW02_C008] Điều 10 – Cung cấp tài liệu điện tử khi cơ quan có thẩm quyền yêu cầu
+Khi cơ quan có thẩm quyền yêu cầu phục vụ kiểm tra, thanh tra, giám sát hoặc kiểm toán, đơn vị phải có khả năng in tài liệu điện tử ra giấy, thực hiện xác nhận theo thẩm quyền và cung cấp trong thời hạn được yêu cầu.
+Nguồn định vị: Điều 10 khoản 2
+Citation: LAW02 – Điều 10 khoản 2
+
+[LAW02_C009] Điều 11 – Nơi lưu trữ và thuê lưu trữ
+Tài liệu kế toán thường được lưu tại kho của đơn vị và phải có điều kiện bảo quản an toàn. Nếu không tổ chức kho hoặc bộ phận lưu trữ, đơn vị có thể thuê tổ chức/cơ quan lưu trữ theo hợp đồng và quy định pháp luật.
+Nguồn định vị: Điều 11 khoản 1–2
+Citation: LAW02 – Điều 11 khoản 1–2

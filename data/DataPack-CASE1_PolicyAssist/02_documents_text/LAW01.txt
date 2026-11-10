@@ -1,0 +1,96 @@
+LAW01 – FILE MẪU CHUẨN HÓA DỮ LIỆU PHÁP LUẬT
+Luật Kế toán số 88/2015/QH13
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+Nguồn: https://luatvietnam.vn/ke-toan/luat-ke-toan-nam-2015-so-88-2015-qh13-101336-d1.html
+Trạng thái: AMENDED_ACTIVE (as of 2026-10-17)
+
+[LAW01_C001] Điều 3 – Giải thích khái niệm chứng từ kế toán
+Chứng từ kế toán là giấy tờ hoặc vật mang tin phản ánh nghiệp vụ kinh tế, tài chính đã phát sinh và hoàn thành, được dùng làm căn cứ ghi sổ kế toán.
+Nguồn định vị: Điều 3 khoản 3
+Citation: LAW01 – Điều 3 khoản 3
+
+[LAW01_C002] Điều 3 – Phương tiện điện tử và tài liệu kế toán
+Phương tiện điện tử bao gồm các phương tiện hoạt động dựa trên công nghệ điện, điện tử, kỹ thuật số và công nghệ tương tự. Tài liệu kế toán bao gồm chứng từ, sổ kế toán, báo cáo tài chính, báo cáo quản trị, báo cáo kiểm toán, kiểm tra kế toán và các tài liệu liên quan.
+Nguồn định vị: Điều 3 khoản 17–18
+Citation: LAW01 – Điều 3 khoản 17–18
+
+[LAW01_C003] Điều 15 – Trách nhiệm quản lý và cung cấp tài liệu kế toán
+Đơn vị kế toán phải quản lý, sử dụng, bảo quản và lưu trữ tài liệu kế toán; đồng thời phải cung cấp thông tin, tài liệu kế toán kịp thời, đầy đủ, trung thực và minh bạch cho các chủ thể có thẩm quyền theo quy định pháp luật.
+Nguồn định vị: Điều 15 khoản 1–2
+Citation: LAW01 – Điều 15 khoản 1–2
+
+[LAW01_C004] Điều 16 – Nội dung bắt buộc của chứng từ kế toán
+Chứng từ kế toán phải thể hiện các thông tin chủ yếu như tên và số hiệu chứng từ, ngày lập, thông tin bên lập và bên nhận, nội dung nghiệp vụ, số lượng/đơn giá/số tiền khi có, và chữ ký cùng họ tên của những người có liên quan.
+Nguồn định vị: Điều 16 khoản 1
+Citation: LAW01 – Điều 16 khoản 1
+
+[LAW01_C005] Điều 16 – Nội dung bổ sung của chứng từ
+Ngoài các nội dung bắt buộc, chứng từ kế toán có thể bổ sung thêm thông tin phù hợp với từng loại chứng từ và nhu cầu quản lý.
+Nguồn định vị: Điều 16 khoản 2
+Citation: LAW01 – Điều 16 khoản 2
+
+[LAW01_C006] Điều 17 – Điều kiện để chứng từ điện tử là chứng từ kế toán
+Chứng từ điện tử được coi là chứng từ kế toán khi có đủ nội dung theo Điều 16, được thể hiện dưới dạng dữ liệu điện tử và được bảo đảm không bị thay đổi trái phép trong quá trình truyền, nhận hoặc lưu trên vật mang tin.
+Nguồn định vị: Điều 17 khoản 1
+Citation: LAW01 – Điều 17 khoản 1
+
+[LAW01_C007] Điều 17 – Bảo mật và toàn vẹn chứng từ điện tử
+Chứng từ điện tử phải được bảo mật, bảo toàn dữ liệu và quản lý để phòng ngừa khai thác, xâm nhập, sao chép, đánh cắp hoặc sử dụng sai quy định. Đơn vị phải có phương tiện phù hợp để sử dụng và kiểm tra chứng từ.
+Nguồn định vị: Điều 17 khoản 2
+Citation: LAW01 – Điều 17 khoản 2
+
+[LAW01_C008] Điều 17 – Chuyển đổi giữa chứng từ giấy và điện tử
+Khi chuyển đổi giữa chứng từ giấy và chứng từ điện tử để giao dịch hoặc thanh toán, bản dùng cho giao dịch phải tuân theo giá trị pháp lý được quy định; bản chuyển đổi còn lại chủ yếu phục vụ lưu giữ, ghi sổ, theo dõi và kiểm tra.
+Nguồn định vị: Điều 17 khoản 3
+Citation: LAW01 – Điều 17 khoản 3
+
+[LAW01_C009] Điều 18 – Mỗi nghiệp vụ phải lập chứng từ
+Mọi nghiệp vụ kinh tế, tài chính liên quan đến hoạt động của đơn vị kế toán phải được lập chứng từ và về nguyên tắc chỉ lập một lần cho mỗi nghiệp vụ.
+Nguồn định vị: Điều 18 khoản 1
+Citation: LAW01 – Điều 18 khoản 1
+
+[LAW01_C010] Điều 18 – Yêu cầu khi lập chứng từ
+Chứng từ phải được lập rõ ràng, đầy đủ, kịp thời và chính xác theo mẫu. Nếu chưa có mẫu, đơn vị có thể tự thiết kế nhưng vẫn phải bảo đảm các nội dung chủ yếu theo Điều 16.
+Nguồn định vị: Điều 18 khoản 2
+Citation: LAW01 – Điều 18 khoản 2
+
+[LAW01_C011] Điều 18 – Sửa sai và trách nhiệm đối với chứng từ
+Nội dung trên chứng từ không được tùy tiện tẩy xóa hoặc sửa chữa. Chứng từ sai phải được xử lý theo quy định; các liên của cùng một chứng từ phải thống nhất. Người lập, người duyệt và người ký chịu trách nhiệm về nội dung chứng từ.
+Nguồn định vị: Điều 18 khoản 3–5
+Citation: LAW01 – Điều 18 khoản 3–5
+
+[LAW01_C012] Điều 18 – Lưu trữ chứng từ điện tử
+Nếu chứng từ điện tử được lưu trên phương tiện điện tử thay vì in giấy, việc lưu trữ phải bảo đảm an toàn, bảo mật dữ liệu và khả năng tra cứu trong toàn bộ thời hạn lưu trữ.
+Nguồn định vị: Điều 18 khoản 6
+Citation: LAW01 – Điều 18 khoản 6
+
+[LAW01_C013] Điều 19 – Yêu cầu về chữ ký trên chứng từ
+Chứng từ phải có đủ chữ ký theo chức danh quy định. Chữ ký phải do người có thẩm quyền hoặc người được ủy quyền thực hiện; không được ký khi chứng từ chưa ghi đủ nội dung thuộc trách nhiệm của người ký.
+Nguồn định vị: Điều 19 khoản 1–2
+Citation: LAW01 – Điều 19 khoản 1–2
+
+[LAW01_C014] Điều 19 – Phê duyệt chứng từ chi tiền
+Chứng từ chi tiền phải được người có thẩm quyền duyệt chi và kế toán trưởng hoặc người được ủy quyền ký trước khi thực hiện thanh toán.
+Nguồn định vị: Điều 19 khoản 3
+Citation: LAW01 – Điều 19 khoản 3
+
+[LAW01_C015] Điều 19 – Chữ ký điện tử
+Chứng từ điện tử phải có chữ ký điện tử; chữ ký điện tử trên chứng từ có giá trị tương ứng với chữ ký trên chứng từ giấy khi đáp ứng quy định áp dụng.
+Nguồn định vị: Điều 19 khoản 4
+Citation: LAW01 – Điều 19 khoản 4
+
+[LAW01_C016] Điều 41 – Bảo quản và đưa tài liệu vào lưu trữ
+Tài liệu kế toán phải được bảo quản đầy đủ, an toàn. Tài liệu bị tạm giữ, mất hoặc hư hỏng phải có hồ sơ xác nhận phù hợp. Tài liệu phải được đưa vào lưu trữ trong thời hạn luật định, và người đại diện theo pháp luật chịu trách nhiệm tổ chức việc bảo quản, lưu trữ.
+Nguồn định vị: Điều 41 khoản 1–4
+Citation: LAW01 – Điều 41 khoản 1–4
+
+[LAW01_C017] Điều 41 – Thời hạn lưu trữ 5 năm và 10 năm
+Tài liệu phục vụ quản lý, điều hành nhưng không trực tiếp dùng để ghi sổ hoặc lập báo cáo tài chính phải lưu ít nhất 5 năm; chứng từ trực tiếp dùng ghi sổ/lập báo cáo, sổ kế toán và báo cáo tài chính năm phải lưu ít nhất 10 năm, trừ khi pháp luật chuyên ngành quy định khác.
+Nguồn định vị: Điều 41 khoản 5 điểm a–b
+Citation: LAW01 – Điều 41 khoản 5 điểm a–b
+
+[LAW01_C018] Điều 41 – Tài liệu lưu trữ vĩnh viễn
+Tài liệu kế toán có tính sử liệu hoặc có ý nghĩa đặc biệt quan trọng về kinh tế, an ninh hoặc quốc phòng thuộc nhóm lưu trữ vĩnh viễn.
+Nguồn định vị: Điều 41 khoản 5 điểm c
+Citation: LAW01 – Điều 41 khoản 5 điểm c

@@ -1,0 +1,79 @@
+LAW11 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Nghị định 254/2026/NĐ-CP quy định chi tiết Luật Quản lý thuế 108/2025/QH15 về hóa đơn điện tử, chứng từ điện tử
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+ĐÂY LÀ NGUỒN PHÁP LUẬT HIỆN HÀNH ƯU TIÊN tại mốc corpus 17/10/2026 cho quy định chi tiết về hóa đơn điện tử, chứng từ điện tử.
+Nguồn: https://vanban.chinhphu.vn/?docid=218689&pageid=27160&typegroupid=4
+Trạng thái: ACTIVE (as of 2026-10-17)
+Hiệu lực: 2026-07-01
+Thay thế: 123/2020/NĐ-CP (LAW07); 70/2025/NĐ-CP (LAW08)
+
+[LAW11_C001] Điều 4 – Khoản 1 – Nguyên tắc lập hóa đơn
+Khi bán hàng hóa, cung cấp dịch vụ, người bán phải lập hóa đơn điện tử, trừ các trường hợp được quy định không phải sử dụng.
+Nguồn định vị: Điều 4 khoản 1
+Citation: LAW11 – Điều 4 khoản 1
+
+[LAW11_C002] Điều 5 – Khoản 1-2 – Bảo quản và lưu trữ
+Hóa đơn, chứng từ phải được lưu an toàn, bảo mật, toàn vẹn, đủ thời hạn; dữ liệu điện tử được lưu dưới dạng thông điệp dữ liệu.
+Nguồn định vị: Điều 5 khoản 1–2
+Citation: LAW11 – Điều 5 khoản 1–2
+
+[LAW11_C003] Điều 5 – Khoản 3 – Chuyển đổi sang bản giấy
+Bản chuyển đổi giấy phải khớp dữ liệu điện tử; chủ yếu dùng cho kiểm tra, ghi sổ hoặc theo dõi, không mặc nhiên thay thế bản điện tử trong giao dịch.
+Nguồn định vị: Điều 5 khoản 3
+Citation: LAW11 – Điều 5 khoản 3
+
+[LAW11_C004] Điều 6 – Khoản 1 – Đối tượng sử dụng các loại hóa đơn điện tử
+Nghị định phân nhóm đối tượng dùng hóa đơn có mã, không có mã và hóa đơn từ máy tính tiền dựa trên lĩnh vực, hạ tầng và mức độ rủi ro.
+Nguồn định vị: Điều 6 khoản 1
+Citation: LAW11 – Điều 6 khoản 1
+
+[LAW11_C005] Điều 7 – Khoản 1-2 – Trường hợp không phải sử dụng hóa đơn điện tử
+Một số giao dịch hoặc chủ thể thuộc trường hợp lập bảng kê hay trường hợp chuyên biệt được miễn sử dụng hóa đơn điện tử theo điều kiện quy định.
+Nguồn định vị: Điều 7
+Citation: LAW11 – Điều 7
+
+[LAW11_C006] Điều 8 – Khoản 1-2 – Các loại hóa đơn
+Các loại chính gồm hóa đơn giá trị gia tăng và hóa đơn bán hàng; lựa chọn phụ thuộc phương pháp tính thuế và loại giao dịch.
+Nguồn định vị: Điều 8 khoản 1–2
+Citation: LAW11 – Điều 8 khoản 1–2
+
+[LAW11_C007] Điều 9 – Khoản 1-2 – Thời điểm lập hóa đơn
+Bán hàng lập hóa đơn khi chuyển giao quyền; dịch vụ lập khi hoàn thành hoặc khi thu tiền trong trường hợp luật quy định.
+Nguồn định vị: Điều 9 khoản 1–2
+Citation: LAW11 – Điều 9 khoản 1–2
+
+[LAW11_C008] Điều 9 – Khoản 4 – Thời điểm lập hóa đơn trường hợp đặc thù
+Nhiều ngành có quy tắc riêng về đối soát và hạn lập hóa đơn, gồm dịch vụ số, ngân hàng, vận tải, bảo hiểm, điện và bán lẻ xăng dầu.
+Nguồn định vị: Điều 9 khoản 4
+Citation: LAW11 – Điều 9 khoản 4
+
+[LAW11_C009] Điều 10 – Khoản 1 – Nội dung bắt buộc trên hóa đơn
+Hóa đơn phải có thông tin nhận diện hóa đơn, người bán, người mua, hàng hóa/dịch vụ, tiền và thuế, thời điểm, chữ ký và mã cơ quan thuế khi áp dụng.
+Nguồn định vị: Điều 10 khoản 1
+Citation: LAW11 – Điều 10 khoản 1
+
+[LAW11_C010] Điều 12 – Khoản 1-3 – Lập hóa đơn điện tử có mã
+Người bán lập, ký số và gửi hóa đơn để cấp mã; hệ thống chỉ cấp mã khi hóa đơn đủ nội dung, đúng định dạng và thông tin đăng ký.
+Nguồn định vị: Điều 12
+Citation: LAW11 – Điều 12
+
+[LAW11_C011] Điều 13 – Lập hóa đơn điện tử không có mã
+Doanh nghiệp dùng phần mềm lập, ký số và gửi hóa đơn không có mã trực tiếp cho người mua theo phương thức điện tử đã thỏa thuận.
+Nguồn định vị: Điều 13
+Citation: LAW11 – Điều 13
+
+[LAW11_C012] Điều 14 – Khoản 1-3 – Xử lý sự cố
+Khi hệ thống người bán, cơ quan thuế hoặc nhà cung cấp dịch vụ gặp sự cố, các bên phải phối hợp xử lý và duy trì khả năng lập/cấp mã hóa đơn.
+Nguồn định vị: Điều 14 khoản 1–3
+Citation: LAW11 – Điều 14 khoản 1–3
+
+[LAW11_C013] Điều 17-19 – Quyền, nghĩa vụ và trách nhiệm ủy nhiệm
+Người bán phải lập, giao, lưu và chuyển dữ liệu; người mua có quyền nhận, tra cứu hóa đơn; bên nhận ủy nhiệm phải lập đúng phạm vi và bảo mật dữ liệu.
+Nguồn định vị: Điều 17–19
+Citation: LAW11 – Điều 17–19
+
+[LAW11_C014] Điều 43-44 – Hiệu lực và chuyển tiếp
+Nghị định có hiệu lực từ 01/07/2026, làm Nghị định 123/2020 và 70/2025 hết hiệu lực; các trường hợp chuyển tiếp xử lý theo Điều 44.
+Nguồn định vị: Điều 43–44
+Citation: LAW11 – Điều 43–44

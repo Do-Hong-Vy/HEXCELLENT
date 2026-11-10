@@ -1,0 +1,40 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# ---- Môi trường ảo ----
+.venv/
+venv/
+env/
+
+# ---- Bí mật / cấu hình cục bộ (không bao giờ đẩy lên) ----
+.env
+.env.*
+.streamlit/secrets.toml
+
+# ---- Nhật ký khi chạy: audit log, phản hồi, lịch sử phiên tra cứu
+#      (có thể chứa câu hỏi người dùng – chương trình tự tạo lại thư mục logs/ khi chạy) ----
+logs/
+
+# ---- Công cụ / trình soạn thảo ----
+.claude/
+.vscode/
+.idea/
+*.code-workspace
+
+# ---- File tạm của hệ điều hành / Office ----
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+*.tmp
+*.bak
+
+# ---- Bản HTML tĩnh cũ của giao diện (không do mã sinh ra, chứa số KPI cũ) ----
+policyassist.html

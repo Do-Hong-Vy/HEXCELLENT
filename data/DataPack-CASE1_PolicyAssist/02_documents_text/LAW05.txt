@@ -1,0 +1,105 @@
+LAW05 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Văn bản hợp nhất 18/VBHN-BTC năm 2025 về hóa đơn, chứng từ
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+ĐÂY LÀ VĂN BẢN HỢP NHẤT DÙNG CHO TRA CỨU LỊCH SỬ/VERSIONING, KHÔNG PHẢI NGUỒN TẠO HIỆU LỰC PHÁP LÝ ĐỘC LẬP.
+Tại 17/10/2026, câu hỏi hiện hành về hóa đơn/chứng từ phải ưu tiên LAW11–LAW12.
+Nguồn: https://thuvienphapluat.vn/van-ban/Ke-toan-Kiem-toan/Van-ban-hop-nhat-18-VBHN-BTC-2025-Nghi-dinh-quy-dinh-ve-hoa-don-chung-tu-667783.aspx
+Trạng thái: HISTORICAL_REFERENCE (as of 2026-10-17)
+Ngày ban hành văn bản hợp nhất: 2025-07-30
+Được thay thế trong corpus bởi: 254/2026/NĐ-CP (LAW11)
+
+[LAW05_C001] Điều 4 – Khoản 1 – Nghĩa vụ lập hóa đơn khi bán hàng hóa, cung cấp dịch vụ
+Người bán phải lập hóa đơn giao cho người mua khi bán hàng hóa hoặc cung cấp dịch vụ, kể cả nhiều trường hợp khuyến mại, cho, biếu, tặng, trao đổi, trả thay lương hoặc tiêu dùng nội bộ theo phạm vi quy định. Hóa đơn phải có các nội dung bắt buộc theo Điều 10.
+Nguồn định vị: Điều 4 khoản 1
+Citation: LAW05 – Điều 4 khoản 1
+
+[LAW05_C002] Điều 4 – Khoản 3-5 – Đăng ký và tuân thủ khi sử dụng hóa đơn
+Trước khi sử dụng, các chủ thể thuộc phạm vi quy định phải đăng ký sử dụng hoặc thực hiện thủ tục phát hành theo quy định. Việc đăng ký, quản lý và sử dụng hóa đơn điện tử, chứng từ điện tử phải tuân thủ pháp luật về giao dịch điện tử, kế toán, thuế và quản lý thuế.
+Nguồn định vị: Điều 4 khoản 3–5
+Citation: LAW05 – Điều 4 khoản 3–5
+
+[LAW05_C003] Điều 6 – Khoản 1 – Yêu cầu bảo quản, lưu trữ
+Hóa đơn và chứng từ phải được lưu trữ bảo đảm an toàn, bảo mật, toàn vẹn, đầy đủ, không bị thay đổi hoặc sai lệch trong suốt thời gian lưu; thời hạn lưu thực hiện theo pháp luật kế toán.
+Nguồn định vị: Điều 6 khoản 1
+Citation: LAW05 – Điều 6 khoản 1
+
+[LAW05_C004] Điều 6 – Khoản 2 – Lưu trữ hóa đơn, chứng từ điện tử
+Hóa đơn điện tử và chứng từ điện tử được lưu bằng phương tiện điện tử. Chủ thể được lựa chọn hình thức phù hợp nhưng dữ liệu phải sẵn sàng để in ra giấy hoặc tra cứu khi có yêu cầu.
+Nguồn định vị: Điều 6 khoản 2
+Citation: LAW05 – Điều 6 khoản 2
+
+[LAW05_C005] Điều 7 – Khoản 1-2 – Điều kiện chuyển đổi sang bản giấy
+Hóa đơn, chứng từ điện tử hợp pháp có thể được chuyển đổi thành bản giấy khi có yêu cầu nghiệp vụ hoặc yêu cầu của cơ quan có thẩm quyền. Nội dung bản giấy sau chuyển đổi phải khớp với dữ liệu điện tử.
+Nguồn định vị: Điều 7 khoản 1–2
+Citation: LAW05 – Điều 7 khoản 1–2
+
+[LAW05_C006] Điều 7 – Khoản 3 – Giá trị của bản giấy chuyển đổi
+Bản giấy chuyển đổi từ hóa đơn hoặc chứng từ điện tử chủ yếu có giá trị lưu giữ, ghi sổ và theo dõi; về nguyên tắc không dùng để giao dịch hoặc thanh toán, trừ các trường hợp pháp luật quy định riêng.
+Nguồn định vị: Điều 7 khoản 3
+Citation: LAW05 – Điều 7 khoản 3
+
+[LAW05_C007] Điều 9 – Khoản 1 – Thời điểm lập hóa đơn bán hàng hóa
+Đối với bán hàng hóa, thời điểm lập hóa đơn là thời điểm chuyển giao quyền sở hữu hoặc quyền sử dụng hàng hóa cho người mua, không phụ thuộc đã thu tiền hay chưa. Với xuất khẩu, người bán tự xác định nhưng phải tuân thủ thời hạn sau thông quan theo quy định.
+Nguồn định vị: Điều 9 khoản 1
+Citation: LAW05 – Điều 9 khoản 1
+
+[LAW05_C008] Điều 9 – Khoản 2 – Thời điểm lập hóa đơn cung cấp dịch vụ
+Đối với cung cấp dịch vụ, thời điểm lập hóa đơn là khi hoàn thành dịch vụ. Nếu thu tiền trước hoặc trong khi cung cấp thì thời điểm lập thường là thời điểm thu tiền, trừ một số khoản đặt cọc hoặc tạm ứng thuộc các dịch vụ được loại trừ theo quy định.
+Nguồn định vị: Điều 9 khoản 2
+Citation: LAW05 – Điều 9 khoản 2
+
+[LAW05_C009] Điều 9 – Khoản 4 điểm a – Dịch vụ phát sinh thường xuyên cần đối soát
+Một số hoạt động có số lượng giao dịch lớn, phát sinh thường xuyên và cần đối soát dữ liệu được lập hóa đơn tại thời điểm hoàn thành đối soát, nhưng phải trong giới hạn thời gian quy định sau tháng phát sinh hoặc sau khi kết thúc kỳ quy ước.
+Nguồn định vị: Điều 9 khoản 4 điểm a
+Citation: LAW05 – Điều 9 khoản 4 điểm a
+
+[LAW05_C010] Điều 9 – Khoản 4 điểm c-d – Xây dựng và bất động sản
+Đối với xây dựng, lắp đặt, thời điểm lập hóa đơn gắn với nghiệm thu, bàn giao phần việc hoàn thành. Với kinh doanh bất động sản và hạ tầng, thời điểm phụ thuộc việc đã chuyển giao quyền sở hữu/quyền sử dụng hay mới thu tiền theo tiến độ.
+Nguồn định vị: Điều 9 khoản 4 điểm c–d
+Citation: LAW05 – Điều 9 khoản 4 điểm c–d
+
+[LAW05_C011] Điều 10 – Khoản 1-5 – Thông tin nhận diện hóa đơn và các bên
+Nội dung hóa đơn gồm tên hóa đơn, ký hiệu, số hóa đơn, thông tin người bán và người mua theo yêu cầu áp dụng. Thông tin nhận diện phải phù hợp hồ sơ đăng ký và đủ để xác định đúng các chủ thể giao dịch.
+Nguồn định vị: Điều 10 khoản 1–5
+Citation: LAW05 – Điều 10 khoản 1–5
+
+[LAW05_C012] Điều 10 – Khoản 6 – Thông tin hàng hóa, dịch vụ và tiền thuế
+Hóa đơn phải thể hiện thông tin hàng hóa, dịch vụ như tên, đơn vị tính, số lượng, đơn giá và thành tiền khi thuộc trường hợp áp dụng; đồng thời thể hiện thuế suất, tiền thuế, tổng tiền và các yếu tố liên quan theo quy định thuế.
+Nguồn định vị: Điều 10 khoản 6
+Citation: LAW05 – Điều 10 khoản 6
+
+[LAW05_C013] Điều 10 – Khoản 10-12 – Mã cơ quan thuế và nội dung liên quan
+Hóa đơn có mã phải thể hiện mã của cơ quan thuế. Tùy giao dịch, hóa đơn còn có thể thể hiện phí, lệ phí, chiết khấu, khuyến mại và các nội dung khác theo quy định; cách thể hiện chữ và số phải rõ ràng, không gây hiểu sai.
+Nguồn định vị: Điều 10 khoản 10–12
+Citation: LAW05 – Điều 10 khoản 10–12
+
+[LAW05_C014] Điều 19 – Khoản 1 điểm a – Sai tên hoặc địa chỉ người mua
+Nếu hóa đơn sai tên hoặc địa chỉ người mua nhưng mã số thuế và các nội dung khác không sai, người bán thông báo cho người mua và thực hiện thông báo với cơ quan thuế theo mẫu quy định; không phải lập lại hóa đơn.
+Nguồn định vị: Điều 19 khoản 1 điểm a
+Citation: LAW05 – Điều 19 khoản 1 điểm a
+
+[LAW05_C015] Điều 19 – Khoản 1 điểm b – Sai mã số thuế, số tiền, thuế suất hoặc hàng hóa
+Nếu sai mã số thuế, số tiền, thuế suất, tiền thuế hoặc thông tin hàng hóa thuộc nhóm sai sót trọng yếu, người bán có thể lập hóa đơn điều chỉnh hoặc hóa đơn mới thay thế theo điều kiện và thủ tục quy định.
+Nguồn định vị: Điều 19 khoản 1 điểm b
+Citation: LAW05 – Điều 19 khoản 1 điểm b
+
+[LAW05_C016] Điều 19 – Khoản 1 điểm b.1-b.2 – Nội dung hóa đơn điều chỉnh hoặc thay thế
+Hóa đơn điều chỉnh hoặc thay thế phải chỉ rõ hóa đơn gốc bị sai. Người bán ký số và gửi cho người mua hoặc gửi cơ quan thuế để cấp mã tùy loại hóa đơn có mã hay không có mã.
+Nguồn định vị: Điều 19 khoản 1 điểm b.1–b.2
+Citation: LAW05 – Điều 19 khoản 1 điểm b.1–b.2
+
+[LAW05_C017] Điều 19 – Khoản 1 – Xử lý nhiều hóa đơn sai trong cùng tháng
+Khi nhiều hóa đơn của cùng người mua trong cùng tháng cùng sai một nhóm thông tin nhất định, người bán có thể lập một hóa đơn điều chỉnh hoặc thay thế cho nhiều hóa đơn và kèm bảng kê theo mẫu quy định.
+Nguồn định vị: Điều 19 khoản 1
+Citation: LAW05 – Điều 19 khoản 1
+
+[LAW05_C018] Điều 19 – Khoản 1 – Thỏa thuận trước khi điều chỉnh/thay thế
+Trước khi điều chỉnh hoặc thay thế trong các trường hợp quy định, nếu người mua là tổ chức hoặc chủ thể kinh doanh thì hai bên phải lập văn bản thỏa thuận nêu nội dung sai; với người mua là cá nhân, người bán thực hiện thông báo theo phương thức phù hợp.
+Nguồn định vị: Điều 19 khoản 1
+Citation: LAW05 – Điều 19 khoản 1
+
+[LAW05_C019] Điều 19 – Khoản 2 – Sai sót do cơ quan thuế phát hiện
+Nếu cơ quan thuế phát hiện hóa đơn đã lập có sai sót, cơ quan thuế thông báo để người bán rà soát. Người bán phải kiểm tra và thực hiện điều chỉnh hoặc thay thế theo quy định.
+Nguồn định vị: Điều 19 khoản 2
+Citation: LAW05 – Điều 19 khoản 2

@@ -1,0 +1,79 @@
+LAW12 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Thông tư 91/2026/TT-BTC quy định một số điều của Luật Quản lý thuế và Nghị định 254/2026/NĐ-CP về hóa đơn điện tử, chứng từ điện tử
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+ĐÂY LÀ NGUỒN PHÁP LUẬT HIỆN HÀNH ƯU TIÊN tại mốc corpus 17/10/2026 cho hướng dẫn chi tiết về hóa đơn điện tử, chứng từ điện tử.
+Nguồn: https://thuvienphapluat.vn/van-ban/thue-phi-le-phi/Thong-tu-91-2026-TT-BTC-huong-dan-Luat-Quan-ly-thue-va-Nghi-dinh-254-2026-ND-CP-699151.aspx
+Trạng thái: ACTIVE (as of 2026-10-17)
+Hiệu lực: 2026-07-01
+Thay thế: 32/2025/TT-BTC (LAW06)
+
+[LAW12_C001] Điều 3 – Khoản 1-2 – Định dạng hóa đơn điện tử
+Hóa đơn điện tử dùng định dạng XML, gồm dữ liệu nghiệp vụ và chữ ký số; hóa đơn có mã còn có thành phần dữ liệu mã cơ quan thuế.
+Nguồn định vị: Điều 3 khoản 1–2
+Citation: LAW12 – Điều 3 khoản 1–2
+
+[LAW12_C002] Điều 4 – Khoản 1-5 – Ký hiệu mẫu và ký hiệu hóa đơn
+Ký hiệu mẫu dùng số để phản ánh loại hóa đơn; ký hiệu hóa đơn gồm sáu ký tự thể hiện loại, năm lập và hình thức có mã/không mã.
+Nguồn định vị: Điều 4 khoản 1–5
+Citation: LAW12 – Điều 4 khoản 1–5
+
+[LAW12_C003] Điều 4 – Khoản 6 – Phương thức chuyển dữ liệu
+Thông tư quy định các bảng tổng hợp và mẫu dữ liệu dùng để chuyển hóa đơn, biên lai hoặc thông tin giao dịch đến cơ quan thuế.
+Nguồn định vị: Điều 4 khoản 6
+Citation: LAW12 – Điều 4 khoản 6
+
+[LAW12_C004] Điều 6 – Đăng ký và thay đổi thông tin sử dụng hóa đơn
+Người nộp thuế đăng ký hoặc thay đổi thông tin sử dụng hóa đơn qua hệ thống thuế; cơ quan thuế đối chiếu dữ liệu và thông báo chấp nhận hoặc từ chối.
+Nguồn định vị: Điều 6
+Citation: LAW12 – Điều 6
+
+[LAW12_C005] Điều 8 – Khoản 1-2 – Ngừng, tạm ngừng sử dụng hóa đơn
+Hóa đơn có thể bị ngừng hoặc tạm ngừng khi mã số thuế chấm dứt, ngừng kinh doanh, cưỡng chế, vi phạm hoặc có rủi ro theo quy định.
+Nguồn định vị: Điều 8 khoản 1–2
+Citation: LAW12 – Điều 8 khoản 1–2
+
+[LAW12_C006] Điều 9 – Khoản 1 – Nguyên tắc ủy nhiệm lập hóa đơn
+Người bán được ủy nhiệm bên đủ điều kiện lập hóa đơn; việc ủy nhiệm phải bằng văn bản, đăng ký với cơ quan thuế và công khai cho người mua.
+Nguồn định vị: Điều 9 khoản 1
+Citation: LAW12 – Điều 9 khoản 1
+
+[LAW12_C007] Điều 9 – Khoản 2-3 – Nội dung thỏa thuận và thông báo ủy nhiệm
+Thỏa thuận ủy nhiệm phải ghi rõ các bên, loại hóa đơn, thời hạn, mục đích và thanh toán; thay đổi ủy nhiệm phải thông báo theo mẫu đăng ký.
+Nguồn định vị: Điều 9 khoản 2–3
+Citation: LAW12 – Điều 9 khoản 2–3
+
+[LAW12_C008] Điều 10 – Khoản 1 điểm a – Sai sót không trọng yếu
+Nếu sai tên, địa chỉ hoặc nội dung khác nhưng không sai mã số thuế, tiền, thuế suất, tiền thuế hay hàng hóa, người bán thông báo và không lập lại.
+Nguồn định vị: Điều 10 khoản 1 điểm a
+Citation: LAW12 – Điều 10 khoản 1 điểm a
+
+[LAW12_C009] Điều 10 – Khoản 1 điểm b – Sai sót trọng yếu: điều chỉnh hoặc thay thế
+Sai mã số thuế, hàng hóa, số tiền, thuế suất, tiền thuế hoặc nội dung bắt buộc khác được xử lý bằng hóa đơn điều chỉnh hoặc thay thế.
+Nguồn định vị: Điều 10 khoản 1 điểm b
+Citation: LAW12 – Điều 10 khoản 1 điểm b
+
+[LAW12_C010] Điều 10 – Khoản 1 – Điều chỉnh nhiều hóa đơn trong cùng tháng
+Nhiều hóa đơn của cùng người mua sai cùng nhóm thông tin trong tháng có thể xử lý bằng một hóa đơn điều chỉnh hoặc thay thế kèm bảng kê.
+Nguồn định vị: Điều 10 khoản 1
+Citation: LAW12 – Điều 10 khoản 1
+
+[LAW12_C011] Điều 10 – Khoản 1 – Thỏa thuận trước khi điều chỉnh hoặc thay thế
+Với người mua là tổ chức hoặc chủ thể kinh doanh, hai bên thường phải lập thỏa thuận ghi rõ sai sót trước khi điều chỉnh hoặc thay thế.
+Nguồn định vị: Điều 10 khoản 1
+Citation: LAW12 – Điều 10 khoản 1
+
+[LAW12_C012] Điều 10 – Khoản 1 điểm c – Sai hóa đơn từ máy tính tiền hoặc tài sản đăng ký quyền
+Hóa đơn sai từ máy tính tiền hoặc liên quan tài sản phải đăng ký quyền sở hữu, sử dụng thường được xử lý bằng hóa đơn thay thế.
+Nguồn định vị: Điều 10 khoản 1 điểm c
+Citation: LAW12 – Điều 10 khoản 1 điểm c
+
+[LAW12_C013] Điều 11 – Khoản 1-2 – Chuyển đổi áp dụng hóa đơn có mã
+Người dùng hóa đơn không mã có thể chuyển sang có mã; trường hợp rủi ro cao phải chuyển đổi theo thông báo và thời hạn của cơ quan thuế.
+Nguồn định vị: Điều 11 khoản 1–2
+Citation: LAW12 – Điều 11 khoản 1–2
+
+[LAW12_C014] Điều 24-25 – Chuyển tiếp và hiệu lực
+Thông tư có hiệu lực từ 01/07/2026, thay Thông tư 32/2025; hóa đơn lập theo hệ cũ khi phát hiện sai được xử lý theo quy định chuyển tiếp.
+Nguồn định vị: Điều 24–25
+Citation: LAW12 – Điều 24–25

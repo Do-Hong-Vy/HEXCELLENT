@@ -1,0 +1,103 @@
+{
+  "run_id": "RUN-20261110-111312-746f69",
+  "thời điểm": "2026-11-10T11:13:35",
+  "phiên bản": "V1.0",
+  "mã nguồn": {
+    "file": "policyassist.py",
+    "sha256_12": "746f699a1e60"
+  },
+  "data_pack": {
+    "phiên bản": "v1-snapshot-2026-10-17",
+    "corpus_fingerprint (toàn bộ Data Pack, corpus_manifest)": "7357afec5ef0",
+    "corpus_fingerprint_core (6 file CSV, cách tính của đội)": "08eaac52973a"
+  },
+  "nhãn": {
+    "Dev-30": {
+      "file": "data\\DataPack-CASE1_PolicyAssist\\05_answer_sample\\answer_key_sample.csv",
+      "sha256_12": "12d334e6d574",
+      "số câu": 30
+    },
+    "Ext-60": {
+      "file": "data\\eval\\ext60_labels.csv",
+      "sha256_12": "7113b994dbe8",
+      "số câu": 60
+    },
+    "Stress-60": {
+      "file": "data\\eval\\stress60_labels.csv",
+      "sha256_12": "75c0c3c64686",
+      "số câu": 60
+    },
+    "Probe-25": {
+      "file": "data\\eval\\probe_questions.csv",
+      "sha256_12": "b0fa5adf3a12",
+      "số câu": 25
+    },
+    "Paraphrase-52": {
+      "file": "data\\eval\\paraphrase_questions.csv",
+      "sha256_12": "3ca5b8ae0573",
+      "số câu": 52
+    }
+  },
+  "cấu hình": {
+    "name": "CHRONOS-LEDGER",
+    "top_k": 5,
+    "pool": 40,
+    "w_bm25": 0.6,
+    "w_tfidf": 0.4,
+    "w_coverage": 0.3,
+    "secondary_factor": 0.5,
+    "nav_factor": 0.6,
+    "prf_chunks": 2,
+    "prf_legal_internal": 0.5,
+    "sibling_prior": 0.7,
+    "successor_min_cos": 0.25,
+    "min_coverage": 0.58,
+    "min_bigram_coverage": 0.25,
+    "min_best_chunk_coverage": 0.4,
+    "min_focus_coverage": 0.35,
+    "min_confidence": 0.35,
+    "review_confidence": 0.6,
+    "max_answer_chunks": 3,
+    "adjacent_ratio": 0.6,
+    "complement_ratio": 1.0,
+    "complement_gain": 0.2,
+    "version_content_chunks": 0,
+    "adjacent_same_article": true,
+    "adjacent_gain": 0.1,
+    "prf_weight": 1.0,
+    "primary_full_chars": 300,
+    "primary_units": 3,
+    "unit_ratio": 0.5,
+    "table_row_ratio": 0.8,
+    "primary_tiebreak": 0.05,
+    "use_guard": true,
+    "use_chronos": true,
+    "use_rerank": true,
+    "use_prf": true,
+    "use_structure": true,
+    "table_rows": true,
+    "use_rewrite": true,
+    "use_expansion": true,
+    "use_forced": true,
+    "prf_guide": false,
+    "tiebreak_negation_only": true,
+    "complement_same_kind": true,
+    "compare_counterpart": true,
+    "secondary_fallback": 1.35,
+    "default_scope_fallback": true,
+    "hard_date_filter": false,
+    "log_retention_days": 30,
+    "use_gate": true,
+    "use_audit": true
+  },
+  "mô hình ngôn ngữ": "không dùng (BM25 + TF-IDF ký tự, trích xuất; pipeline tất định)",
+  "môi trường": {
+    "python": "3.14.8",
+    "pandas": "3.0.6",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "streamlit": "1.65.0",
+    "máy": "Windows-11-10.0.26300-SP0",
+    "cpu": 20
+  }
+}

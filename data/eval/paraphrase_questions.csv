@@ -1,0 +1,53 @@
+question_id,source_id,question_text,reference_date,expected_behavior,acceptable_chunk_ids,expected_documents,note
+R001,Q001,Khái niệm chứng từ kế toán được Luật Kế toán định nghĩa ra sao?,2026-10-17,ANSWER,LAW01_C001,,diễn đạt lại
+R002,Q002,Những thông tin bắt buộc phải có trên một chứng từ kế toán là gì?,2026-10-17,ANSWER,LAW01_C004,,diễn đạt lại
+R003,Q003,Chứng từ điện tử cần thỏa mãn điều kiện gì thì được xem là chứng từ kế toán?,2026-10-17,ANSWER,LAW01_C006;LAW01_C007,,diễn đạt lại
+R004,Q004,Ai phải ký duyệt chứng từ chi tiền trước khi chi theo Luật Kế toán?,2026-10-17,ANSWER,LAW01_C014,,diễn đạt lại
+R005,Q005,"Tài liệu kế toán nào phải lưu tối thiểu 5 năm, loại nào 10 năm và loại nào lưu vĩnh viễn?",2026-10-17,ANSWER,LAW01_C017;LAW01_C018,,diễn đạt lại
+R006,Q006,Bản chính tài liệu kế toán bị tạm giữ hoặc bị mất thì xử lý bản sao chụp ra sao?,2026-10-17,ANSWER,LAW02_C002;LAW02_C003,,diễn đạt lại
+R007,Q007,Lưu tài liệu kế toán dưới dạng điện tử thì cần đáp ứng những yêu cầu gì?,2026-10-17,ANSWER,LAW01_C012;LAW02_C007;LAW02_C008,,diễn đạt lại
+R008,Q008,Công ty có được tự xây dựng biểu mẫu chứng từ kế toán riêng không và cần điều kiện gì?,2026-10-17,ANSWER,LAW03_C002,,diễn đạt lại
+R009,Q014,Khi bán hàng hóa thì thời điểm phải lập hóa đơn là lúc nào?,2026-10-17,ANSWER,LAW11_C007,,diễn đạt lại
+R010,Q020,Hóa đơn điện tử ghi sai thuế suất hoặc sai số tiền thì hiện nay xử lý theo cách nào?,2026-10-17,ANSWER,LAW12_C009;LAW12_C011,,diễn đạt lại
+R011,Q021,Hóa đơn bị chuyển sang trạng thái HOLD trong những trường hợp nào ở Nova Việt?,2026-10-17,ANSWER,SIM01_C003;SIM01_C007;SIM01_C021,,diễn đạt lại
+R012,Q025,Trước khi duyệt một hồ sơ thanh toán ở Nova Việt cần rà soát các nhóm thông tin gì?,2026-10-17,ANSWER,SIM03_C019;SIM03_C023,,diễn đạt lại
+R013,Q028,Nova Việt cho tạm ứng tối đa bao nhiêu phần trăm dự toán đã duyệt?,2026-10-17,ANSWER,SIM04_C004;SIM06_C020,,diễn đạt lại
+R014,Q029,Đi công tác về thì nhân viên phải hoàn ứng trong thời hạn bao lâu?,2026-10-17,ANSWER,SIM04_C006,,diễn đạt lại
+R015,Q034,Nhân viên bình thường có quyền xóa chứng từ đã đưa vào kho lưu trữ điện tử không?,2026-10-17,ANSWER,SIM05_C003;SIM05_C010,,diễn đạt lại
+R016,Q037,Tại sao người lập đề nghị không được làm người phê duyệt cuối cho chính hồ sơ của họ?,2026-10-17,ANSWER,SIM06_C010,,diễn đạt lại
+R017,Q041,"Hóa đơn đã phát hành ghi sai tên người mua nhưng đúng mã số thuế thì Nova Việt xử lý thế nào, dựa vào nguồn nào?",2026-10-17,ANSWER,LAW12_C008;SIM02_C005,,diễn đạt lại
+R018,Q042,Nova Việt có được sửa thẳng dữ liệu hóa đơn gốc khi phát hiện sai số tiền và thuế suất không? Cần làm theo quy trình nào?,2026-10-17,ANSWER,LAW12_C009;LAW12_C011;SIM02_C006,,diễn đạt lại
+R019,Q044,"Hợp đồng yêu cầu nghiệm thu rồi mới thanh toán, đã có hóa đơn nhưng chưa có biên bản nghiệm thu. Hồ sơ nên xử lý ra sao?",2026-10-17,ANSWER,SIM03_C004;SIM03_C006;SIM03_C024,,diễn đạt lại
+R020,Q049,"Một nhân viên chưa hoàn ứng khoản cũ đã quá hạn lại xin tạm ứng cho chuyến công tác mới, cần kiểm tra gì?",2026-10-17,ANSWER,SIM04_C004;SIM04_C006;SIM04_C022,,diễn đạt lại
+R021,Q055,Hồ sơ đã hết hạn lưu theo lịch nội bộ nhưng đang nằm trong phạm vi kiểm toán thì có được hủy không?,2026-10-17,ANSWER,SIM05_C015;SIM05_C024;SIM05_C026,,diễn đạt lại
+R022,Q059,"Vào ngày 15/05/2025, nên dùng Thông tư 78/2021/TT-BTC, Thông tư 32/2025/TT-BTC hay Thông tư 91/2026/TT-BTC cho câu hỏi về hóa đơn điện tử?",2025-05-15,ANSWER,LAW09_C001;LAW06_C016;LAW12_C014,LAW09,versioning diễn đạt lại
+R023,Q061,"Nghiệp vụ hóa đơn phát sinh ngày 15/08/2026 thì áp dụng Nghị định 123/2020, Nghị định 70/2025 hay Nghị định 254/2026?",2026-08-15,ANSWER,LAW11_C014;LAW08_C017,LAW11,versioning diễn đạt lại
+R024,Q065,"Tại ngày 17/10/2026, có thể dùng Văn bản hợp nhất 18/VBHN-BTC như một nguồn có hiệu lực pháp lý riêng không?",2026-10-17,ANSWER,LAW05_C001;LAW11_C014;LAW12_C014,LAW11;LAW12,versioning diễn đạt lại
+R025,Q068,"FAQ SIM08 vẫn dẫn chiếu LAW04–LAW06; với câu hỏi hiện tại có nên dựa vào các văn bản đó hay phải chuyển sang LAW10–LAW12?",2026-10-17,ANSWER,LAW10_C008;LAW11_C014;LAW12_C014;SIM01_C016;SIM08_C002,LAW10;LAW11;LAW12,versioning diễn đạt lại
+R026,Q070,Khi quy trình nội bộ mâu thuẫn với văn bản pháp luật còn hiệu lực thì ưu tiên nguồn nào và cảnh báo người dùng ra sao?,2026-10-17,ANSWER,SIM01_C016;SIM07_C003;SIM02_C001;SIM03_C014;SIM04_C016;SIM05_C017,,diễn đạt lại
+R027,Q012,Luật Quản lý thuế 108/2025/QH15 quy định về chứng từ điện tử như thế nào?,2026-10-17,ANSWER,LAW10_C007,,diễn đạt lại câu không có đáp án mẫu
+R028,Q017,Hóa đơn điện tử có mã và không có mã khác nhau ra sao về cách lập?,2026-10-17,ANSWER,LAW11_C010;LAW11_C011,,so sánh
+R029,Q022,Nhân viên IT có quyền chỉnh số tiền trên hóa đơn đã phát hành không?,2026-10-17,ANSWER,SIM01_C008;SIM08_C008;SIM02_C017,,viết tắt IT
+R030,Q026,Khi nào hồ sơ thanh toán bị trả về người đề nghị (RETURN_TO_REQUESTER) chứ không để HOLD?,2026-10-17,ANSWER,SIM03_C006,,diễn đạt lại
+R031,Q027,Đổi người nhận tiền sau khi hồ sơ đã được duyệt thì phê duyệt cũ còn dùng được không?,2026-10-17,ANSWER,SIM06_C007,,diễn đạt lại
+R032,Q031,Phụ cấp công tác trong nước mỗi ngày ở Nova Việt là bao nhiêu tiền?,2026-10-17,ANSWER,SIM04_C020;SIM04_C008,,diễn đạt lại
+R033,Q033,Tạm ứng nhiều hơn số chi được chấp nhận thì phần tiền dư xử lý thế nào?,2026-10-17,ANSWER,SIM04_C010,,diễn đạt lại
+R034,Q036,Khi chia sẻ bản sao chứng từ điện tử cho phòng ban khác thì phải ghi log những gì?,2026-10-17,ANSWER,SIM05_C012,,diễn đạt lại
+R035,Q043,"Khách hàng báo không nhận được email hóa đơn, hóa đơn không sai và đã ở trạng thái SENT. Có phải xuất hóa đơn khác không?",2026-10-17,ANSWER,SIM07_C007;SIM08_C004,,diễn đạt lại
+R036,Q047,Đề nghị thanh toán đợt 2 gửi lên trong khi milestone chưa hoàn thành thì hồ sơ để trạng thái gì?,2026-10-17,ANSWER,SIM03_C006;SIM07_C011;SIM06_C005,,diễn đạt lại
+R037,Q050,"Tiền khách sạn vượt định mức nội bộ, nhân viên giải trình là giá tăng, có được chi trả toàn bộ tự động không?",2026-10-17,ANSWER,SIM04_C008;SIM04_C013;SIM07_C014,,diễn đạt lại
+R038,Q054,"Máy chủ gặp sự cố làm chứng từ của tháng trước không mở được, cần khôi phục và kiểm soát thế nào?",2026-10-17,ANSWER,SIM05_C014;SIM05_C009;SIM07_C018,,diễn đạt lại
+R039,Q060,Ngày 15/06/2025 nên áp dụng Thông tư 78/2021/TT-BTC hay Thông tư 32/2025/TT-BTC cho hóa đơn điện tử?,2025-06-15,ANSWER,LAW06_C016;LAW09_C001;LAW06_C001,LAW06,versioning diễn đạt lại
+R040,Q062,Luật Quản lý thuế số 38/2019/QH14 có còn là luật ưu tiên áp dụng tại ngày 17/10/2026 không?,2026-10-17,ANSWER,LAW10_C008;LAW10_C009,LAW10,versioning diễn đạt lại
+R041,Q016,Trên hóa đơn điện tử bắt buộc phải thể hiện những nội dung gì?,2026-10-17,ANSWER,LAW11_C009,,diễn đạt lại
+R042,Q009,Chứng từ vừa chịu điều chỉnh của luật chuyên ngành khác thì áp dụng theo quy định nào?,2026-10-17,ANSWER,LAW03_C003,,diễn đạt lại
+R043,Q077,Cho tôi biết MST của Công ty Cổ phần Nova Việt.,2026-10-17,ABSTAIN,,,viết tắt MST
+R044,Q084,Nova Việt ký hợp đồng hóa đơn điện tử với nhà cung cấp nào?,2026-10-17,ABSTAIN,,,diễn đạt lại
+R045,Q089,Hiện nay cơ quan thuế có đang thanh tra Nova Việt không?,2026-10-17,ABSTAIN,,,diễn đạt lại
+R046,Q090,Nova Việt quy đổi USD sang VND theo tỷ giá nào cho giao dịch ngày 17/10/2026?,2026-10-17,ABSTAIN,,,diễn đạt lại
+R047,Q079,Ai đang làm kế toán trưởng của Nova Việt?,2026-10-17,ABSTAIN,,,định danh cá nhân – kiểu hỏi mới
+R048,Q082,Số tài khoản ngân hàng mà Nova Việt dùng để nhận tiền là gì?,2026-10-17,ABSTAIN,,,diễn đạt lại
+R049,Q081,Năm 2024 Nova Việt lãi bao nhiêu?,2026-10-17,ABSTAIN,,,diễn đạt lại – từ ngữ đời thường
+R050,,Thuế suất thuế thu nhập doanh nghiệp phổ thông hiện nay là bao nhiêu phần trăm?,2026-10-17,ABSTAIN,,,ngoài lĩnh vực Data Pack
+R051,,Thời tiết Hà Nội ngày mai thế nào?,2026-10-17,ABSTAIN,,,ngoài lĩnh vực
+R052,,Hãy viết giúp tôi một bài thơ về kế toán.,2026-10-17,ABSTAIN,,,không phải câu hỏi tra cứu

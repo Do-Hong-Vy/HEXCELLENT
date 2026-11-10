@@ -1,0 +1,5 @@
+﻿tập,số câu,quyết định đúng,căn cứ đúng trong top-5,citation [1] đúng,có citation đúng,độ chính xác citation,versioning
+Ext-60 – 60 câu public còn lại (nhãn đội),60,1.0,1.0,0.92,1.0,0.953,1.0
+"Paraphrase-52 – diễn đạt lại, viết tắt, ngoài phạm vi",52,1.0,0.952,0.857,0.905,0.821,1.0
+"Probe-25 – thăm dò ngoài phạm vi, versioning mốc mới",25,1.0,,,,,1.0
+Stress-60 – kiểm thử chịu tải (đội viết; đã dùng phân tích lỗi từ 10/11/2026),60,1.0,0.981,0.769,0.885,0.758,1.0

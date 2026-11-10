@@ -1,0 +1,95 @@
+LAW08 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Nghị định 70/2025/NĐ-CP sửa đổi, bổ sung Nghị định 123/2020/NĐ-CP về hóa đơn, chứng từ
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+ĐÂY LÀ NGUỒN LỊCH SỬ/VERSIONING. LAW08 sửa đổi LAW07 trong giai đoạn 01/06/2025–30/06/2026; tại 17/10/2026 ưu tiên LAW11–LAW12 cho quy định hiện hành.
+Nguồn: https://luatvietnam.vn/tai-chinh/nghi-dinh-70-2025-nd-cp-sua-doi-nghi-dinh-123-2020-nd-cp-ve-hoa-don-chung-tu-394682-d1.html
+Trạng thái: REPLACED (as of 2026-10-17)
+Hiệu lực trong corpus: 2025-06-01 đến 2026-06-30
+Văn bản nền được sửa đổi: LAW07 – Nghị định 123/2020/NĐ-CP
+Được thay thế bởi: 254/2026/NĐ-CP (LAW11)
+
+[LAW08_C001] Điều 1 – Khoản 1 – Bổ sung nhà cung cấp nước ngoài vào đối tượng áp dụng
+Nghị định bổ sung nhà cung cấp ở nước ngoài không có cơ sở thường trú tại Việt Nam, có hoạt động thương mại điện tử, kinh doanh nền tảng số hoặc dịch vụ khác, vào nhóm có thể đăng ký tự nguyện sử dụng hóa đơn điện tử theo quy định.
+Nguồn định vị: Điều 1 khoản 1 – bổ sung điểm e khoản 1 Điều 2 NĐ123
+Citation: LAW08 – Điều 1 khoản 1 – bổ sung điểm e khoản 1 Điều 2 NĐ123
+
+[LAW08_C002] Điều 1 – Khoản 2 – Khái niệm hóa đơn điện tử khởi tạo từ máy tính tiền
+Hóa đơn điện tử khởi tạo từ máy tính tiền là hóa đơn có mã của cơ quan thuế hoặc dữ liệu điện tử để người mua truy xuất, do người bán lập từ hệ thống tính tiền và truyền dữ liệu đến cơ quan thuế theo định dạng quy định; đồng thời nghị định định nghĩa máy tính tiền là hệ thống điện tử có chức năng tính tiền và lưu trữ giao dịch bán hàng.
+Nguồn định vị: Điều 1 khoản 2 – bổ sung điểm c,d khoản 2 Điều 3 NĐ123
+Citation: LAW08 – Điều 1 khoản 2 – bổ sung điểm c,d khoản 2 Điều 3 NĐ123
+
+[LAW08_C003] Điều 1 – Khoản 2 – Sửa khái niệm chứng từ điện tử
+Chứng từ điện tử được xác định là dữ liệu điện tử do tổ chức/cá nhân có trách nhiệm khấu trừ thuế hoặc tổ chức thu thuế, phí, lệ phí cấp cho người nộp bằng phương tiện điện tử theo pháp luật thuế, phí và lệ phí.
+Nguồn định vị: Điều 1 khoản 2 – sửa khoản 5 Điều 3 NĐ123
+Citation: LAW08 – Điều 1 khoản 2 – sửa khoản 5 Điều 3 NĐ123
+
+[LAW08_C004] Điều 1 – Khoản 3 – Mở rộng nghĩa vụ lập hóa đơn
+Khi bán hàng hóa hoặc cung cấp dịch vụ, người bán phải lập hóa đơn kể cả một số trường hợp khuyến mại, cho biếu tặng, trao đổi, trả thay lương, tiêu dùng nội bộ, cho vay/cho mượn/hoàn trả hàng hóa và các trường hợp phải lập hóa đơn theo Điều 19; hóa đơn phải đủ nội dung và đúng định dạng dữ liệu.
+Nguồn định vị: Điều 1 khoản 3 – sửa khoản 1 Điều 4 NĐ123
+Citation: LAW08 – Điều 1 khoản 3 – sửa khoản 1 Điều 4 NĐ123
+
+[LAW08_C005] Điều 1 – Khoản 6 – Thời điểm lập hóa đơn bán hàng hóa và xuất khẩu
+Thời điểm lập hóa đơn bán hàng hóa vẫn gắn với thời điểm chuyển giao quyền sở hữu hoặc quyền sử dụng, không phụ thuộc đã thu tiền. Đối với hàng xuất khẩu, người bán tự xác định thời điểm lập nhưng phải đáp ứng thời hạn sau khi hoàn tất thủ tục hải quan theo quy định sửa đổi.
+Nguồn định vị: Điều 1 khoản 6 – sửa khoản 1 Điều 9 NĐ123
+Citation: LAW08 – Điều 1 khoản 6 – sửa khoản 1 Điều 9 NĐ123
+
+[LAW08_C006] Điều 1 – Khoản 6 – Thời điểm lập hóa đơn dịch vụ và tiền thu trước
+Đối với dịch vụ, hóa đơn được lập khi hoàn thành cung cấp dịch vụ; nếu thu tiền trước hoặc trong khi cung cấp, thời điểm lập thường là thời điểm thu tiền, trừ các khoản đặt cọc/tạm ứng để bảo đảm thực hiện các nhóm dịch vụ được pháp luật loại trừ.
+Nguồn định vị: Điều 1 khoản 6 – sửa khoản 2 Điều 9 NĐ123
+Citation: LAW08 – Điều 1 khoản 6 – sửa khoản 2 Điều 9 NĐ123
+
+[LAW08_C007] Điều 1 – Khoản 6 – Thời điểm lập hóa đơn cho hoạt động cần đối soát
+Một số dịch vụ phát sinh thường xuyên, số lượng lớn và cần đối soát dữ liệu được lập hóa đơn tại thời điểm hoàn thành đối soát, nhưng phải trong giới hạn thời hạn được quy định sau kỳ phát sinh.
+Nguồn định vị: Điều 1 khoản 6 – sửa khoản 4 Điều 9 NĐ123
+Citation: LAW08 – Điều 1 khoản 6 – sửa khoản 4 Điều 9 NĐ123
+
+[LAW08_C008] Điều 1 – Khoản 7 – Bổ sung và sửa nội dung bắt buộc trên hóa đơn
+Nghị định cập nhật một số tiêu thức trên hóa đơn, gồm thông tin người mua, thông tin hàng hóa/dịch vụ, thuế, thời điểm lập và các trường hợp đặc thù; việc thể hiện thông tin được điều chỉnh để phù hợp phương thức định danh và quản lý điện tử.
+Nguồn định vị: Điều 1 khoản 7 – sửa, bổ sung Điều 10 NĐ123
+Citation: LAW08 – Điều 1 khoản 7 – sửa, bổ sung Điều 10 NĐ123
+
+[LAW08_C009] Điều 1 – Khoản 8 – Đối tượng sử dụng hóa đơn điện tử từ máy tính tiền
+Một số hộ, cá nhân kinh doanh đạt ngưỡng doanh thu và doanh nghiệp bán hàng hóa/cung cấp dịch vụ trực tiếp đến người tiêu dùng trong các lĩnh vực được liệt kê phải sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền có kết nối chuyển dữ liệu với cơ quan thuế.
+Nguồn định vị: Điều 1 khoản 8 – sửa Điều 11 NĐ123, khoản 1
+Citation: LAW08 – Điều 1 khoản 8 – sửa Điều 11 NĐ123, khoản 1
+
+[LAW08_C010] Điều 1 – Khoản 8 – Nội dung hóa đơn từ máy tính tiền
+Hóa đơn từ máy tính tiền phải có thông tin người bán; thông tin người mua khi người mua yêu cầu; tên hàng hóa/dịch vụ, đơn giá, số lượng và giá thanh toán; thời điểm lập; cùng mã hoặc dữ liệu để người mua có thể truy xuất và kê khai.
+Nguồn định vị: Điều 1 khoản 8 – sửa Điều 11 NĐ123, khoản 3
+Citation: LAW08 – Điều 1 khoản 8 – sửa Điều 11 NĐ123, khoản 3
+
+[LAW08_C011] Điều 1 – Khoản 8 – Chữ ký số đối với hóa đơn từ máy tính tiền
+Hóa đơn điện tử khởi tạo từ máy tính tiền thuộc cơ chế riêng và không bắt buộc phải có chữ ký số của người bán trên từng hóa đơn khi đáp ứng điều kiện của mô hình này.
+Nguồn định vị: Điều 1 khoản 8 – sửa Điều 11 NĐ123
+Citation: LAW08 – Điều 1 khoản 8 – sửa Điều 11 NĐ123
+
+[LAW08_C012] Điều 1 – Khoản 13 – Sai tên, địa chỉ người mua
+Nếu hóa đơn đã lập sai tên hoặc địa chỉ người mua nhưng không sai mã số thuế và các nội dung khác đúng, người bán thông báo cho người mua về sai sót và không phải lập lại hóa đơn.
+Nguồn định vị: Điều 1 khoản 13 – sửa Điều 19 NĐ123, khoản 1 điểm a
+Citation: LAW08 – Điều 1 khoản 13 – sửa Điều 19 NĐ123, khoản 1 điểm a
+
+[LAW08_C013] Điều 1 – Khoản 13 – Sai mã số thuế, số tiền, thuế suất hoặc hàng hóa
+Nếu sai mã số thuế, số tiền, thuế suất, tiền thuế hoặc hàng hóa không đúng quy cách/chất lượng, người bán được lựa chọn lập hóa đơn điện tử điều chỉnh hoặc hóa đơn điện tử thay thế theo trình tự quy định.
+Nguồn định vị: Điều 1 khoản 13 – sửa Điều 19 NĐ123, khoản 1 điểm b
+Citation: LAW08 – Điều 1 khoản 13 – sửa Điều 19 NĐ123, khoản 1 điểm b
+
+[LAW08_C014] Điều 1 – Khoản 13 – Thỏa thuận và dẫn chiếu hóa đơn gốc khi điều chỉnh/thay thế
+Khi điều chỉnh hoặc thay thế theo trường hợp áp dụng, các bên phải thực hiện thỏa thuận/thông báo phù hợp và hóa đơn mới phải thể hiện mối liên hệ với hóa đơn đã lập sai để bảo đảm truy vết nghiệp vụ.
+Nguồn định vị: Điều 1 khoản 13 – sửa Điều 19 NĐ123
+Citation: LAW08 – Điều 1 khoản 13 – sửa Điều 19 NĐ123
+
+[LAW08_C015] Điều 2 – Khoản 1-2 – Cập nhật biểu mẫu điện tử
+Nghị định bổ sung và sửa đổi nhiều biểu mẫu về đăng ký sử dụng hóa đơn điện tử, thông báo hóa đơn sai, đề nghị cấp hóa đơn từng lần phát sinh, bảng kê điều chỉnh, đăng ký chứng từ điện tử và các thông báo của cơ quan thuế.
+Nguồn định vị: Điều 2 khoản 1–2
+Citation: LAW08 – Điều 2 khoản 1–2
+
+[LAW08_C016] Điều 2 – Khoản 4 – Bãi bỏ một số quy định của Nghị định 123
+Nghị định 70 bãi bỏ một số khoản, điểm và điều của Nghị định 123/2020/NĐ-CP, trong đó có một số nội dung về thời điểm lập hóa đơn đặc thù, chứng từ và cơ chế quản lý thông tin.
+Nguồn định vị: Điều 2 khoản 4
+Citation: LAW08 – Điều 2 khoản 4
+
+[LAW08_C017] Điều 3 – Khoản 1 – Hiệu lực của Nghị định 70
+Nghị định 70/2025/NĐ-CP có hiệu lực từ ngày 01/06/2025 và tạo lớp sửa đổi áp dụng cho Nghị định 123/2020/NĐ-CP trong giai đoạn từ 01/06/2025 đến trước khi hệ quy định mới năm 2026 thay thế.
+Nguồn định vị: Điều 3 khoản 1
+Citation: LAW08 – Điều 3 khoản 1

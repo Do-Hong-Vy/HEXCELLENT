@@ -1,0 +1,8 @@
+# PolicyAssist AI – CHRONOS-LEDGER (đội HEXCELLENT)
+# Python >= 3.10 · đã kiểm thử với Python 3.14.8, Streamlit 1.65.0, pandas 3.0.6, numpy 2.5.4, scikit-learn 1.9.1
+# Không cần GPU, không cần mạng, không cần API key – toàn bộ chạy cục bộ trên Data Pack.
+pandas>=2.1
+numpy>=1.26
+scikit-learn>=1.3
+rank-bm25>=0.2.2
+streamlit>=1.60

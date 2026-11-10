@@ -1,0 +1,57 @@
+LAW03 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Thông tư 99/2025/TT-BTC hướng dẫn chế độ kế toán doanh nghiệp
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+Nguồn: https://thuvienphapluat.vn/van-ban/Doanh-nghiep/Thong-tu-99-2025-TT-BTC-huong-dan-Che-do-ke-toan-doanh-nghiep-565484.aspx
+Trạng thái: ACTIVE (as of 2026-10-17)
+Hiệu lực: 2026-01-01
+
+[LAW03_C001] Điều 8 – Nguyên tắc chung về chứng từ kế toán
+Chứng từ kế toán của doanh nghiệp phải tuân thủ Luật Kế toán, các văn bản hướng dẫn và các văn bản sửa đổi, bổ sung hoặc thay thế có liên quan.
+Nguồn định vị: Điều 8
+Citation: LAW03 – Điều 8
+
+[LAW03_C002] Điều 9 – Khoản 1-2 – Hệ thống biểu mẫu chứng từ kế toán
+Doanh nghiệp có thể tham khảo hệ thống biểu mẫu chứng từ tại Phụ lục I. Doanh nghiệp được thiết kế thêm hoặc sửa đổi biểu mẫu để phù hợp hoạt động và quản lý, nhưng phải đáp ứng các yêu cầu về nội dung theo Luật Kế toán và bảo đảm tính đầy đủ, trung thực, minh bạch, kiểm tra/đối chiếu được.
+Nguồn định vị: Điều 9 khoản 1–2
+Citation: LAW03 – Điều 9 khoản 1–2
+
+[LAW03_C003] Điều 9 – Khoản 3 – Chứng từ thuộc pháp luật chuyên ngành
+Nếu chứng từ thuộc đối tượng điều chỉnh của pháp luật chuyên ngành khác, doanh nghiệp phải thực hiện theo các quy định của pháp luật chuyên ngành đó.
+Nguồn định vị: Điều 9 khoản 3
+Citation: LAW03 – Điều 9 khoản 3
+
+[LAW03_C004] Điều 10 – Khoản 1-2 – Lập và ký chứng từ kế toán
+Mọi nghiệp vụ kinh tế, tài chính phát sinh phải có chứng từ và chỉ lập một lần cho mỗi nghiệp vụ. Việc lập, ký chứng từ phải tuân thủ Luật Kế toán, văn bản hướng dẫn và quy định tại Thông tư 99 cùng các văn bản thay thế/sửa đổi liên quan.
+Nguồn định vị: Điều 10 khoản 1–2
+Citation: LAW03 – Điều 10 khoản 1–2
+
+[LAW03_C005] Điều 10 – Khoản 3 – Phân cấp ký chứng từ
+Việc phân cấp ký chứng từ trong doanh nghiệp phải phù hợp pháp luật, yêu cầu quản lý và quy chế nội bộ, nhằm kiểm soát tài sản/nguồn vốn và xác định rõ trách nhiệm của cá nhân liên quan.
+Nguồn định vị: Điều 10 khoản 3
+Citation: LAW03 – Điều 10 khoản 3
+
+[LAW03_C006] Điều 14 – Khoản 1-2 – Mục đích và nội dung thông tin của báo cáo tài chính
+Báo cáo tài chính cung cấp thông tin về tình hình tài chính, kết quả kinh doanh và dòng tiền để phục vụ quản lý và quyết định kinh tế. Thông tin bao gồm tài sản, nợ phải trả, vốn chủ sở hữu, doanh thu/chi phí, lãi lỗ và luồng tiền; thuyết minh cung cấp giải trình bổ sung.
+Nguồn định vị: Điều 14 khoản 1–2
+Citation: LAW03 – Điều 14 khoản 1–2
+
+[LAW03_C007] Điều 15 – Khoản 1-3 – Kỳ lập báo cáo tài chính
+Doanh nghiệp phải lập báo cáo tài chính năm; báo cáo giữa niên độ có thể gồm báo cáo quý và bán niên; trong các trường hợp pháp luật hoặc nhu cầu quản lý yêu cầu, doanh nghiệp có thể phải lập báo cáo theo kỳ khác hoặc tại các thời điểm tái cấu trúc, giải thể, phá sản.
+Nguồn định vị: Điều 15 khoản 1–3
+Citation: LAW03 – Điều 15 khoản 1–3
+
+[LAW03_C008] Điều 16 – Đối tượng và trách nhiệm lập báo cáo tài chính
+Doanh nghiệp thuộc các lĩnh vực và thành phần kinh tế phải lập báo cáo tài chính năm theo mẫu/chuẩn áp dụng. Việc lập, ký và trách nhiệm đối với báo cáo tài chính phải tuân thủ Luật Kế toán, văn bản hướng dẫn và quy định có liên quan.
+Nguồn định vị: Điều 16
+Citation: LAW03 – Điều 16
+
+[LAW03_C009] Điều 17 – Hệ thống báo cáo tài chính của doanh nghiệp
+Hệ thống báo cáo tài chính doanh nghiệp được tổ chức theo các biểu mẫu và yêu cầu trình bày quy định tại Thông tư 99 và phụ lục kèm theo; doanh nghiệp phải lựa chọn và áp dụng đúng bộ báo cáo phù hợp.
+Nguồn định vị: Điều 17
+Citation: LAW03 – Điều 17
+
+[LAW03_C010] Điều 31 – Khoản 1 – Hiệu lực và văn bản được thay thế
+Thông tư 99 có hiệu lực từ 01/01/2026 và áp dụng cho năm tài chính bắt đầu từ hoặc sau ngày này. Thông tư thay thế Thông tư 200/2014/TT-BTC cùng một số văn bản sửa đổi/hướng dẫn liên quan, ngoại trừ các nội dung chuyển tiếp được nêu riêng.
+Nguồn định vị: Điều 31 khoản 1
+Citation: LAW03 – Điều 31 khoản 1

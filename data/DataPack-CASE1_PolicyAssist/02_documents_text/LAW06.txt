@@ -1,0 +1,95 @@
+LAW06 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Thông tư 32/2025/TT-BTC hướng dẫn về hóa đơn, chứng từ
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+ĐÂY LÀ NGUỒN LỊCH SỬ/VERSIONING. Tại 17/10/2026 không ưu tiên LAW06 cho hướng dẫn hiện hành về hóa đơn, chứng từ; ưu tiên LAW12.
+Nguồn: https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Thong-tu-32-2025-TT-BTC-huong-dan-thuc-hien-Luat-Quan-ly-thue-ve-hoa-don-chung-tu-659105.aspx
+Trạng thái: REPLACED (as of 2026-10-17)
+Hiệu lực trong corpus: 2025-06-01 đến 2026-06-30
+Thay thế: 78/2021/TT-BTC
+Được thay thế bởi: 91/2026/TT-BTC (LAW12)
+
+[LAW06_C001] Điều 1 – Phạm vi điều chỉnh
+Thông tư hướng dẫn một số nội dung của Nghị định 70/2025/NĐ-CP và các trường hợp theo yêu cầu quản lý, trong đó có ủy nhiệm, ký hiệu, lập hóa đơn trong một số trường hợp, chuyển đổi áp dụng và xử lý chuyển tiếp.
+Nguồn định vị: Điều 1
+Citation: LAW06 – Điều 1
+
+[LAW06_C002] Điều 2 – Đối tượng áp dụng
+Đối tượng áp dụng là các tổ chức, cá nhân thuộc phạm vi của Nghị định 123/2020/NĐ-CP và phần sửa đổi, bổ sung tương ứng tại Nghị định 70/2025/NĐ-CP.
+Nguồn định vị: Điều 2
+Citation: LAW06 – Điều 2
+
+[LAW06_C003] Điều 4 – Khoản 1 – Nguyên tắc ủy nhiệm lập hóa đơn
+Người bán có thể ủy nhiệm cho bên thứ ba đủ điều kiện sử dụng hóa đơn điện tử để lập hóa đơn. Việc ủy nhiệm phải lập thành văn bản, thông báo với cơ quan thuế và hóa đơn ủy nhiệm phải thể hiện thông tin của cả bên ủy nhiệm và bên nhận ủy nhiệm.
+Nguồn định vị: Điều 4 khoản 1
+Citation: LAW06 – Điều 4 khoản 1
+
+[LAW06_C004] Điều 4 – Khoản 2 – Nội dung hợp đồng hoặc thỏa thuận ủy nhiệm
+Hợp đồng hoặc thỏa thuận ủy nhiệm phải nêu thông tin các bên, thông tin loại và ký hiệu hóa đơn, mục đích và thời hạn ủy nhiệm, phương thức thanh toán cùng trách nhiệm liên quan; văn bản phải được lưu trữ để xuất trình khi có yêu cầu.
+Nguồn định vị: Điều 4 khoản 2
+Citation: LAW06 – Điều 4 khoản 2
+
+[LAW06_C005] Điều 4 – Khoản 3 – Thông báo ủy nhiệm với cơ quan thuế
+Ủy nhiệm lập hóa đơn được xem là thay đổi thông tin đăng ký sử dụng hóa đơn điện tử. Các bên phải dùng mẫu đăng ký/thay đổi thông tin theo quy định để thông báo việc bắt đầu hoặc chấm dứt ủy nhiệm.
+Nguồn định vị: Điều 4 khoản 3
+Citation: LAW06 – Điều 4 khoản 3
+
+[LAW06_C006] Điều 5 – Khoản 1 điểm a – Ký hiệu mẫu số hóa đơn điện tử
+Ký hiệu mẫu số hóa đơn điện tử sử dụng một chữ số để phân biệt loại hóa đơn như hóa đơn giá trị gia tăng, hóa đơn bán hàng, hóa đơn thương mại điện tử, tem/vé/thẻ và một số chứng từ điện tử được quản lý như hóa đơn.
+Nguồn định vị: Điều 5 khoản 1 điểm a
+Citation: LAW06 – Điều 5 khoản 1 điểm a
+
+[LAW06_C007] Điều 5 – Khoản 1 điểm b – Cấu trúc ký hiệu hóa đơn điện tử
+Ký hiệu hóa đơn điện tử gồm sáu ký tự thể hiện thông tin về hóa đơn có mã hay không có mã, năm lập và loại hóa đơn sử dụng; các ký tự cuối có thể dùng để phân biệt mẫu theo nhu cầu quản lý của người bán.
+Nguồn định vị: Điều 5 khoản 1 điểm b
+Citation: LAW06 – Điều 5 khoản 1 điểm b
+
+[LAW06_C008] Điều 5 – Khoản 1 điểm c – Thông tin bên nhận ủy nhiệm trên hóa đơn
+Đối với hóa đơn điện tử lập theo ủy nhiệm, hóa đơn phải thể hiện thông tin tên, địa chỉ và mã số thuế của bên nhận ủy nhiệm theo yêu cầu áp dụng.
+Nguồn định vị: Điều 5 khoản 1 điểm c
+Citation: LAW06 – Điều 5 khoản 1 điểm c
+
+[LAW06_C009] Điều 6 – Khoản 1 – Trường hợp giao dịch số lượng lớn cần đối soát
+Một số hoạt động có giao dịch số lượng lớn, phát sinh thường xuyên và cần thời gian đối soát với khách hàng/đối tác được áp dụng quy tắc lập hóa đơn theo kỳ đối soát; danh mục gồm một số dịch vụ tài chính, công nghệ, suất ăn công nghiệp và vận tải taxi cho khách hàng tổ chức.
+Nguồn định vị: Điều 6 khoản 1
+Citation: LAW06 – Điều 6 khoản 1
+
+[LAW06_C010] Điều 6 – Khoản 2 – Hóa đơn đối với cho thuê tài chính
+Tổ chức cho thuê tài chính phải lập hóa đơn theo quy định; việc thể hiện thuế giá trị gia tăng và xử lý khi hợp đồng chấm dứt trước hạn phụ thuộc hồ sơ thuế đầu vào của tài sản và nghiệp vụ thực tế phát sinh.
+Nguồn định vị: Điều 6 khoản 2
+Citation: LAW06 – Điều 6 khoản 2
+
+[LAW06_C011] Điều 8 – Khoản 1 – Tự nguyện chuyển từ hóa đơn không mã sang có mã
+Người nộp thuế đang dùng hóa đơn điện tử không có mã và muốn chuyển sang hóa đơn có mã thực hiện thủ tục thay đổi thông tin sử dụng hóa đơn điện tử theo quy định.
+Nguồn định vị: Điều 8 khoản 1
+Citation: LAW06 – Điều 8 khoản 1
+
+[LAW06_C012] Điều 8 – Khoản 2 – Chuyển đổi bắt buộc do rủi ro thuế cao
+Người nộp thuế đang dùng hóa đơn không có mã nhưng bị xác định có rủi ro thuế cao và được cơ quan thuế thông báo phải chuyển sang hóa đơn có mã trong thời hạn quy định. Sau một thời gian áp dụng, nếu muốn quay lại hình thức không có mã thì phải đăng ký thay đổi và được cơ quan thuế xem xét.
+Nguồn định vị: Điều 8 khoản 2
+Citation: LAW06 – Điều 8 khoản 2
+
+[LAW06_C013] Điều 8 – Khoản 3 – Doanh nghiệp có nhiều hoạt động kinh doanh
+Doanh nghiệp có nhiều hoạt động có thể đăng ký hóa đơn điện tử khởi tạo từ máy tính tiền cho hoạt động bán trực tiếp tới người tiêu dùng và sử dụng hóa đơn có mã hoặc không có mã cho các hoạt động khác theo quy định.
+Nguồn định vị: Điều 8 khoản 3
+Citation: LAW06 – Điều 8 khoản 3
+
+[LAW06_C014] Điều 9 – Khoản 1 – Tiêu chí rủi ro cao khi đăng ký hóa đơn điện tử
+Thông tư xác định một số nhóm dấu hiệu rủi ro cao khi đăng ký sử dụng hóa đơn điện tử, liên quan đến lịch sử gian lận hóa đơn, giao dịch đáng ngờ, địa chỉ đăng ký, tình trạng hoạt động của người đại diện/chủ sở hữu và các dấu hiệu rủi ro khác do cơ quan thuế xác định.
+Nguồn định vị: Điều 9 khoản 1
+Citation: LAW06 – Điều 9 khoản 1
+
+[LAW06_C015] Điều 9 – Khoản 2 – Rủi ro rất cao
+Cục Thuế được giao xây dựng chỉ số và tiêu chí chi tiết để đánh giá người nộp thuế thuộc diện rủi ro rất cao, phục vụ yêu cầu quản lý thuế theo từng thời kỳ.
+Nguồn định vị: Điều 9 khoản 2
+Citation: LAW06 – Điều 9 khoản 2
+
+[LAW06_C016] Điều 12 – Khoản 1 – Hiệu lực và thay thế Thông tư 78/2021/TT-BTC
+Thông tư 32/2025/TT-BTC có hiệu lực từ 01/06/2025 và thay thế Thông tư 78/2021/TT-BTC về hướng dẫn hóa đơn, chứng từ theo hệ quy định trước đó.
+Nguồn định vị: Điều 12 khoản 1
+Citation: LAW06 – Điều 12 khoản 1
+
+[LAW06_C017] Điều 12 – Khoản 2-5 – Một số quy định chuyển tiếp
+Thông tư quy định một số nội dung chuyển tiếp, gồm chuyển sang chứng từ khấu trừ thuế thu nhập cá nhân điện tử theo quy định mới, tiếp tục thực hiện một số hợp đồng dịch vụ hóa đơn đã ký và duy trì một số hình thức hóa đơn máy tính tiền đã đăng ký trước thời điểm hiệu lực.
+Nguồn định vị: Điều 12 khoản 2–5
+Citation: LAW06 – Điều 12 khoản 2–5

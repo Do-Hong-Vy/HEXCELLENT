@@ -1,0 +1,16 @@
+{
+  "datapack": "DataPack-CASE1_PolicyAssist",
+  "datapack_version": "v1-snapshot-2026-10-17",
+  "corpus_snapshot": "2026-10-17",
+  "created_at": "2026-10-23T18:58:40",
+  "corpus_fingerprint": "7357afec5ef02d801da8c5849fb6f228b165ad2c50f9c3560e5d02a073679eb4",
+  "n_files": 40,
+  "counts": {
+    "documents": 20,
+    "law": 12,
+    "sim": 8,
+    "chunks": 374,
+    "questions": 90,
+    "answer_samples": 30
+  }
+}

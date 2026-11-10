@@ -1,0 +1,36 @@
+# Cấu hình Streamlit cho PolicyAssist AI (được đọc khi chạy từ thư mục dự án)
+[server]
+headless = true            # không hỏi email ở lần chạy đầu; trình duyệt do policyassist.py tự mở
+maxUploadSize = 20         # MB – đủ cho file câu hỏi CSV
+
+[browser]
+gatherUsageStats = false   # không gửi thống kê sử dụng ra ngoài
+
+[client]
+toolbarMode = "minimal"    # ẩn menu dành cho nhà phát triển (Deploy, Rerun…) – giao diện gọn cho người dùng
+
+# Tông chủ đạo xanh navy
+[theme]
+base = "light"
+primaryColor = "#1E3A6E"
+backgroundColor = "#F3F6FB"
+secondaryBackgroundColor = "#E8EEF8"
+textColor = "#14213D"
+linkColor = "#1F4FA3"
+borderColor = "#D5DDEA"
+baseRadius = "10px"
+buttonRadius = "10px"
+showWidgetBorder = true
+dataframeHeaderBackgroundColor = "#E8EEF8"
+blueColor = "#1F4FA3"
+greenColor = "#17663F"
+orangeColor = "#B45309"
+redColor = "#B42318"
+violetColor = "#5B3E92"
+
+[theme.sidebar]
+backgroundColor = "#14284B"
+secondaryBackgroundColor = "#1E3A6E"
+textColor = "#E8EEFA"
+primaryColor = "#F2B544"
+borderColor = "#2A4378"

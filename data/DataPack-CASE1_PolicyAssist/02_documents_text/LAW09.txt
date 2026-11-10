@@ -1,0 +1,99 @@
+LAW09 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Thông tư 78/2021/TT-BTC hướng dẫn Luật Quản lý thuế và Nghị định 123/2020/NĐ-CP về hóa đơn, chứng từ
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+ĐÂY LÀ NGUỒN LỊCH SỬ/VERSIONING. LAW09 được LAW06 thay thế từ 01/06/2025 và hiện LAW12 là nguồn hướng dẫn ưu tiên từ 01/07/2026.
+Nguồn: https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Thong-tu-78-2021-TT-BTC-huong-dan-Luat-Quan-ly-thue-Nghi-dinh-123-2020-ND-CP-hoa-don-chung-tu-477966.aspx
+Trạng thái: REPLACED (as of 2026-10-17)
+Hiệu lực trong corpus: 2022-07-01 đến 2025-05-31
+Được thay thế bởi: 32/2025/TT-BTC (LAW06); 91/2026/TT-BTC (LAW12, nguồn hiện hành)
+
+[LAW09_C001] Điều 1 – Phạm vi điều chỉnh
+Thông tư hướng dẫn một số nội dung về hóa đơn, chứng từ theo Luật Quản lý thuế và Nghị định 123/2020/NĐ-CP, trong đó có ủy nhiệm lập hóa đơn, ký hiệu, chuyển đổi áp dụng, trường hợp đặc thù và xử lý sai sót.
+Nguồn định vị: Điều 1
+Citation: LAW09 – Điều 1
+
+[LAW09_C002] Điều 2 – Đối tượng áp dụng
+Thông tư áp dụng đối với tổ chức, cá nhân thuộc phạm vi điều chỉnh của Nghị định 123/2020/NĐ-CP và các cơ quan, tổ chức có liên quan tới quản lý, sử dụng hóa đơn và chứng từ.
+Nguồn định vị: Điều 2
+Citation: LAW09 – Điều 2
+
+[LAW09_C003] Điều 3 – Khoản 1 – Nguyên tắc ủy nhiệm lập hóa đơn
+Người bán có thể ủy nhiệm cho bên thứ ba đủ điều kiện lập hóa đơn điện tử. Hóa đơn ủy nhiệm phải phản ánh thông tin của bên ủy nhiệm và bên nhận ủy nhiệm theo quy định, và việc ủy nhiệm phải được thông báo với cơ quan thuế.
+Nguồn định vị: Điều 3 khoản 1
+Citation: LAW09 – Điều 3 khoản 1
+
+[LAW09_C004] Điều 3 – Khoản 2-3 – Hợp đồng ủy nhiệm và thông báo với cơ quan thuế
+Văn bản ủy nhiệm phải nêu thông tin các bên, loại/ký hiệu hóa đơn, mục đích, thời hạn và phương thức thanh toán; các bên phải lưu trữ văn bản và sử dụng mẫu đăng ký/thay đổi thông tin để thông báo bắt đầu hoặc chấm dứt ủy nhiệm với cơ quan thuế.
+Nguồn định vị: Điều 3 khoản 2–3
+Citation: LAW09 – Điều 3 khoản 2–3
+
+[LAW09_C005] Điều 4 – Khoản 1 điểm a – Ký hiệu mẫu số hóa đơn điện tử
+Ký hiệu mẫu số hóa đơn điện tử dùng một chữ số để nhận diện loại hóa đơn như hóa đơn giá trị gia tăng, hóa đơn bán hàng, hóa đơn tài sản công, dự trữ quốc gia, tem/vé/thẻ điện tử và một số chứng từ điện tử quản lý như hóa đơn.
+Nguồn định vị: Điều 4 khoản 1 điểm a
+Citation: LAW09 – Điều 4 khoản 1 điểm a
+
+[LAW09_C006] Điều 4 – Khoản 1 điểm b – Cấu trúc ký hiệu hóa đơn điện tử
+Ký hiệu hóa đơn điện tử là nhóm sáu ký tự thể hiện hóa đơn có mã hay không có mã, năm lập và loại hóa đơn được sử dụng; các ký tự được mã hóa theo quy ước chi tiết của Thông tư.
+Nguồn định vị: Điều 4 khoản 1 điểm b
+Citation: LAW09 – Điều 4 khoản 1 điểm b
+
+[LAW09_C007] Điều 5 – Khoản 1 – Tự nguyện chuyển sang hóa đơn có mã
+Người nộp thuế đang sử dụng hóa đơn điện tử không có mã nhưng có nhu cầu chuyển sang hóa đơn có mã phải thực hiện thủ tục thay đổi thông tin sử dụng hóa đơn điện tử với cơ quan thuế.
+Nguồn định vị: Điều 5 khoản 1
+Citation: LAW09 – Điều 5 khoản 1
+
+[LAW09_C008] Điều 5 – Khoản 2 – Chuyển sang hóa đơn có mã do rủi ro thuế cao
+Người nộp thuế thuộc diện sử dụng hóa đơn không có mã nhưng bị xác định rủi ro cao về thuế và được cơ quan thuế thông báo phải chuyển sang hóa đơn điện tử có mã trong thời hạn quy định.
+Nguồn định vị: Điều 5 khoản 2
+Citation: LAW09 – Điều 5 khoản 2
+
+[LAW09_C009] Điều 6 – Khoản 1 – Chuyển dữ liệu hóa đơn không có mã
+Trong trường hợp áp dụng phương thức chuyển dữ liệu trực tiếp từng hóa đơn, người bán sau khi lập đầy đủ nội dung phải gửi hóa đơn điện tử cho người mua và đồng thời gửi dữ liệu cho cơ quan thuế chậm nhất trong cùng ngày.
+Nguồn định vị: Điều 6 khoản 1
+Citation: LAW09 – Điều 6 khoản 1
+
+[LAW09_C010] Điều 6 – Khoản 2 – Hộ và cá nhân kinh doanh sử dụng hóa đơn điện tử
+Hộ, cá nhân kinh doanh nộp thuế theo phương pháp kê khai phải sử dụng hóa đơn điện tử; các trường hợp nộp thuế khoán hoặc khai theo từng lần phát sinh khi có nhu cầu sử dụng hóa đơn thì cơ quan thuế cấp hóa đơn điện tử theo từng lần phát sinh.
+Nguồn định vị: Điều 6 khoản 2
+Citation: LAW09 – Điều 6 khoản 2
+
+[LAW09_C011] Điều 6 – Khoản 3-4 – Ngân hàng và bán xăng dầu
+Thông tư có quy tắc riêng cho dịch vụ ngân hàng cần đối soát dữ liệu và hoạt động bán xăng dầu. Dịch vụ ngân hàng có thể lập hóa đơn định kỳ hoặc sau đối soát trong giới hạn thời gian quy định; người bán xăng dầu phải chuyển dữ liệu hóa đơn theo phương thức quy định.
+Nguồn định vị: Điều 6 khoản 3–4
+Citation: LAW09 – Điều 6 khoản 3–4
+
+[LAW09_C012] Điều 7 – Khoản 1 điểm a – Thông báo hóa đơn sai bằng Mẫu 04/SS-HĐĐT
+Khi hóa đơn điện tử có sai sót phải cấp lại mã hoặc phải điều chỉnh/thay thế, người bán có thể dùng Mẫu 04/SS-HĐĐT để thông báo từng hóa đơn hoặc nhiều hóa đơn sai với cơ quan thuế trong thời hạn quy định.
+Nguồn định vị: Điều 7 khoản 1 điểm a
+Citation: LAW09 – Điều 7 khoản 1 điểm a
+
+[LAW09_C013] Điều 7 – Khoản 1 điểm b – Hủy hóa đơn khi dịch vụ bị hủy sau khi đã thu tiền
+Nếu người bán đã lập hóa đơn khi thu tiền trước hoặc trong khi cung cấp dịch vụ nhưng sau đó dịch vụ bị hủy hoặc chấm dứt, người bán thực hiện hủy hóa đơn đã lập và thông báo với cơ quan thuế theo mẫu quy định.
+Nguồn định vị: Điều 7 khoản 1 điểm b
+Citation: LAW09 – Điều 7 khoản 1 điểm b
+
+[LAW09_C014] Điều 7 – Khoản 1 điểm c – Sai tiếp sau khi đã điều chỉnh hoặc thay thế
+Nếu hóa đơn sai đã được xử lý bằng điều chỉnh hoặc thay thế nhưng sau đó tiếp tục phát hiện sai, các lần xử lý tiếp theo phải sử dụng cùng hình thức đã áp dụng cho lần xử lý sai sót đầu tiên.
+Nguồn định vị: Điều 7 khoản 1 điểm c
+Citation: LAW09 – Điều 7 khoản 1 điểm c
+
+[LAW09_C015] Điều 7 – Khoản 1 điểm d-đ – Xử lý theo yêu cầu rà soát và sai số/ký hiệu
+Khi cơ quan thuế yêu cầu rà soát hóa đơn sai, người bán phải phản hồi bằng mẫu theo thời hạn thông báo. Với loại hóa đơn theo quy định không có ký hiệu mẫu số, ký hiệu hóa đơn hoặc số hóa đơn mà các trường này sai, người bán chỉ điều chỉnh, không hủy hoặc thay thế.
+Nguồn định vị: Điều 7 khoản 1 điểm d–đ
+Citation: LAW09 – Điều 7 khoản 1 điểm d–đ
+
+[LAW09_C016] Điều 7 – Khoản 1 điểm e – Điều chỉnh tăng giảm giá trị
+Đối với sai sót về giá trị, khoản điều chỉnh tăng được thể hiện giá trị dương và khoản điều chỉnh giảm được thể hiện giá trị âm, phù hợp với thực tế điều chỉnh.
+Nguồn định vị: Điều 7 khoản 1 điểm e
+Citation: LAW09 – Điều 7 khoản 1 điểm e
+
+[LAW09_C017] Điều 12 – Khoản 1 – Tiếp tục sử dụng hóa đơn cũ đến 30/06/2022
+Các doanh nghiệp, tổ chức đã phát hành hoặc đăng ký sử dụng các hình thức hóa đơn trước khi Thông tư được ban hành được tiếp tục sử dụng theo cơ chế chuyển tiếp đến hết ngày 30/06/2022; tại địa bàn đủ hạ tầng, cơ sở kinh doanh thực hiện chuyển đổi theo lộ trình cơ quan thuế.
+Nguồn định vị: Điều 12 khoản 1
+Citation: LAW09 – Điều 12 khoản 1
+
+[LAW09_C018] Điều 12 – Khoản 2-3 – Cơ sở kinh doanh mới thành lập trong giai đoạn chuyển tiếp
+Cơ sở kinh doanh mới thành lập trong giai đoạn chuyển tiếp thực hiện áp dụng hóa đơn điện tử khi được cơ quan thuế thông báo; nếu chưa đáp ứng hạ tầng công nghệ thông tin thì thực hiện cơ chế tạm thời và gửi dữ liệu hóa đơn theo hướng dẫn.
+Nguồn định vị: Điều 12 khoản 2–3
+Citation: LAW09 – Điều 12 khoản 2–3

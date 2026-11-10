@@ -1,0 +1,69 @@
+LAW04 – DỮ LIỆU PHÁP LUẬT CHUẨN HÓA
+Luật Quản lý thuế số 38/2019/QH14
+
+LƯU Ý: Nội dung là NORMALIZED_SUMMARY phục vụ tra cứu/RAG; không phải toàn văn nguyên bản.
+ĐÂY LÀ NGUỒN LỊCH SỬ/VERSIONING. Tại 17/10/2026 không ưu tiên LAW04 cho quy định quản lý thuế hiện hành; ưu tiên LAW10.
+Nguồn: https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-quan-ly-thue-2019-387595.aspx
+Trạng thái: REPLACED (as of 2026-10-17)
+Hiệu lực trong corpus: 2020-07-01 đến 2026-06-30
+Được thay thế bởi: 108/2025/QH15 (LAW10)
+
+[LAW04_C001] Điều 89 – Khoản 1 – Khái niệm hóa đơn điện tử
+Hóa đơn điện tử là hóa đơn có mã hoặc không có mã của cơ quan thuế, được thể hiện dưới dạng dữ liệu điện tử và do người bán lập bằng phương tiện điện tử để ghi nhận giao dịch bán hàng hóa, cung cấp dịch vụ; bao gồm cả hóa đơn khởi tạo từ máy tính tiền có kết nối truyền dữ liệu với cơ quan thuế.
+Nguồn định vị: Điều 89 khoản 1
+Citation: LAW04 – Điều 89 khoản 1
+
+[LAW04_C002] Điều 89 – Khoản 2 – Các loại hóa đơn điện tử
+Hóa đơn điện tử có thể bao gồm hóa đơn giá trị gia tăng, hóa đơn bán hàng, tem, vé, thẻ, phiếu thu điện tử, phiếu xuất kho kiêm vận chuyển điện tử và các chứng từ điện tử khác có chức năng tương tự theo quy định.
+Nguồn định vị: Điều 89 khoản 2
+Citation: LAW04 – Điều 89 khoản 2
+
+[LAW04_C003] Điều 89 – Khoản 3-4 – Hóa đơn có mã và không có mã
+Hóa đơn điện tử có mã là hóa đơn được cơ quan thuế cấp mã trước khi người bán gửi cho người mua; hóa đơn điện tử không có mã là hóa đơn do người bán gửi cho người mua mà không có mã của cơ quan thuế.
+Nguồn định vị: Điều 89 khoản 3–4
+Citation: LAW04 – Điều 89 khoản 3–4
+
+[LAW04_C004] Điều 90 – Khoản 1 – Nguyên tắc lập hóa đơn điện tử
+Khi bán hàng hóa hoặc cung cấp dịch vụ, người bán phải lập hóa đơn điện tử giao cho người mua theo định dạng chuẩn dữ liệu và phải ghi đầy đủ nội dung theo pháp luật về thuế và kế toán, không phụ thuộc giá trị của từng giao dịch.
+Nguồn định vị: Điều 90 khoản 1
+Citation: LAW04 – Điều 90 khoản 1
+
+[LAW04_C005] Điều 90 – Khoản 2-4 – Máy tính tiền, đăng ký và trách nhiệm thông tin
+Người bán sử dụng máy tính tiền thuộc trường hợp áp dụng phải đăng ký hóa đơn điện tử khởi tạo từ máy tính tiền có kết nối với cơ quan thuế. Việc đăng ký, quản lý và sử dụng phải tuân thủ pháp luật giao dịch điện tử, kế toán và thuế; người lập hóa đơn chịu trách nhiệm về tính chính xác của thông tin gửi để cấp mã.
+Nguồn định vị: Điều 90 khoản 2–4
+Citation: LAW04 – Điều 90 khoản 2–4
+
+[LAW04_C006] Điều 91 – Khoản 1 – Doanh nghiệp sử dụng hóa đơn có mã
+Doanh nghiệp và tổ chức kinh tế thuộc nguyên tắc chung sử dụng hóa đơn điện tử có mã của cơ quan thuế khi bán hàng hóa, cung cấp dịch vụ, trừ các trường hợp được luật quy định áp dụng hình thức khác.
+Nguồn định vị: Điều 91 khoản 1
+Citation: LAW04 – Điều 91 khoản 1
+
+[LAW04_C007] Điều 91 – Khoản 2 – Điều kiện sử dụng hóa đơn không có mã
+Một số doanh nghiệp, tổ chức có hạ tầng công nghệ thông tin, phần mềm kế toán và hóa đơn đáp ứng yêu cầu lập, tra cứu, lưu trữ và truyền dữ liệu có thể sử dụng hóa đơn điện tử không có mã; ngoại lệ gồm trường hợp rủi ro thuế cao hoặc tự đăng ký sử dụng hóa đơn có mã.
+Nguồn định vị: Điều 91 khoản 2
+Citation: LAW04 – Điều 91 khoản 2
+
+[LAW04_C008] Điều 91 – Khoản 3-4 – Hộ, cá nhân kinh doanh và hóa đơn từng lần phát sinh
+Hộ và cá nhân kinh doanh thuộc các trường hợp luật định sử dụng hóa đơn điện tử có mã. Trường hợp không thuộc diện bắt buộc nhưng cần hóa đơn giao khách hàng có thể được cơ quan thuế cấp hóa đơn điện tử có mã theo từng lần phát sinh sau khi thực hiện nghĩa vụ khai và nộp thuế theo quy định.
+Nguồn định vị: Điều 91 khoản 3–4
+Citation: LAW04 – Điều 91 khoản 3–4
+
+[LAW04_C009] Điều 92 – Khoản 1-4 – Dịch vụ về hóa đơn điện tử
+Dịch vụ hóa đơn điện tử gồm giải pháp lập hóa đơn, truyền dữ liệu và các dịch vụ liên quan. Tổ chức cung cấp dịch vụ có thể đảm nhận giải pháp, nhận, truyền và lưu trữ dữ liệu; tiêu chí lựa chọn và cơ chế cung cấp dịch vụ được quy định chi tiết bởi cơ quan có thẩm quyền.
+Nguồn định vị: Điều 92
+Citation: LAW04 – Điều 92
+
+[LAW04_C010] Điều 93 – Khoản 1-3 – Cơ sở dữ liệu hóa đơn điện tử
+Cơ quan thuế xây dựng, quản lý, vận hành và bảo mật cơ sở dữ liệu hóa đơn điện tử; các đơn vị sử dụng hóa đơn không có mã phải cung cấp dữ liệu theo quy định và các cơ quan nhà nước liên quan có trách nhiệm kết nối, chia sẻ dữ liệu cần thiết.
+Nguồn định vị: Điều 93 khoản 1–3
+Citation: LAW04 – Điều 93 khoản 1–3
+
+[LAW04_C011] Điều 93 – Khoản 4-5 – Tra cứu hóa đơn điện tử phục vụ quản lý
+Khi kiểm tra hàng hóa lưu thông, cơ quan có thẩm quyền có thể tra cứu hóa đơn điện tử trên cổng thông tin của cơ quan thuế thay vì yêu cầu hóa đơn giấy. Bộ Tài chính quy định việc tra cứu, cung cấp và sử dụng thông tin hóa đơn, kể cả phương án khi không thể truy cập dữ liệu do sự cố.
+Nguồn định vị: Điều 93 khoản 4–5
+Citation: LAW04 – Điều 93 khoản 4–5
+
+[LAW04_C012] Điều 94 – Khoản 1-2 – Chứng từ điện tử trong quản lý thuế
+Chứng từ điện tử gồm chứng từ, biên lai ở dạng dữ liệu điện tử do cơ quan quản lý thuế hoặc tổ chức có trách nhiệm khấu trừ thuế cấp cho người nộp thuế khi thực hiện thủ tục thuế hoặc các khoản thu ngân sách; Chính phủ quy định chi tiết loại chứng từ và việc quản lý, sử dụng.
+Nguồn định vị: Điều 94
+Citation: LAW04 – Điều 94
