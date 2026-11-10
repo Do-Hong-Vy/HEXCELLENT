@@ -2,5 +2,9 @@
 # nếu git đổi CRLF → LF thì bản trên GitHub / Streamlit Cloud sẽ "lệch manifest" và nội dung chunk có thể khác bản gốc.
 data/** -text
 
+# File nộp bài phải giữ đúng định dạng template của BTC (UTF-8 BOM, xuống dòng CRLF) – nếu git đổi sang LF thì bản trên
+# GitHub / Streamlit Cloud sẽ "dòng tiêu đề khác template" và "có xuống dòng nằm trong một ô" dù bản trên máy vẫn đúng.
+outputs/submission.csv -text
+
 # file lệnh Windows luôn dùng CRLF
 *.bat text eol=crlf
