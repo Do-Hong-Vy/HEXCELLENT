@@ -3,6 +3,8 @@
 **Dự án:** PolicyAssist AI – CHRONOS-LEDGER  
 **Đơn vị thực hiện:** Đội HEXCELLENT  
 
+> **Cập nhật 12/11/2026 (dùng cho Vòng 3):** mọi số liệu trong tài liệu này lấy từ lần chạy `RUN-20261112-020732-826e17` (mã nguồn sha256 `826e17d8d910`); chi tiết ở `README.md` mục 1 và thư mục `outputs/`. Số liệu bản Vòng sơ khảo đã cũ, không dùng để trả lời. Chức năng nào đã chạy được, chức năng nào còn là định hướng: xem tài liệu sản phẩm, mục 4 và mục 9.
+
 ---
 
 ## MỤC LỤC
@@ -55,8 +57,8 @@ Hệ thống xử lý qua quy trình 9 bước hoàn toàn tất định (Determ
 **Trả lời:**  
 Giải pháp có 3 điểm nổi bật cốt lõi:
 1. **Giải quyết triệt để bài toán hiệu lực theo thời gian bằng cơ chế CHRONOS:** Không sử dụng biện pháp lọc cứng làm mất ngữ cảnh của các văn bản cũ, mà tự động chuyển hướng điều khoản tương ứng giữa các thế hệ thông tư thay thế nhau.
-2. **Kiểm toán nguồn trích dẫn khép kín (Citation Audit):** Đạt độ chính xác nguồn trích dẫn **1,000 tuyệt đối** trên tập dữ liệu mẫu của Ban Tổ chức và tỷ lệ câu trả lời không có căn cứ bằng **0,000**.
-3. **Hoạt động hoàn toàn nội bộ và tốc độ siêu nhanh:** Không phụ thuộc vào đường truyền mạng hay dịch vụ bên ngoài, thời gian xử lý chỉ **35 mili-giây** cho 1 câu hỏi (nhanh gấp gần 300 lần so với mức trần 10 giây của Ban Tổ chức).
+2. **Kiểm toán nguồn trích dẫn khép kín (Citation Audit):** 100% citation qua kiểm toán 4 điều kiện; độ chính xác nguồn trích dẫn **0,894** trên 26 câu có đáp án của Ban Tổ chức (26/26 câu có nguồn đầu tiên trùng đáp án mẫu) và tỷ lệ câu trả lời không có căn cứ bằng **0,000**.
+3. **Hoạt động hoàn toàn nội bộ và tốc độ siêu nhanh:** Không phụ thuộc vào đường truyền mạng hay dịch vụ bên ngoài, thời gian xử lý khoảng **18 mili-giây** cho 1 câu hỏi (chưa tới 0,3% mức trần 10 giây của Ban Tổ chức).
 
 ### 7. Chỉ số nào được sử dụng để đánh giá?
 **Trả lời:**  
@@ -74,17 +76,19 @@ Giải pháp có 3 điểm nổi bật cốt lõi:
 **Trả lời:**  
 - **Trên tập dữ liệu phát triển 30 câu có đáp án chuẩn của Ban Tổ chức (Development Set – Dev-30):**
   - Recall tại 5: đạt **0,936** (vượt mục tiêu ≥ 0,80 của đề thi).
-  - Độ chính xác nguồn trích dẫn: đạt **1,000 tuyệt đối** (26/26 câu trả lời đều trích dẫn chính xác 100% căn cứ của Ban Tổ chức).
+  - Độ phủ ý chính (Answer Accuracy): đạt **0,867** (thang 0 / 0,5 / 1 tự động: 0,923).
+  - Độ chính xác nguồn trích dẫn: đạt **0,894** (23,25/26); 26/26 câu có nguồn đầu tiên trùng đáp án của Ban Tổ chức. Điểm chưa đạt 1,000 vì một số câu dẫn thêm sổ tay/FAQ ngoài đáp án để trả lời đủ tình huống (vd. Q042 dẫn thêm FAQ04 để trả lời thẳng "Không").
   - Tỷ lệ câu trả lời không có căn cứ: bằng **0,000**.
   - Điểm F1 từ chối trả lời: đạt **1,000 tuyệt đối** (từ chối chuẩn xác 4/4 câu ngoài phạm vi).
   - Độ chính xác phiên bản: đạt **1,000 tuyệt đối** (4/4 câu).
-  - Thời gian xử lý trung bình: là **35 mili-giây/câu** (phân vị thứ 95 đạt 86 mili-giây).
-- **Trên tập công khai 90 câu (Public Set – Public-90):** Đưa ra quyết định đúng toàn bộ 90/90 câu, từ chối chính xác 14/14 câu ngoài phạm vi (từ câu Q077 đến câu Q090).
+  - Thời gian xử lý trung bình: là **18,5 mili-giây/câu** (phân vị thứ 95 đạt 49,6 mili-giây).
+- **Trên tập công khai 90 câu (Public Set – Public-90):** Đưa ra quyết định đúng toàn bộ 90/90 câu, từ chối chính xác 14/14 câu ngoài phạm vi (từ câu Q077 đến câu Q090); Recall@5 **0,917**, độ phủ ý chính **0,824**, độ chính xác nguồn trích dẫn **0,931**.
+- **Trên tập câu khó do đội viết (Stress-60):** quyết định đúng 60/60; Recall@5 **0,742** (chưa đạt mục tiêu 0,80 – giới hạn chính hiện nay), độ chính xác nguồn trích dẫn 0,848.
 - **Kiểm định thống kê so sánh với hệ thống cơ sở BM25 (Baseline – B0):** Kiểm định McNemar cho thấy độ vượt trội có ý nghĩa thống kê rất cao (xác suất sai số chỉ là p = 0,000122).
 
 ### 9. Kế hoạch triển khai sản phẩm khả dụng tối thiểu (Minimum Viable Product – MVP) trong 2 – 3 tuần như thế nào?
 **Trả lời:**  
-Sản phẩm khả dụng tối thiểu (MVP) của đội đã hoàn thiện và có thể triển khai ngay:
+Bản hiện tại đã chạy được trọn luồng hỏi đáp, xuất bài nộp và đánh giá trên Data Pack. Các bước dưới đây là **định hướng** để đưa vào môi trường doanh nghiệp, **chưa có trong mã nguồn nộp**:
 - **Tuần 1:** Đóng gói ứng dụng vào môi trường độc lập (Docker container), tích hợp cơ chế đăng nhập một lần (Single Sign-On – SSO) của doanh nghiệp và mở cổng giao diện lập trình ứng dụng đại diện truyền tải trạng thái (Representational State Transfer API – RESTful API).
 - **Tuần 2:** Kết nối dữ liệu vào kho lưu trữ tài liệu nội bộ và phần mềm hoạch định nguồn lực doanh nghiệp (Enterprise Resource Planning – ERP); thiết lập phân quyền người dùng theo nguyên tắc phân tách trách nhiệm (Segregation of Duties – SoD).
 - **Tuần 3:** Thử nghiệm thực tế với khoảng 20 chuyên viên kế toán và kiểm soát nội bộ; ghi nhận ý kiến phản hồi trực tiếp trên giao diện để bổ sung từ điển nghiệp vụ chuyên ngành qua vòng lặp phản hồi (Feedback Loop).
@@ -113,13 +117,13 @@ Theo đúng nguyên tắc: **Cải tiến là gì → Vì sao cần cải tiến
    - *Minh chứng:* Tăng Recall tại 5 từ 0,610 lên **0,725** (tăng thêm +11,5% so với hệ thống cơ sở B0).
 2. **Cơ chế xử lý phiên bản theo dòng thời gian CHRONOS:**
    - *Vì sao cần:* Văn bản thuế thay đổi liên tục, cách lọc cứng theo ngày sẽ làm mất các văn bản cũ khi người dùng hỏi so sánh các thời kỳ.
-   - *Minh chứng:* Nâng độ chính xác phiên bản từ 0,40 lên **0,70** (vượt trội so với phương pháp lọc cứng theo ngày chỉ đạt 0,60).
+   - *Minh chứng:* Nâng độ chính xác phiên bản từ 0,40 lên **0,90** (phương pháp lọc cứng theo ngày chỉ đạt 0,60).
 3. **Tái xếp hạng theo thẩm quyền và truy tìm nguồn gốc:**
    - *Vì sao cần:* Tránh việc hệ thống trích dẫn sổ tay hoặc câu hỏi thường gặp (FAQ) thay vì dẫn điều khoản luật chính thức.
-   - *Minh chứng:* Đưa độ chính xác nguồn trích dẫn từ 0,776 lên **0,961** (+18,5%) và đưa độ chính xác phiên bản đạt **1,00 tuyệt đối**.
+   - *Minh chứng:* Đưa độ chính xác nguồn trích dẫn từ 0,800 lên **0,956** (+0,156) và đưa độ chính xác phiên bản đạt **1,00** (ablation trên Public-90).
 4. **Hiệu chuẩn độ tin cậy:**
    - *Vì sao cần:* Cung cấp con số tin cậy thực chất để phân luồng câu hỏi thay vì những con số ước lượng ngẫu nhiên.
-   - *Minh chứng:* Sai số hiệu chuẩn kỳ vọng (Expected Calibration Error – ECE) giảm từ 0,488 xuống chỉ còn **0,066**.
+   - *Minh chứng:* Sai số hiệu chuẩn kỳ vọng (Expected Calibration Error – ECE) giảm từ 0,432 (baseline B0) xuống **0,062**.
 
 ### 3. Đóng góp thực tế ở hạng Vàng (Gold)
 1. **Kiểm toán nguồn trích dẫn khép kín (Citation Audit):** Kiểm tra tính hợp lệ của nguồn qua 4 điều kiện trước khi trả lời, đưa tỷ lệ câu trả lời không có căn cứ về mức **0,000 tuyệt đối**.
@@ -134,22 +138,22 @@ Theo đúng nguyên tắc: **Cải tiến là gì → Vì sao cần cải tiến
 ### 1. Về logic và tính đúng đắn của giải pháp:
 **Ban Giám khảo hỏi:** *"Tại sao đội không dùng mô hình ngôn ngữ lớn (Large Language Model – LLM) để câu trả lời sinh ra được trôi chảy, tự nhiên hơn mà lại dùng phương pháp trích xuất nguyên văn?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, trong lĩnh vực kế toán, tài chính và thuế, tính chính xác và khả năng chịu trách nhiệm pháp lý là ưu tiên số 1, văn phong trôi chảy chỉ là yếu tố thứ yếu. Nếu dùng mô hình sinh tự do, hệ thống chắc chắn tiềm ẩn nguy cơ ảo giác (Hallucination) và tự ý sửa đổi câu chữ của điều luật. Phương pháp trích xuất nguyên văn có kiểm toán của đội bảo đảm 100% thông tin đều có căn cứ chuẩn xác trong tài liệu, loại bỏ hoàn toàn rủi ro bịa đặt, đồng thời giúp hệ thống hoạt động hoàn toàn nội bộ với tốc độ cực nhanh là 35 mili-giây."*
+> *"Dạ thưa Ban Giám khảo, trong lĩnh vực kế toán, tài chính và thuế, tính chính xác và khả năng chịu trách nhiệm pháp lý là ưu tiên số 1, văn phong trôi chảy chỉ là yếu tố thứ yếu. Nếu dùng mô hình sinh tự do, hệ thống chắc chắn tiềm ẩn nguy cơ ảo giác (Hallucination) và tự ý sửa đổi câu chữ của điều luật. Phương pháp trích xuất nguyên văn có kiểm toán của đội bảo đảm 100% thông tin đều có căn cứ chuẩn xác trong tài liệu, loại bỏ hoàn toàn rủi ro bịa đặt, đồng thời giúp hệ thống hoạt động hoàn toàn nội bộ với tốc độ khoảng 18 mili-giây mỗi câu."*
 
 ### 2. Về cách tính chỉ số đánh giá:
-**Ban Giám khảo hỏi:** *"Tại sao độ chính xác câu trả lời trên tập mở rộng 60 câu (Ext-60 đạt 0,598) lại thấp hơn nhiều so với tập phát triển 30 câu (Dev-30 đạt 0,809)?"*
+**Ban Giám khảo hỏi:** *"Tại sao độ chính xác câu trả lời trên tập mở rộng 60 câu (Ext-60 đạt 0,801) lại thấp hơn tập 30 câu có đáp án của Ban Tổ chức (Dev-30 đạt 0,867)?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, đây là đặc thù của phương pháp chấm điểm tự động dựa trên độ bao phủ từ khóa. Trên tập phát triển 30 câu của Ban Tổ chức, đáp án mẫu là các câu hoàn chỉnh nên độ bao phủ từ khóa đạt trên 80%. Trên tập mở rộng, người gán nhãn chỉ ghi các cụm từ ý chính rất ngắn gọn, nên thuật toán so khớp tự động bị giảm điểm số. Tuy nhiên, khi kiểm tra thủ công từng câu theo hướng dẫn nghiệp vụ (Grading Notes), toàn bộ các câu trả lời do hệ thống trích xuất đều đáp ứng trọn vẹn yêu cầu nghiệp vụ."*
+> *"Dạ thưa Ban Giám khảo, đây là đặc thù của phương pháp chấm điểm tự động dựa trên độ bao phủ từ khóa. Trên tập phát triển 30 câu của Ban Tổ chức, đáp án mẫu là các câu hoàn chỉnh nên độ bao phủ từ khóa đạt trên 80%. Trên tập mở rộng, đáp án mẫu do đội viết thường tổng hợp ý từ nhiều nguồn, còn hệ thống chỉ trích nguyên văn tối đa 3 đoạn, nên một số câu đúng hướng nhưng chưa đủ ý. Đội đã chuẩn hóa đáp án mẫu về đúng câu chữ trong Data Pack để thước đo không bị lệch vì viết tắt; hiện 31/317 câu có nhãn có độ phủ ý chính dưới 0,70, và đội công khai danh sách này. Điểm chính thức vẫn cần chấm tay theo hướng dẫn nghiệp vụ (grading note)."*
 
 ### 3. Về dữ liệu và cách xử lý dữ liệu:
 **Ban Giám khảo hỏi:** *"Nếu người dùng gõ không dấu, viết tắt lộn xộn hoặc dùng từ khẩu ngữ, hệ thống xử lý thế nào để không tìm sai đoạn văn bản?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, đội có bước chuẩn hóa câu hỏi độc lập (Query Normalization): tự động khôi phục dấu tiếng Việt theo ngữ cảnh, giải mã từ viết tắt dựa trên các từ đi kèm (ví dụ: 'gửi HĐ' là hóa đơn, nhưng 'ký HĐ' là hợp đồng), và loại bỏ toàn bộ các lời đệm khẩu ngữ trước khi đưa vào tìm kiếm. Thực tế trên tập kiểm thử 52 câu diễn đạt khẩu ngữ và viết tắt (Paraphrase-52), hệ thống vẫn đạt 100% quyết định đúng và độ bao phủ tìm kiếm đạt 92,9%."*
+> *"Dạ thưa Ban Giám khảo, đội có bước chuẩn hóa câu hỏi độc lập (Query Normalization): tự động khôi phục dấu tiếng Việt theo ngữ cảnh, giải mã từ viết tắt dựa trên các từ đi kèm (ví dụ: 'gửi HĐ' là hóa đơn, nhưng 'ký HĐ' là hợp đồng), và loại bỏ toàn bộ các lời đệm khẩu ngữ trước khi đưa vào tìm kiếm. Thực tế trên tập kiểm thử 52 câu diễn đạt khẩu ngữ và viết tắt (Paraphrase-52), hệ thống vẫn đạt 100% quyết định đúng, Recall@5 đạt 0,901 và nguồn trích dẫn đầu tiên đúng 92,9%."*
 
 ### 4. Về tính khả thi của sản phẩm khả dụng tối thiểu:
 **Ban Giám khảo hỏi:** *"Sản phẩm này đã có thể đưa cho người dùng thật sử dụng được chưa và đòi hỏi máy chủ thế nào?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, sản phẩm đã hoàn thiện 100% và sẵn sàng đưa vào vận hành ngay hôm nay. Ứng dụng có giao diện web trực quan, cho phép tra cứu lịch sử, tìm kiếm tức thì theo từng ký tự gõ và mở xem toàn văn văn bản gốc. Về hạ tầng, hệ thống hoàn toàn không cần bộ xử lý đồ họa chuyên dụng (Graphics Processing Unit – GPU) đắt tiền, chạy mượt mà trên bất kỳ máy tính văn phòng tiêu chuẩn nào với bộ nhớ truy xuất ngẫu nhiên (Random Access Memory – RAM) dưới 500 MB. Toàn bộ 90 câu hỏi được xử lý xong chỉ trong 3,5 giây."*
+> *"Dạ thưa Ban Giám khảo, bản hiện tại chạy được trọn luồng trên Data Pack với giao diện web đầy đủ; để dùng thật trong doanh nghiệp cần thêm các bước định hướng ở câu 9 (đăng nhập, kết nối kho tài liệu, thử với người dùng thật). Ứng dụng có giao diện web trực quan, cho phép tra cứu lịch sử, tìm kiếm tức thì theo từng ký tự gõ và mở xem toàn văn văn bản gốc. Về hạ tầng, hệ thống hoàn toàn không cần bộ xử lý đồ họa chuyên dụng (Graphics Processing Unit – GPU) đắt tiền, chạy trên máy tính văn phòng thông thường. Phần xử lý 90 câu hỏi mất khoảng 2 giây (chưa kể thời gian nạp chỉ mục lúc khởi động)."*
 
 ### 5. Về khả năng tái lập kết quả:
 **Ban Giám khảo hỏi:** *"Làm sao Ban Giám khảo biết những con số tuyệt đối này không phải do đội tự vẽ ra hoặc cài đặt cố định trong mã nguồn?"*
@@ -159,12 +163,12 @@ Theo đúng nguyên tắc: **Cải tiến là gì → Vì sao cần cải tiến
 ### 6. Về các trường hợp ngoại lệ:
 **Ban Giám khảo hỏi:** *"Hệ thống xử lý thế nào nếu người dùng cố tình đưa ra tiền đề sai hoặc hỏi về một văn bản chưa có hiệu lực?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, đội đã kiểm thử trên 60 kịch bản chịu tải phức tạp (Stress-60). Với câu hỏi chứa tiền đề sai (False Premise), hệ thống trích xuất đúng căn cứ thực tế và chỉ rõ điều kiện áp dụng đúng chứ không hùa theo tiền đề sai của người hỏi. Với văn bản chưa có hiệu lực tại ngày hỏi, cổng kiểm tra số 4 sẽ ngăn chặn và chuyển hướng sang văn bản tiền nhiệm hoặc thông báo rõ văn bản chưa đến thời điểm áp dụng."*
+> *"Dạ thưa Ban Giám khảo, đội đã kiểm thử trên 60 kịch bản chịu tải phức tạp (Stress-60). Với câu hỏi chứa tiền đề sai (False Premise), hệ thống trích xuất đúng căn cứ thực tế chứ không hùa theo người hỏi; riêng dạng đồng nhất hai mã trạng thái (ví dụ 'HOLD tức là đã bị REJECT'), câu trả lời mở đầu bằng 'Tiền đề chưa đúng – HOLD không có nghĩa là REJECT' kèm định nghĩa nguyên văn của HOLD. Với văn bản chưa có hiệu lực tại ngày hỏi, cổng kiểm tra số 4 sẽ ngăn chặn và chuyển hướng sang văn bản tiền nhiệm hoặc thông báo rõ văn bản chưa đến thời điểm áp dụng."*
 
 ### 7. Về rủi ro và giới hạn của giải pháp:
 **Ban Giám khảo hỏi:** *"Hạn chế kỹ thuật lớn nhất hiện nay của hệ thống là gì?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, hạn chế lớn nhất hiện nay là hệ thống tập trung vào việc so khớp từ vựng nghiệp vụ (Lexical Matching) kết hợp với đồ thị siêu dữ liệu, chưa tích hợp mô hình tìm kiếm ngữ nghĩa chuyên sâu (Dense Semantic Search). Do đó, nếu người dùng sử dụng những từ đồng nghĩa hoàn toàn xa lạ nằm ngoài từ điển nghiệp vụ, hệ thống có thể thận trọng chuyển sang trạng thái từ chối trả lời. Ở giai đoạn chung kết, đội sẽ tích hợp thêm một tầng tìm kiếm ngữ nghĩa gọn nhẹ để bổ trợ cho việc tìm kiếm từ vựng."*
+> *"Dạ thưa Ban Giám khảo, hạn chế lớn nhất hiện nay là hệ thống tập trung vào việc so khớp từ vựng nghiệp vụ (Lexical Matching) kết hợp với đồ thị siêu dữ liệu, chưa tích hợp mô hình tìm kiếm ngữ nghĩa chuyên sâu (Dense Semantic Search). Do đó, nếu người dùng sử dụng những từ đồng nghĩa hoàn toàn xa lạ nằm ngoài từ điển nghiệp vụ, hệ thống có thể thận trọng chuyển sang trạng thái từ chối trả lời. Hướng phát triển (định hướng, chưa có trong mã nguồn nộp) là thêm một tầng tìm kiếm ngữ nghĩa chạy cục bộ để bổ trợ cho tìm kiếm từ vựng, giữ nguyên các cổng và bước kiểm toán nguồn trích dẫn."*
 
 ### 8. Về mức độ đóng góp thực sự của các nội dung nâng cao:
 **Ban Giám khảo hỏi:** *"Nếu tắt bỏ thành phần kiểm toán nguồn trích dẫn và xử lý phiên bản, hệ thống sẽ ra sao?"*
@@ -174,7 +178,7 @@ Theo đúng nguyên tắc: **Cải tiến là gì → Vì sao cần cải tiến
 ### 9. Về khả năng triển khai thực tế:
 **Ban Giám khảo hỏi:** *"Khi có một thông tư hoặc quy định mới được ban hành, việc cập nhật vào hệ thống mất bao lâu?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, không cần sửa đổi bất kỳ một dòng mã nguồn nào. Quy trình cập nhật hoàn toàn tự động: quản trị viên chỉ cần đưa tệp văn bản mới vào thư mục dữ liệu và chạy lệnh xác thực toàn vẹn. Hệ thống sẽ tự động cập nhật đồ thị thay thế và sẵn sàng tra cứu ngay lập tức chỉ trong vài giây."*
+> *"Dạ thưa Ban Giám khảo, không cần sửa mã nguồn: quản trị viên thêm văn bản mới vào dữ liệu, khai báo quan hệ thay thế trong metadata, tạo lại bảng kiểm tra toàn vẹn (lệnh `manifest`) và chạy lại bộ kiểm thử; hệ thống tự dựng lại đồ thị thay thế từ metadata khi khởi động. Việc tự động hóa trọn quy trình cập nhật này là hướng phát triển, chưa có trong bản nộp."*
 
 ---
 
@@ -201,7 +205,8 @@ Recall tại 5 trung bình = (Tổng điểm Recall của tất cả các câu) 
 - **Quy tắc:** Chỉ tính trên các câu có đáp án (26 câu trong tập phát triển 30 câu: Dev-30). **Nếu câu có đáp án mà hệ thống từ chối trả lời nhầm thì bị tính 0 điểm.**
 - **Kết quả thực tế:**
   - Tập phát triển 30 câu (Dev-30): đạt **0,936** (tương đương 24,33 / 26 điểm, tức 93,6%).
-  - Tập công khai 90 câu (Public-90): đạt **0,844** (64,17 / 76 điểm).
+  - Tập công khai 90 câu (Public-90): đạt **0,917** (69,67 / 76 điểm).
+  - Tập câu khó do đội viết (Stress-60): đạt **0,742** – chưa đạt mục tiêu.
 - **Chỉ số phụ:** 
   - Nghịch đảo thứ hạng trung bình trong 5 kết quả đầu (Mean Reciprocal Rank at 5 – MRR@5): đạt **0,962**.
   - Độ bao phủ theo tên văn bản (Document-level Recall): đạt **0,962**.
@@ -224,7 +229,7 @@ Recall tại 5 trung bình = (Tổng điểm Recall của tất cả các câu) 
 - **Đạt 1,0 điểm:** Độ bao phủ ý chính **≥ 0,70** (từ 70% trở lên – đủ ý hoàn chỉnh).
 - **Đạt 0,5 điểm:** Độ bao phủ ý chính **từ 0,40 đến dưới 0,70** (trả lời được một phần ý).
 - **Đạt 0,0 điểm:** Độ bao phủ ý chính **< 0,40** (thiếu ý nghiêm trọng hoặc từ chối nhầm).
-- **Kết quả thực tế:** Tập phát triển 30 câu (Dev-30) đạt độ bao phủ trung bình **0,809** (80,9%); Thang điểm tự động đạt **0,865** (22,5 / 26 câu đạt điểm tối đa).
+- **Kết quả thực tế:** Tập phát triển 30 câu (Dev-30) đạt độ bao phủ trung bình **0,867** (86,7%); Thang điểm tự động đạt **0,923** (24 / 26 điểm). Public-90: 0,824; Stress-60: 0,834.
 
 ---
 
@@ -241,8 +246,8 @@ Recall tại 5 trung bình = (Tổng điểm Recall của tất cả các câu) 
 ```
 - **Quy tắc phạt:** Nếu câu hỏi chỉ cần 1 điều khoản mà hệ thống dẫn 3 điều khoản (1 đúng, 2 thừa) thì mẫu số là 3 và điểm số bị giảm xuống 1/3 = 0,33 ngay lập tức.
 - **Kết quả thực tế:**
-  - Tập phát triển 30 câu (Dev-30): đạt **1,000 tuyệt đối** (26/26 câu trả lời đều đúng 100% nguồn của Ban Tổ chức, không thừa, không thiếu).
-  - Tập công khai 90 câu (Public-90): đạt **0,963** (96,3%).
+  - Tập phát triển 30 câu (Dev-30): đạt **0,894** (23,25 / 26); 26/26 câu có nguồn đầu tiên trùng đáp án của Ban Tổ chức. Điểm bị trừ ở 7 câu dẫn thêm sổ tay/FAQ hoặc điều khoản bổ trợ ngoài đáp án (Q025, Q034, Q041, Q042, Q044, Q049, Q055).
+  - Tập công khai 90 câu (Public-90): đạt **0,931** (93,1%).
 - **Tiêu chuẩn 4 điều kiện kiểm toán nguồn trích dẫn:**
   1. Điều khoản có trong bảng ánh xạ nguồn (Citation Map).
   2. Nguồn ứng với đoạn trích thực tế nằm trong Top tìm kiếm.
@@ -322,9 +327,9 @@ Tỷ lệ không có căn cứ = ───────────────�
 - **Thời gian trung bình:** Tổng thời gian xử lý tất cả các câu chia cho tổng số câu hỏi.
 - **Phân vị thứ 95 (95th Percentile Latency – p95):** Mức thời gian đảm bảo **95% số câu hỏi** được xử lý nhanh hơn mức này.
 - **Kết quả thực tế:**
-  - **Thời gian trung bình:** **33 – 35 mili-giây/câu** (chỉ 0,035 giây).
-  - **Phân vị thứ 95 (p95):** **81 – 102 mili-giây/câu**.  
-  *(Nhanh gấp gần 300 lần giới hạn 10.000 mili-giây của Ban Tổ chức).*
+  - **Thời gian trung bình:** **18,5 – 21,4 mili-giây/câu** tùy tập (lần chạy cuối).
+  - **Phân vị thứ 95 (p95):** **42,1 – 49,6 mili-giây/câu**.  
+  *(Chưa tới 0,3% giới hạn 10.000 mili-giây của Ban Tổ chức; số đo phụ thuộc máy và tải lúc đo).*
 
 ---
 
@@ -345,18 +350,18 @@ Tỷ lệ không có căn cứ = ───────────────�
 
 | Chỉ số đánh giá cốt lõi (KPI) | Kết quả của đội | Yêu cầu đề thi / Mục tiêu | Ý nghĩa thực tế |
 |---|:---:|:---:|---|
-| **Độ chính xác nguồn trích dẫn (Citation Accuracy)** | **1,000 tuyệt đối** (26/26 câu) | ≥ 0,80 | 100% trích dẫn đúng chuẩn, không thừa nguồn |
+| **Độ chính xác nguồn trích dẫn (Citation Accuracy)** | **0,894** (Dev-30) / **0,931** (Public-90) | ≥ 0,80 | 100% citation qua kiểm toán 4 điều kiện; điểm bị trừ khi dẫn thêm sổ tay/FAQ ngoài đáp án |
 | **Tỷ lệ trả lời không căn cứ (Unsupported Rate)** | **0,000 tuyệt đối** (0/26 câu) | ≤ 0,10 | Tuyệt đối không ảo giác hay bịa đặt căn cứ |
 | **Chất lượng từ chối trả lời (F1-Score)** | **1,000 tuyệt đối** (14/14 câu) | ≥ 0,90 | Nhận diện và từ chối an toàn toàn bộ câu hỏi ngoài dữ liệu |
 | **Độ chính xác phiên bản (Versioning Accuracy)** | **1,000 tuyệt đối** (10/10 câu) | ≥ 0,90 | Áp dụng chuẩn xác thông tư theo từng mốc thời gian |
-| **Độ bao phủ trong 5 kết quả đầu (Recall@5)** | **0,936** (tập Dev-30) / **0,844** (Public-90) | ≥ 0,80 | Đoạn trích đáp án luôn nằm trong nhóm tìm kiếm đầu tiên |
-| **Thời gian phản hồi trung bình (Latency)** | **35 mili-giây** (p95: 86 mili-giây) | ≤ 10.000 mili-giây | Tốc độ xử lý siêu nhanh, chỉ mất 0,035 giây |
+| **Độ bao phủ trong 5 kết quả đầu (Recall@5)** | **0,936** (tập Dev-30) / **0,917** (Public-90) / 0,742 (Stress-60) | ≥ 0,80 | Đạt trên tập của Ban Tổ chức; chưa đạt trên câu khó nhiều bước |
+| **Thời gian phản hồi trung bình (Latency)** | **18,5 mili-giây** (p95: 49,6 mili-giây) | ≤ 10.000 mili-giây | Chưa tới 0,03 giây mỗi câu |
 | **Kiểm tra tệp nộp bài (`submission.csv`)** | **23/23 bài kiểm tra đạt (0 lỗi)** | Khớp 100% định dạng Schema | Máy chấm tự động của Ban Tổ chức đọc bài trơn tru |
 
 ### Ba câu trả lời mẫu 20 giây khi Ban Giám khảo hỏi xoáy:
 1. **Khi hỏi về mẫu số của Recall tại 5 (Recall@5):**  
    *"Dạ thưa Ban Giám khảo, mẫu số là Tổng số đoạn trích đáp án chuẩn của câu hỏi đó trên tập dữ liệu phát triển (Dev-30). Nếu câu nào hệ thống từ chối trả lời nhầm, câu đó bị tính 0 điểm ngay lập tức."*
 2. **Khi hỏi về việc phạt dẫn thừa nguồn trong Citation Accuracy:**  
-   *"Dạ thưa Ban Giám khảo, hệ thống phạt rất nặng việc dẫn thừa. Mẫu số là Tổng số nguồn mà hệ thống đã trích dẫn trong câu trả lời. Nếu dẫn thừa nguồn không liên quan, điểm số bị trừ ngay. Đội đạt 1,000 tuyệt đối nghĩa là không thừa và không thiếu bất kỳ nguồn nào."*
+   *"Dạ thưa Ban Giám khảo, hệ thống phạt rất nặng việc dẫn thừa. Mẫu số là Tổng số nguồn mà hệ thống đã trích dẫn trong câu trả lời. Nếu dẫn thừa nguồn không liên quan, điểm số bị trừ ngay. Đội đạt 0,894 trên Dev-30: cả 26/26 câu có nguồn đầu tiên đúng đáp án; phần bị trừ là các câu dẫn thêm sổ tay/FAQ để trả lời đủ tình huống, ví dụ Q042 dẫn thêm FAQ04 – câu duy nhất nói rõ không được sửa trực tiếp hóa đơn đã phát hành."*
 3. **Khi hỏi về kiểm soát ảo giác (Unsupported Answer Rate):**  
    *"Dạ thưa Ban Giám khảo, đội có bộ kiểm chứng độc lập. Một câu bị coi là không có căn cứ nếu câu ngoài phạm vi (Out of Scope – OOS) mà cố trả lời, hoặc câu trả lời có dưới 90% từ ngữ nằm trong đoạn trích dẫn. Đội kiểm soát tỷ lệ này bằng 0,000 tuyệt đối."*
