@@ -1,10 +1,10 @@
 {
-  "run_id": "RUN-20261110-113148-e54bc1",
-  "thời điểm": "2026-11-10T11:32:36",
+  "run_id": "RUN-20261112-015210-826e17",
+  "thời điểm": "2026-11-12T01:53:18",
   "phiên bản": "V1.0",
   "mã nguồn": {
     "file": "policyassist.py",
-    "sha256_12": "e54bc1616a48"
+    "sha256_12": "826e17d8d910"
   },
   "data_pack": {
     "phiên bản": "v1-snapshot-2026-10-17",
@@ -19,12 +19,12 @@
     },
     "Ext-60": {
       "file": "data\\eval\\ext60_labels.csv",
-      "sha256_12": "7113b994dbe8",
+      "sha256_12": "1fa35b453417",
       "số câu": 60
     },
     "Stress-60": {
       "file": "data\\eval\\stress60_labels.csv",
-      "sha256_12": "75c0c3c64686",
+      "sha256_12": "6fd1a545cf26",
       "số câu": 60
     },
     "Probe-25": {
@@ -87,6 +87,10 @@
     "default_scope_fallback": true,
     "hard_date_filter": false,
     "log_retention_days": 30,
+    "use_decisive": true,
+    "decisive_pcov": 0.7,
+    "decisive_qcov": 0.35,
+    "decisive_pool": 10,
     "use_gate": true,
     "use_audit": true
   },

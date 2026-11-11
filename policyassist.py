@@ -275,12 +275,18 @@ def parse_date(value) -> date | None:
         m = DATE_RE.search(s)
         if m:
             d, mth, y = map(int, m.groups())
-            return date(y, mth, d)
+            try:
+                return date(y, mth, d)
+            except ValueError:                  # ngày không tồn tại ("31/02/2025", "99/99/9999") → coi như không có ngày
+                return None
     return None
 
 
 PII_PATTERNS = [
     (re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "<email>"),
+    # mã số thuế 10 số bắt đầu bằng 0 trùng dạng số điện thoại → nhận theo ngữ cảnh ("mã số thuế …", "MST …") và hậu tố chi nhánh
+    (re.compile(r"((?:mã số thuế|mst)\D{0,20})\d{10}(?:-\d{3})?(?![\d/])", re.I), r"\1<mã số thuế>"),
+    (re.compile(r"(?<![\d/])\d{10}-\d{3}(?![\d/])"), "<mã số thuế>"),
     (re.compile(r"(?<!\d)(?:\+?84|0)\d{9,10}(?!\d)"), "<số điện thoại>"),
     (re.compile(r"(?<![\d/])\d{12}(?![\d/])"), "<số định danh>"),
     (re.compile(r"(?<![\d/])\d{10}(?:-\d{3})?(?![\d/])"), "<mã số thuế>"),
@@ -694,6 +700,10 @@ class Config:
                                         # → quy trình nội bộ làm căn cứ chính (README mục 2: ưu tiên khi "cùng liên quan")
     hard_date_filter: bool = False      # chỉ cho ablation B2′: bỏ chunk không còn hiệu lực trước khi xếp hạng (pipeline tham khảo)
     log_retention_days: int = 30        # audit log và phản hồi giữ tối đa 30 ngày (proposal mục 8.3); 0 = không xoá
+    use_decisive: bool = True           # câu hỏi có/không: kèm câu căn cứ nói rõ được/không được làm điều được hỏi
+    decisive_pcov: float = 0.7          # câu quyết định phải phủ ≥ 70% (IDF) vị ngữ được hỏi …
+    decisive_qcov: float = 0.35         # … và ≥ 35% (IDF) từ khóa cả câu hỏi (đúng tình huống, không chỉ đúng động từ)
+    decisive_pool: int = 10             # chỉ xét 10 ứng viên xếp đầu sau P4
     use_gate: bool = True
     use_audit: bool = True
     write_log: bool = True
@@ -823,6 +833,30 @@ CURRENT_RE = re.compile(r"hiện hành|hiện nay|hiện tại|bây giờ|hôm n
 DATE_IN_Q_RE = re.compile(r"(trước|từ|sau|tại|ngày)\s*(?:ngày\s*)?(\d{1,2}/\d{1,2}/\d{4})")
 # ---- P3/P4 cấu trúc văn bản ----
 EFFECT_HEAD_RE = re.compile(r"hiệu lực|(?:điều khoản|quy định) chuyển tiếp|thay thế (?:thông tư|nghị định|luật|văn bản)|phạm vi điều chỉnh")
+# câu hỏi phiên bản hỏi về CHÍNH các nguồn (nguồn nào được ưu tiên, văn bản này có vai trò gì so với văn bản kia)
+SOURCE_ASK_RE = re.compile(r"(?:nguồn|văn bản|thông tư|nghị định|luật)\b[^?.;]{0,40}\bnào\b|\bvai trò\b")
+# tiền đề đồng nhất hai mã trạng thái ("HOLD tức là đã bị REJECT", "PENDING nghĩa là APPROVED") → kiểm tra tiền đề trước
+PREMISE_RE = re.compile(r"\b([A-Z][A-Z_]{2,})\b[^?.;]{0,25}?\b(?:tức là|nghĩa là|có nghĩa là|đồng nghĩa(?: với)?|chính là|cũng là|"
+                        r"coi như|xem như)\b[^?.;]{0,25}?\b([A-Z][A-Z_]{2,})\b")
+def abbr_doc(number: str) -> str:
+    """Số hiệu văn bản → dạng viết tắt quen dùng: 123/2020/NĐ-CP → "NĐ 123/2020, "; 78/2021/TT-BTC → "TT 78/2021, "."""
+    m = re.match(r"(\d+)/(\d{4})/(NĐ|TT)-", number)
+    return f"{m.group(3)} {m.group(1)}/{m.group(2)}, " if m else ""
+
+
+PRIORITY_TEXT_RE = re.compile(r"pháp luật đang có hiệu lực\s*→")
+ROLE_HEAD_RE = re.compile(r"phân công trách nhiệm|vai trò và trách nhiệm|ma trận quyền|ma trận phân quyền")
+CODE_GLOSS = [("URGENT", "khẩn cấp")]      # mã trong văn bản ↔ cách gọi tiếng Việt trong câu hỏi
+NUM_RE = re.compile(r"\d+(?:[.,]\d+)*")
+EXAMPLE_ROW_RE = re.compile(r"tình huống|ví dụ|kiểm thử")
+AMOUNT_RE = re.compile(r"\d+(?:[.,]\d+)*\s*(?:triệu|tỷ|nghìn|đồng)")
+LIMIT_Q_RE = re.compile(r"phê duyệt|cấp cao|hạn mức|ngưỡng|vượt")
+NUM_THRESHOLD_RE = re.compile(r"\b(?:trên|vượt quá|không vượt quá|dưới|tối đa|tối thiểu|từ|quá)\s+\d")
+ACCESS_HEAD_RE = re.compile(r"phân quyền|quyền truy cập|kiểm soát quyền")
+SOURCE_LIST_Q_RE = re.compile(r"(?:dẫn|kết hợp|dựa vào|căn cứ vào)\s+(?:nguồn|tài liệu|văn bản)[^?]{0,60}\bnào\b|"
+                              r"(?:nguồn|tài liệu)[^?]{0,40}\bnào\b[^?]{0,30}theo thứ tự|theo thứ tự nào|"
+                              r"(?:kết hợp|dẫn|dựa vào)[^?]{0,60}(?:nguồn|tài liệu|văn bản)(?:\s+(?:nội bộ|pháp luật))?\s+nào\b")
+PCT_RE = re.compile(r"\d+(?:[.,]\d+)?\s*%")
 DOC_EFFECT_RE = re.compile(r"hiệu lực|(?:điều khoản|quy định) chuyển tiếp|thay thế (?:thông tư|nghị định|luật|văn bản)")
 SCOPE_HEAD_RE = re.compile(r"phạm vi")
 NAV_HEAD_RE = re.compile(r"căn cứ tham chiếu|tài liệu tham chiếu|^mục đích$|^phạm vi (?:và đối tượng )?áp dụng$")
@@ -845,6 +879,12 @@ COMPARE_RE = re.compile(r"khác (?:cơ bản |nhau )?(?:thế nào|ra sao|gì|nh
 # P6 – dạng câu hỏi quyết định cách nêu KẾT LUẬN (luôn là câu nguyên văn của căn cứ đã dẫn, không sinh tự do)
 YESNO_Q_RE = re.compile(r"\bcó\s+(?:(?P<modal>được phép|được|nên|cần|phải|thể|bắt buộc)\s+)?(?P<pred>[^?;,.]+?)\s+"
                         r"(?:hay\s+)?không\s*(?=[?,.;]|$|(?:và|hay|rồi|thì)\b)")      # "không" kết thúc vế hỏi (≠ "không có mã")
+# câu hỏi có/không đặt ở CUỐI câu: "Kế toán xóa trực tiếp hóa đơn đã phát hành có được không?", "… được chứ?"
+YESNO_TAIL_RE = re.compile(r"(?P<pred>[^?;.]+?)[,\s]+(?:thì\s+)?(?:có\s+)?(?:được phép|được)\s+(?:hay\s+)?(?:không|chứ|chưa)\s*(?=[?.;]|$)")
+# động từ hành động của nghiệp vụ – dùng để tìm động từ chính khi chủ ngữ đứng trước ("Kế toán xóa …")
+ACTION_VERBS = ("sửa", "xóa", "hủy", "tiêu", "lập", "xuất", "ký", "duyệt", "phê", "thanh", "chi", "tạm", "nộp", "khai", "dùng",
+                "sử", "lưu", "in", "gửi", "thay", "đổi", "chỉnh", "điều", "tách", "chia", "nhập", "hoàn", "khôi", "phục",
+                "cấp", "ủy", "mở", "khóa", "chuyển", "ghi", "truy", "xem", "tải", "sao", "bỏ", "nhận", "trả", "mua", "bán")
 QUANTITY_Q_RE = re.compile(r"\bbao nhiêu\b|\bmấy\b|\bbao lâu\b|\btỷ lệ\b|\bphần trăm\b|\btối (?:đa|thiểu)\b|\bkhông vượt quá\b")
 WHY_Q_RE = re.compile(r"\bvì sao\b|\btại sao\b|\blý do\b|\bđể làm gì\b|\bsao\b[^?]{0,25}không cho\b")
 SITUATION_Q_RE = re.compile(r"xử lý (?:thế nào|ra sao|như thế nào|sao)|trạng thái (?:\S+\s+){0,3}?(?:nào|gì)|nên là gì|nên làm gì|"
@@ -858,6 +898,9 @@ NEG_CUE_RE = re.compile(r"\b(?:không|chưa|cấm)\b(?!\s+(?:chỉ|những|riên
 POS_CUE_RE = re.compile(r"\b(?:được|có thể|phải|cần|nên|bắt buộc|có quyền)\b")
 ONLY_CUE_RE = re.compile(r"\bchỉ\b")
 CLAUSE_BREAK_RE = re.compile(r"[.;:!?,]|\b(?:nhưng|tuy nhiên|nếu|khi|thì|trừ|ngoại trừ|mà)\b")
+# câu quy định có điều kiện riêng / ngoại lệ / ngưỡng số: đúng hay sai còn tùy tình huống → không tự quyết định có/không
+CONDITIONAL_UNIT_RE = re.compile(r"\b(?:nếu|khi|dù|mặc dù|kể cả|trường hợp|trừ|ngoại trừ|đang ở trạng thái|chỉ được|"
+                                 r"trên|dưới|vượt|quá|từ|tối đa|tối thiểu)\b|\d")
 REASON_RE = re.compile(r"\b(?:nhằm|bảo đảm|đảm bảo|tránh|phòng ngừa|vì|mục đích|xung đột lợi ích|phân tách)\b")
 RESULT_HEAD_RE = re.compile(r"kết quả|xử lý|mong đợi|tuyến|hướng")
 REFERENCE_TABLE_RE = re.compile(r"thuật ngữ|vai trò|ma trận|phân công|căn cứ tham chiếu|tài liệu tham chiếu|bảng tra nhanh")
@@ -881,7 +924,9 @@ EXPANSIONS = {
     "nhóm thông tin": "nhóm kiểm tra nội dung kiểm tra hồ sơ checklist kiểm tra nhanh điểm kiểm tra",
     "thông thường": "phân quyền truy cập vai trò archived",
     "ngoài ngân sách": "chi ngoài ngân sách nguồn bù ma trận theo loại chi",
-    "chưa nhận được": "delivery log gửi lại không lập hóa đơn mới",
+    "(?:chưa|không) nhận được": "delivery log gửi lại không lập hóa đơn mới",
+    # "lưu dưới dạng điện tử", "bằng hình thức điện tử": văn bản viết "trên phương tiện điện tử" (LAW01, LAW02, LAW04…)
+    "(?:dạng|hình thức) điện tử": "phương tiện điện tử",
 }
 # viết lại câu hỏi (thay thế): từ viết tắt và từ đồng nghĩa phổ biến → đúng từ vựng của Data Pack
 REWRITES = [
@@ -898,6 +943,9 @@ REWRITES = [
     (r"(?<!điều )\bchỉnh (?:sửa )?(số tiền|thuế suất|nội dung|thông tin|hóa đơn)", r"sửa \1"),     # khẩu ngữ "chỉnh" = sửa
     (r"cất (?:giữ|trữ)", "lưu trữ"), (r"(?:thế nào|ra sao) (?:thì |mới )?(?:là )?(?:đúng|hợp) (?:quy định|luật)", "thế nào theo quy định"), (r"rà soát", "kiểm tra"), (r"không mã", "không có mã"), (r"có mã cơ quan thuế", "có mã của cơ quan thuế"),
     (r"hình thức (?=hóa đơn|cơ bản|chính)", "loại hóa đơn có mã không có mã "), (r"mâu thuẫn", "xung đột"),
+    (r"\b(sửa|xóa|chỉnh|đổi|thay|ghi đè|nhập|duyệt|thanh toán) thẳng\b", r"\1 trực tiếp"),      # khẩu ngữ "thẳng" = trực tiếp
+    (r"\blàm( lại)? (?:một |cái )?hóa đơn\b", r"lập\1 hóa đơn"),                                    # khẩu ngữ "làm hóa đơn" = lập hóa đơn
+    (r"\b(lập|xuất|phát hành)( lại)? (?:một |cái )?hóa đơn khác\b", r"\1\2 hóa đơn mới"),             # "hóa đơn khác" = hóa đơn mới
 ]
 REWRITES_RE = [(re.compile(p, 0 if p == r"\bIT\b" else re.I), r) for p, r in REWRITES]   # "it" tiếng Anh ≠ IT
 SYNONYM_RE = [(rx, r) for (p, r), (rx, _) in zip(REWRITES, REWRITES_RE) if not re.fullmatch(r"\\b[A-ZĐ]{2,}\\b.*", p)]
@@ -1005,6 +1053,7 @@ FILLER_RE = re.compile(
     r"tại thời điểm (?:đó|này)|có vai trò gì|tương ứng|"
     r"hôm nay|hôm qua|ngày mai|bây giờ|hiện giờ|lúc này|năm (?:nay|ngoái|rồi|tới)|tháng (?:này|rồi|tới)|"
     r"hãy viết (?:ra )?(?:các |những )?bước|viết (?:ra )?các bước|"
+    r"(?:(?:dưới|ở|theo|bằng) )?(?:dạng|hình thức)(?= điện tử)|"          # "lưu dưới dạng điện tử": từ nối chỉ hình thức
     r"rồi|vậy|nhé|nha|nhỉ|ạ|ơi|chứ|hả|đấy|ấy|lỡ)\b")
 # mốc ngầm: "năm ngoái", "tháng 3 năm ngoái", "tháng trước", "hôm qua"… – không phải khoảng thời gian ("05 năm trước khi")
 REL_DATE_RE = re.compile(r"(?:tháng\s+(\d{1,2})\s+)?năm\s+(nay|ngoái|trước|rồi|sau|tới)\b|tháng\s+(này|trước|rồi|sau|tới)\b|"
@@ -1096,6 +1145,12 @@ class PolicyAssist:
         self.self_scoped = {i for i, c in enumerate(C) if c["source_type"] != "LEGAL" and re.search(
             rf"khác(?: biệt)? giữa (?:{c['document_id'].lower()}|tài liệu này)\b", norm(c["chunk_text"]))}
         self.titles = " | ".join(norm(m["title"]) for m in dp.doc.values())
+        # bộ phận (tên viết tắt) → các đoạn phân công trách nhiệm / ma trận quyền có nhóm hoặc dòng của bộ phận đó
+        self.dept: dict[str, list[int]] = {}
+        for i, c in enumerate(C):
+            if ROLE_HEAD_RE.search(norm(c["heading"])):
+                for nm in self.role_names(c):
+                    self.dept.setdefault(nm, []).append(i)
         self.affirmed = [set(tokenize(c["heading"] + " " + NEGATED_SPAN_RE.sub(" ", norm(c["chunk_text"])))) for c in C]
         # bảng: độ phủ tính theo DÒNG tốt nhất (kèm tiêu đề bảng + tiêu đề cột), không theo cả bảng
         self.rows = [[set(tokenize(c["heading"] + " " + c["chunk_text"].split("\n", 1)[0] + " " + u)) for u in self.units(c)]
@@ -1146,6 +1201,11 @@ class PolicyAssist:
             w = words[i]
             if w.group(0).isupper() and len(w.group(0)) > 1:          # mã/viết tắt (HOLD, LAW) giữ nguyên
                 i += 1
+                continue
+            # "nhung noi dung chu yeu nao" → "những" (từ chỉ số nhiều của câu hỏi liệt kê), không phải "nhưng"
+            if fold(w.group(0)) == "nhung" and re.match(r"\s+(?:\S+\s+){0,6}?(?:nao|gi)\b", fold(text[w.end():])):
+                out += [text[last:w.start()], _same_case(w.group(0), "những")]
+                last, i = w.end(), i + 1
                 continue
             if i + 1 < len(words) and text[w.end():words[i + 1].start()].strip() == "":
                 key = fold(w.group(0)) + " " + fold(words[i + 1].group(0))
@@ -1299,11 +1359,15 @@ class PolicyAssist:
         warnings = []
         applied = ref or SNAPSHOT
         m = DATE_IN_Q_RE.search(q)
+        if m and parse_date(m.group(2)) is None:     # ngày không tồn tại ("31/02/2025") → bỏ qua, dùng ngày tham chiếu
+            warnings.append(f"Ngày “{m.group(2)}” nêu trong câu hỏi không hợp lệ – hệ thống dùng ngày tham chiếu "
+                            f"{applied:%d/%m/%Y}.")
+            m = None
         rel, phrase = (None, "") if m else relative_date(q, applied)
         if m:
             qd = parse_date(m.group(2))
             if qd:
-                if m.group(1) == "trước":
+                if m.group(1) == "trước" and qd > date.min:
                     qd -= timedelta(days=1)
                 if ref is not None and qd != ref:
                     warnings.append(f"Câu hỏi nêu mốc {qd:%d/%m/%Y}; hệ thống áp dụng mốc này thay cho reference_date.")
@@ -1372,6 +1436,13 @@ class PolicyAssist:
             extra.append("hiệu lực thay thế chuyển tiếp phạm vi")
         if sims and law_mentioned and self.cfg.use_expansion:
             extra.append("nguyên tắc sử dụng thứ tự ưu tiên nguồn thông tin chưa được cập nhật")
+        # câu hỏi về việc hai loại nguồn nói khác nhau ("FAQ nói được, còn quy trình nội bộ nói không") → nguyên tắc ưu tiên nguồn
+        if self.cfg.use_expansion and re.search(r"\b(?:faq|sổ tay)\b", q) \
+                and re.search(r"quy trình|quy chế|pháp luật|\bluật\b|văn bản", q) \
+                and re.search(r"\bkhác\b|xung đột|mâu thuẫn|\btrái\b|nói\b.{0,60}\bnói\b|ghi\b.{0,60}\bghi\b", q):
+            extra.append("nguyên tắc ưu tiên nguồn thông tin thứ tự áp dụng faq trả lời khác quy trình nội bộ hiện hành dùng nguồn nào")
+        if self.cfg.use_expansion:      # mã viết hoa trong văn bản mà câu hỏi gọi bằng nghĩa tiếng Việt ("khẩn cấp" ↔ URGENT)
+            extra += [c for c in self.gloss_codes(q) if c in self.corpus_codes and c not in question]
         core = strip_fillers(question) if self.cfg.use_rewrite else question   # bỏ lời đệm, mốc tương đối khi tìm kiếm
         expanded = f"{core} {' '.join(extra)}" if extra else core
         return {"question": question, "applied": applied, "date_unknown": date_unknown, "date_source": date_source,
@@ -1401,6 +1472,12 @@ class PolicyAssist:
                 forced.update(sorted(self.dp.doc_chunks.get(d, []), key=lambda i: -fused[i])[:3])
             if P["codes"]:
                 forced.update(i for i in np.argsort(-fused)[:120] if self.codes[i] & P["codes"])
+            for nm, idxs in self.dept.items():          # bộ phận được nêu tên → đoạn phân công trách nhiệm của bộ phận đó
+                if P["intent"] == "INTERNAL" and re.search(rf"(?<!\w){re.escape(nm)}(?!\w)", norm(P["question"])):
+                    forced.update(idxs)
+            qn = norm(P["question"])
+            if re.search(r"pháp luật|\bluật\b", qn) and re.search(r"nội bộ", qn) and re.search(r"phân biệt|\bkhác\b|xung đột|mâu thuẫn", qn):
+                forced.update(i for i, c in enumerate(self.dp.chunks) if PRIORITY_TEXT_RE.search(c["chunk_text"]))
         cands = {}
         for i in list(order) + sorted(forced - set(order)):
             cands[int(i)] = {"bm25": float(bm[i]), "tfidf": float(tf[i]), "fused": float(fused[i]),
@@ -1756,6 +1833,143 @@ class PolicyAssist:
                 if cp is not None and any(r["i"] == cp for r in rows):
                     promote(lambda r: r["i"] == cp)
                     P["counterpart"] = (proc["i"], cp)
+        # Câu hỏi có/không ("có được sửa trực tiếp … không?") phải được trả lời có/không khi Data Pack có câu nói rõ điều đó.
+        # Nếu chưa đoạn nào trong top-k chứa câu quyết định mà một ứng viên xếp ngay sau có, đoạn đó thay chỗ đoạn ít tự
+        # liên quan nhất từ hạng 3 trở đi (không thay cặp quy trình – điều khoản pháp luật tương ứng).
+        # Câu hỏi nêu một tỷ lệ cụ thể ("xin tạm ứng 90% ngân sách") cần đối chiếu với NGƯỠNG tỷ lệ của quy định ("không vượt
+        # quá 80%… trên 80% phải…"). Nếu chưa đoạn nào trong top-k nêu ngưỡng %, đoạn cùng tài liệu có ngưỡng % xếp ngay sau
+        # (trong decisive_pool) thay chỗ đoạn ít tự liên quan nhất từ hạng 3 trở đi.
+        # câu hỏi đối chiếu căn cứ pháp luật với tài liệu/trạng thái nội bộ ("vì sao cần phân biệt…", "khác nhau thì theo nguồn nào")
+        # → đoạn nêu nguyên tắc ưu tiên nguồn (pháp luật đang có hiệu lực → quy chế/quy trình → sổ tay) phải có trong top-k
+        P.pop("priority_rule", None)
+        qn = norm(P["question"])
+        if P["intent"] in ("MIXED", "INTERNAL") and re.search(r"pháp luật|\bluật\b", qn) and re.search(r"nội bộ", qn) \
+                and re.search(r"phân biệt|\bkhác\b|xung đột|mâu thuẫn", qn) and len(rows) > k:
+            pr = [r for r in rows if r["state"] in USABLE and PRIORITY_TEXT_RE.search(dp.chunks[r["i"]]["chunk_text"])]
+            if pr:
+                best_pr = max(pr, key=lambda r: self.own_relevance(P, r["i"]))
+                if best_pr not in rows[:k]:
+                    # không thay đoạn duy nhất của một loại nguồn (câu MIXED phải còn cả pháp luật lẫn nội bộ)
+                    kind = lambda x: dp.chunks[x["i"]]["source_type"] == "LEGAL"
+                    victims = [x for x in rows[2:k] if x["i"] not in set(P.get("counterpart") or ())
+                               and sum(kind(y) == kind(x) for y in rows[:k]) > 1]
+                    if victims:
+                        weakest = min(victims, key=lambda x: self.own_relevance(P, x["i"]))
+                        j, jb = rows.index(weakest), rows.index(best_pr)
+                        rows[j], rows[jb] = best_pr, weakest
+                P["priority_rule"] = best_pr["i"]
+        # câu hỏi nêu một bộ phận làm một việc ("hướng dẫn CNTT sửa số tiền…") mà chưa đoạn nào trong top-k nói về bộ phận đó
+        # → đoạn phân công trách nhiệm/ma trận quyền có nhóm hoặc dòng của bộ phận đó thay chỗ đoạn ít tự liên quan nhất
+        P.pop("role", None)
+        qn = norm(P["question"])
+        names = [nm for nm in self.dept if re.search(rf"(?<!\w){re.escape(nm)}(?!\w)", qn)]
+        if names and P["intent"] == "INTERNAL" and len(rows) > k and any(re.search(rf"\b{v}\b", qn) for v in ACTION_VERBS):
+            nm = names[0]
+            rx = re.compile(rf"(?<!\w){re.escape(nm)}(?!\w)")
+            if not any(rx.search(norm(dp.chunks[x["i"]]["chunk_text"])) for x in rows[:k]):
+                cand = sorted((r for r in rows if r["i"] in self.dept[nm] and r["state"] in USABLE),
+                              key=lambda r: -self.own_relevance(P, r["i"]))[:2]
+                got = []
+                for r in cand:
+                    kind = lambda x: dp.chunks[x["i"]]["source_type"] == "LEGAL"
+                    victims = [x for x in rows[2:k] if x["i"] not in set(P.get("counterpart") or ()) and x not in cand
+                               and sum(kind(y) == kind(x) for y in rows[:k]) > 1]
+                    if not victims:
+                        break
+                    weakest = min(victims, key=lambda x: self.own_relevance(P, x["i"]))
+                    j, jb = rows.index(weakest), rows.index(r)
+                    rows[j], rows[jb] = r, weakest
+                    got.append(r["i"])
+                if got:
+                    P["role"] = (got, nm)
+        # căn cứ đứng đầu là một dòng bảng (ma trận phê duyệt…) mà sổ tay tình huống xếp ngay sau (trong decisive_pool) khớp câu
+        # hỏi rõ hơn hẳn (≥ 1,15 lần): sổ tay đó vào top-k để phần "Hướng xử lý" được dẫn kèm (cùng điều kiện với quy tắc ở P6)
+        if P["intent"] == "INTERNAL" and len(rows) > k and dp.chunks[rows[0]["i"]]["content_type"] == "SOURCE_TABLE_TEXT"                 and not any(dp.chunks[r["i"]]["document_type"] in SECONDARY_TYPES for r in rows[:k]):
+            base_own = self.own_relevance(P, rows[0]["i"])
+            g = [r for r in rows[k: max(k, self.cfg.decisive_pool)] if r["state"] in USABLE
+                 and dp.chunks[r["i"]]["document_type"] == "HANDBOOK"
+                 and re.search(r"(?im)^\s*hướng xử lý", dp.chunks[r["i"]]["chunk_text"])
+                 and self.own_relevance(P, r["i"]) >= 1.15 * base_own]
+            victims = [x for x in rows[2:k] if x["i"] not in set(P.get("counterpart") or ())]
+            if g and victims:
+                r = max(g, key=lambda x: self.own_relevance(P, x["i"]))
+                weakest = min(victims, key=lambda x: self.own_relevance(P, x["i"]))
+                j, jb = rows.index(weakest), rows.index(r)
+                rows[j], rows[jb] = r, weakest
+        P.pop("threshold", None)
+        # … kể cả khi câu hỏi nêu hai khoản tiền trở lên ("ngân sách 50 triệu, xin tạm ứng 40 triệu") – tỷ lệ ngầm
+        implied = len(AMOUNT_RE.findall(norm(P["question"]))) >= 2 and bool(LIMIT_Q_RE.search(norm(P["question"])))
+        if (PCT_RE.search(P["question"]) or implied) and len(rows) > k and self.cfg.use_rerank:
+            has_pct = lambda r: bool(PCT_RE.search(dp.chunks[r["i"]]["chunk_text"])) and \
+                not EXAMPLE_ROW_RE.search(norm(dp.chunks[r["i"]]["heading"]))
+            # tỷ lệ ngầm (hai khoản tiền): điều khoản ngưỡng % có thể ở tài liệu khác với các đoạn đang đứng đầu
+            docs = {r["document_id"] for r in rows[:k]} if not implied else {r["document_id"] for r in rows}
+            if not any(has_pct(r) for r in rows[:k]):
+                cand = next((r for r in rows[k: max(k, self.cfg.decisive_pool)] if r["state"] in USABLE and has_pct(r)
+                             and r["document_id"] in docs), None)
+                victims = [x for x in rows[2:k] if x["i"] not in set(P.get("counterpart") or ())]
+                if cand is not None and victims:
+                    weakest = min(victims, key=lambda x: self.own_relevance(P, x["i"]))
+                    j, jb = rows.index(weakest), rows.index(cand)
+                    rows[j], rows[jb] = cand, weakest
+            P["threshold"] = next((r["i"] for r in rows[:k] if has_pct(r)), None)
+        P.pop("decisive", None)
+        if self.cfg.use_decisive and P["intent"] != "VERSIONING" and self.question_form(P)["yesno"] and len(rows) > k:
+            usable = lambda r: r["state"] in USABLE
+            in_scope = lambda r: not (P["scope"] == "LEGAL" and P["scope_cue"] and dp.chunks[r["i"]]["source_type"] != "LEGAL")
+            secondary = lambda r: dp.chunks[r["i"]]["document_type"] in SECONDARY_TYPES
+            # câu nói rõ được/không được (quy chế, quy trình, sổ tay) trước; lời đáp "Có."/"Không." của FAQ chỉ là phương án sau
+            found = [d for r in rows[:k] if usable(r) for d in [self.decisive_unit(P, r["i"], faq=False)] if d]
+            if not found:
+                pool = [(r, d) for r in rows[k: max(k, self.cfg.decisive_pool)] if usable(r) and in_scope(r)
+                        for d in [self.decisive_unit(P, r["i"], faq=False)] if d]
+                if not pool:
+                    found = [d for r in rows[:k] if usable(r) for d in [self.decisive_unit(P, r["i"])] if d]
+                    pool = [] if found else [(r, d) for r in rows[k: max(k, self.cfg.decisive_pool)] if usable(r) and in_scope(r)
+                                             for d in [self.decisive_unit(P, r["i"])] if d]
+                if pool:
+                    # quy chế/quy trình gốc trước sổ tay/FAQ khi phủ vị ngữ ngang nhau
+                    r, d = max(pool, key=lambda x: (round(x[1]["pcov"], 1), not secondary(x[0]), x[1]["qcov"]))
+                    keep = set(P.get("counterpart") or ())
+                    victims = [x for x in rows[2:k] if x["i"] not in keep]
+                    if victims:
+                        weakest = min(victims, key=lambda x: self.own_relevance(P, x["i"]))
+                        j, jb = rows.index(weakest), rows.index(r)
+                        rows[j], rows[jb] = r, weakest
+                        found = [d]
+            if not found:
+                # vị ngữ được hỏi dài ("bỏ qua hoàn toàn audit log và nghĩa vụ hoàn thiện hồ sơ") nên không câu nào phủ đủ: chấp nhận câu
+                # nói rõ được/không được với đúng ĐỘNG TỪ GHÉP được hỏi ("bỏ qua", 2 âm tiết liền nhau trong câu hỏi), không kèm điều
+                # kiện/ngoại lệ, trong đoạn cùng loại nguồn đứng trong decisive_pool
+                yn = self.question_form(P)["yesno"]
+                vt = yn["terms"][:2]
+                qn = norm(P["question"])
+                if len(vt) == 2 and f"{vt[0]} {vt[1]}" in qn and vt[0] in ACTION_VERBS:
+                    comp = f"{vt[0]} {vt[1]}"
+                    pool = []
+                    for r in rows[: max(k, self.cfg.decisive_pool)]:
+                        if not (usable(r) and in_scope(r)) or dp.chunks[r["i"]]["content_type"] == "SOURCE_TABLE_TEXT":
+                            continue
+                        for u in self.units(dp.chunks[r["i"]]):
+                            t = norm(u)
+                            if comp in t and not CONDITIONAL_UNIT_RE.search(t) and not (set(CODE_RE.findall(u)) - P["codes"]
+                                                                                    - self.gloss_codes(qn)):
+                                st = self.stance(u, [vt[0]])
+                                if st in ("NEG", "POS"):
+                                    pool.append((r, {"i": r["i"], "unit": u, "pol": "Không" if st == "NEG" else "Có",
+                                                     "pcov": 0.0, "qcov": 0.0}))
+                    if pool:
+                        r, dd = pool[0]
+                        if r not in rows[:k]:
+                            victims = [x for x in rows[2:k] if x["i"] not in set(P.get("counterpart") or ())]
+                            if victims:
+                                weakest = min(victims, key=lambda x: self.own_relevance(P, x["i"]))
+                                j, jb = rows.index(weakest), rows.index(r)
+                                rows[j], rows[jb] = r, weakest
+                        if r in rows[:k]:
+                            found = [dd]
+            if found:
+                P["decisive"] = max(found, key=lambda d: (d["pcov"], d["qcov"]))
         return rows
 
     def legal_counterpart(self, P: dict, i: int) -> int | None:
@@ -1920,6 +2134,16 @@ class PolicyAssist:
             terms = list(dict.fromkeys(t for t in tokenize(m.group("pred"), bigrams=False) if t not in skip and len(t) > 1))
             if terms:
                 f["yesno"] = {"terms": terms, "situation_text": q[:m.start()].strip() or q}
+        if f["yesno"] is None and not (P["version_question"] and P["law_mentioned"] and P.get("pure_version", True)):
+            # "… có được không?" ở cuối câu: chủ ngữ đứng trước động từ → vị ngữ tính từ động từ hành động đầu tiên
+            m = YESNO_TAIL_RE.search(q)
+            if m:
+                skip = STOPWORDS | GENERIC | set(CONVERSATIONAL)
+                toks = [t for t in tokenize(m.group("pred"), bigrams=False)]
+                k = next((n for n, t in enumerate(toks) if t in ACTION_VERBS), None)
+                terms = list(dict.fromkeys(t for t in toks[k:] if t not in skip and len(t) > 1)) if k is not None else []
+                if terms:
+                    f["yesno"] = {"terms": terms, "situation_text": q}
         P["form"] = f
         return f
 
@@ -1995,6 +2219,21 @@ class PolicyAssist:
             return us[:2]
         ratio = self.cfg.table_row_ratio if table else self.cfg.unit_ratio
         keep = set(sorted((n for n, v in enumerate(scored) if v >= ratio * top), key=lambda n: (-scored[n], n))[:max_units])
+        # câu hỏi có/không: câu của chính đoạn này nói rõ được/không được làm việc đang hỏi luôn được trích (tối đa 2 câu)
+        if f["yesno"] and not table:
+            pol = [n for n, u in enumerate(us) if n not in keep and not RESTATE_UNIT_RE.match(u.strip())
+                   and self.polarity(u, f["yesno"])[0]]
+            keep |= set(pol[:2])
+        # câu hỏi "vì sao …": nếu các câu được chọn chỉ nhắc lại điều đang được hỏi ("Không xóa trực tiếp hóa đơn đã phát hành …")
+        # và điều khoản không có câu nào nêu lý do tường minh, lý do nằm ở các nguyên tắc còn lại của chính điều khoản đó
+        # → trích trọn điều khoản (tối đa 8 mục) thay vì chỉ câu nhắc lại
+        if f["why"] and not table and len(us) <= 8:
+            qt = set(P["terms"])
+            def restates(u: str) -> bool:
+                ct = content_terms(u)
+                return bool(ct) and sum(1 for t in ct if t in qt) / len(ct) >= 0.8
+            if keep and all(restates(us[n]) for n in keep) and not any(REASON_RE.search(norm(u)) for n, u in enumerate(us) if n not in keep):
+                return us
         for h, items in groups.items():              # tiêu đề được chọn hoặc có mục được chọn → trọn nhóm
             if h in keep or (keep & set(items) and len(items) <= 6):
                 keep |= {h, *items}
@@ -2044,6 +2283,54 @@ class PolicyAssist:
                     return True
         return False
 
+    def role_names(self, c: dict) -> list[str]:
+        """Tên bộ phận viết tắt (CNTT, TC-KT) trong đoạn phân công trách nhiệm: tiêu đề nhóm ("Bộ phận CNTT") hoặc cột đầu bảng."""
+        us = self.units(c)
+        if c["content_type"] == "SOURCE_TABLE_TEXT":
+            names = [u.split(" – ")[0] if " – " in u else u.split(":")[0] for u in us]
+        else:
+            names = [us[h] for h in self.list_groups(us)]
+        out = []
+        for n in names:
+            raw = re.sub(r"^(?:Bộ phận|Phòng|Ban)\s+", "", n.strip(" :"))
+            if re.fullmatch(r"[A-ZĐ]{2,}(?:-[A-ZĐ]{2,})?", raw):
+                out.append(norm(raw))
+        return out
+
+    def role_units(self, c: dict, name: str) -> list[str]:
+        """Nhóm (tiêu đề + các mục) hoặc dòng bảng của đúng bộ phận được hỏi."""
+        us = self.units(c)
+        rx = re.compile(rf"(?<!\w){re.escape(name)}(?!\w)")
+        if c["content_type"] == "SOURCE_TABLE_TEXT":
+            return [u for u in us if rx.search(norm(u.split(" – ")[0]))][:1]
+        for h, items in self.list_groups(us).items():
+            if rx.search(norm(us[h])):
+                return [us[h]] + [us[i] for i in items]
+        return []
+
+    @staticmethod
+    def gloss_codes(qn: str) -> set[str]:
+        """Mã viết hoa mà câu hỏi gọi bằng nghĩa tiếng Việt ("khẩn cấp" → URGENT)."""
+        return {c for c, vi in CODE_GLOSS if vi in qn}
+
+    def ratio_verdict(self, P: dict, s: str, yn: dict) -> str:
+        """Câu hỏi có/không nêu đúng hai khoản tiền ("ngân sách 50 triệu, xin tạm ứng 40 triệu") và câu quy định có dạng
+        "<trên|vượt quá|quá> X% … <vị ngữ được hỏi>" (vd. "trên 80% phải … cấp phê duyệt cao hơn"): tỷ lệ = khoản nhỏ / khoản lớn;
+        vượt ngưỡng → "Có", không vượt → "Không". Các dạng khác (không vượt quá, tối đa…) không tự suy."""
+        amts = [float(x.replace(".", "").replace(",", ".")) for x in
+                re.findall(r"(\d+(?:[.,]\d+)*)\s*(?:triệu|tỷ)", norm(P["question"]))]
+        if len(amts) != 2 or min(amts) <= 0:
+            return ""
+        m = re.search(r"\b(trên|vượt quá|quá)\s+(\d+(?:[.,]\d+)?)\s*%(.*)$", norm(s))
+        if not m or re.search(r"không\s+(?:vượt\s+)?quá\s*$", norm(s)[:m.start()]):
+            return ""
+        tail = set(tokenize(m.group(3), bigrams=False))
+        pw = {t: self.idf.get(t, self.idf_max) for t in yn["terms"]}
+        if sum(v for t, v in pw.items() if t in tail) < 0.7 * (sum(pw.values()) or 1.0):
+            return ""
+        pct = 100 * min(amts) / max(amts)
+        return "Có" if pct > float(m.group(2).replace(",", ".")) + 1e-9 else "Không"
+
     def unit_display(self, c: dict, u: str) -> str:
         """Dòng của bảng tình huống ("Mã | Tình huống | Kết quả mong đợi") → "tình huống → kết quả"; bỏ số thứ tự mục."""
         if c["content_type"] == "SOURCE_TABLE_TEXT":
@@ -2053,13 +2340,93 @@ class PolicyAssist:
                 if re.fullmatch(r"(?:[a-z]{0,3}\d{1,3}|nhóm [a-z])", norm(cells[0])):
                     cells = cells[1:]
                 u = " – ".join(cells[:-1]) + " → " + cells[-1]
+            elif len(head) >= 3 and len(cells) == len(head):
+                # bảng tra cứu (hạn mức, ma trận phê duyệt): nêu tên cột cho từng ô để người đọc biết con số thuộc cột nào
+                u = cells[0] + " – " + "; ".join(f"{h}: {v}" for h, v in zip(head[1:], cells[1:]))
         return re.sub(r"^\(?(?:\d{1,2}(?:\.\d{1,2})*|[a-zđ])[.)]\s+", "", u)
+
+    def polarity(self, s: str, yn: dict) -> tuple[str, float]:
+        """Câu căn cứ s trả lời có/không cho vị ngữ được hỏi: ("Có" | "Không" | "", độ phủ vị ngữ theo IDF)."""
+        pw = {t: self.idf.get(t, self.idf_max) for t in yn["terms"]}
+        tk = set(tokenize(s, bigrams=False))
+        pcov = sum(v for t, v in pw.items() if t in tk) / (sum(pw.values()) or 1.0)
+        # động từ chính của vị ngữ (bỏ trạng từ "tự", "tự ý") phải có trong câu căn cứ – lập trường xét ngay trước nó
+        verb = next((t for t in yn["terms"] if t not in ("tự", "ý", "quyền")), "")     # "có quyền sửa" → sửa
+        if pcov < 0.3 or verb not in tk:
+            return "", pcov
+        st = self.stance(s, [verb])
+        pol = ("Không" if st == "NEG" or (st == "COND" and self.cond_violated(s, yn["situation_text"])) else
+               "Có" if st == "POS" and pcov >= 0.5 else "")
+        return pol, pcov
+
+    def faq_verdict(self, P: dict, i: int) -> dict | None:
+        """FAQ có câu hỏi dạng có/không trùng điều người dùng đang hỏi và phần trả lời mở đầu bằng "Có." / "Không."
+        → lời đáp của FAQ là kết luận ("… thì có lập hóa đơn mới không? – Không. Trước hết phải kiểm tra …")."""
+        yn = self.question_form(P)["yesno"]
+        c = self.dp.chunks[i]
+        if not yn or c["document_type"] != "FAQ":
+            return None
+        us = self.units(c)
+        m = re.fullmatch(r"(Không|Có)[.!]?", us[0].strip()) if us else None
+        if not m or not re.search(r"\bkhông\s*\??\s*$", norm(c["heading"])):
+            return None
+        pw = {t: self.idf.get(t, self.idf_max) for t in yn["terms"]}
+        tk = set(tokenize(c["heading"], bigrams=False))
+        verb = next((t for t in yn["terms"] if t not in ("tự", "ý", "quyền")), "")
+        if verb not in tk:
+            return None
+        pcov = sum(v for t, v in pw.items() if t in tk) / (sum(pw.values()) or 1.0)
+        w = {t: self.idf.get(t, self.idf_max) for t in P["terms"]}
+        tq = tk | (set(tokenize(us[1], bigrams=False)) if len(us) > 1 else set())
+        qcov = sum(v for t, v in w.items() if t in tq) / (sum(w.values()) or 1.0)
+        return {"i": i, "unit": us[1] if len(us) > 1 else us[0], "pol": m.group(1), "pcov": pcov, "qcov": qcov, "faq": True}
+
+    def decisive_unit(self, P: dict, i: int, strict: bool = True, faq: bool = True) -> dict | None:
+        """Câu của chunk i nói rõ được/không được làm điều câu hỏi có/không đang hỏi. strict: câu phải phủ đủ vị ngữ được
+        hỏi (decisive_pcov) và đủ từ khóa của cả câu hỏi (decisive_qcov) – đúng tình huống chứ không chỉ trùng động từ."""
+        yn = self.question_form(P)["yesno"]
+        c = self.dp.chunks[i]
+        if not yn or c["content_type"] == "SOURCE_TABLE_TEXT":
+            return None
+        w = {t: self.idf.get(t, self.idf_max) for t in P["terms"]}
+        total = sum(w.values()) or 1.0
+        best = None
+        for u in self.units(c):
+            s = u.strip()
+            if RESTATE_UNIT_RE.match(s) or GUIDE_HEAD_RE.match(s) or SIGNS_HEAD_RE.match(s) or s.endswith(":"):
+                continue
+            pol, pcov = self.polarity(s, yn)
+            if not pol:
+                continue
+            tk = set(tokenize(s, bigrams=False))
+            qcov = sum(v for t, v in w.items() if t in tk) / total
+            if strict and (pcov < self.cfg.decisive_pcov or qcov < self.cfg.decisive_qcov or len(yn["terms"]) < 3):
+                continue
+            # chỉ quy định vô điều kiện mới quyết định được: câu nêu điều kiện, ngoại lệ, ngưỡng số hoặc mã trạng thái
+            # mà câu hỏi không nhắc tới ("đang ở trạng thái LEGAL_HOLD", "trên 80% thì…") cần đối chiếu tình huống
+            if strict and (CONDITIONAL_UNIT_RE.search(norm(s)) or set(CODE_RE.findall(s)) - P["codes"]):
+                continue
+            if best is None or (pcov, qcov) > (best["pcov"], best["qcov"]):
+                best = {"i": i, "unit": u, "pol": pol, "pcov": pcov, "qcov": qcov}
+        if best is None and faq:         # FAQ trả lời thẳng "Có."/"Không." cho đúng câu hỏi có/không đang được hỏi
+            fv = self.faq_verdict(P, i)
+            if fv and fv["pcov"] >= (self.cfg.decisive_pcov if strict else 0.3) and (not strict or len(yn["terms"]) >= 3):
+                best = fv
+        return best
 
     def conclusion(self, P: dict, kept: list[dict]) -> dict:
         """KẾT LUẬN nêu trước câu trả lời – luôn là một câu/dòng NGUYÊN VĂN của căn cứ đã qua kiểm toán (không diễn giải):
         mệnh đề hiệu lực (câu hỏi phiên bản); câu nói rõ được/không được làm điều được hỏi (câu có/không → kèm "Có."/"Không.");
         câu có con số (bao nhiêu, mấy, tối đa); câu nêu lý do (vì sao); dòng tình huống khớp nhất (xử lý thế nào, trạng thái
         nào); còn lại là câu khớp câu hỏi nhất – ưu tiên căn cứ chính do pipeline chọn. Trả về {k, unit, text, polarity}."""
+        pm = P.get("premise")
+        if pm:                       # tiền đề đồng nhất hai mã trạng thái: định nghĩa của mã thứ nhất là kết luận
+            k = next((k for k, cl in enumerate(kept) if cl["refs"] and cl["refs"][0]["i"] == pm["lead"]), None)
+            if k is not None:
+                units = pm["units"][pm["lead"]]
+                c = self.dp.chunks[pm["lead"]]
+                return {"k": k, "unit": units[-1], "units": units, "text": " ".join(self.unit_display(c, u) for u in units),
+                        "polarity": f"Tiền đề chưa đúng – {pm['a']} không có nghĩa là {pm['b']}"}
         # câu hỏi phiên bản: mệnh đề hiệu lực (CHRONOS) là kết luận, không lấy câu của tài liệu nội bộ đi kèm
         lead = next((k for k, cl in enumerate(kept) if cl["kind"] == "version"), None)
         if lead is None:
@@ -2075,11 +2442,16 @@ class PolicyAssist:
         total = sum(w.values()) or 1.0
         yn = form["yesno"]
         pw = {t: self.idf.get(t, self.idf_max) for t in yn["terms"]} if yn else {}
-        best = None
+        best = faq_best = None
         for k, cl in enumerate(kept):
             if cl["kind"] not in ("legal", "internal") or not cl["refs"]:
                 continue
             allu = cl.get("all_units") or cl.get("units") or [cl["text"]]
+            # FAQ trả lời thẳng "Có."/"Không." cho đúng câu hỏi có/không đang được hỏi → lời đáp đó là kết luận
+            # (chỉ dùng khi không căn cứ nào có câu nói rõ được/không được – câu của quy chế/quy trình gốc được ưu tiên)
+            fv = self.faq_verdict(P, cl["refs"][0]["i"]) if yn and pw else None
+            if fv and fv["pcov"] >= self.cfg.decisive_pcov and (faq_best is None or fv["pcov"] > faq_best[0]):
+                faq_best = (fv["pcov"], k, [fv["unit"]], fv["pol"])
             # mục của danh sách đi kèm dòng tiêu đề của nó ("Bộ phận CNTT: Không được tự ý sửa …") – không đứng một mình
             groups = {h: items for h, items in self.list_groups(allu).items()
                       if not (GUIDE_HEAD_RE.match(allu[h].strip()) or SIGNS_HEAD_RE.match(allu[h].strip()))}
@@ -2104,14 +2476,22 @@ class PolicyAssist:
                     h = next(h for h, items in groups.items() if allu.index(u) in items)
                     cands.append(([allu[h]] + [allu[i] for i in groups[h]], section))
                 else:
-                    cands.append(([head_of[u], u] if u in head_of else [u], section))
+                    # câu quyết định được kéo vào cho câu hỏi có/không đứng một mình (không kèm dòng dẫn nhập của nhóm)
+                    cands.append(([head_of[u], u] if u in head_of and not cl.get("decisive") else [u], section))
                 if section == "guide":
                     guide.append(s)
             if 1 < len(guide) <= 4:                  # mục "Hướng xử lý" của sổ tay/FAQ: trọn mục là một kết luận
                 cands.append((guide, "guide"))
+            q_nums = set(NUM_RE.findall(norm(P["question"])))
             for units, sec in cands:
                 s = " ".join(units)
                 low = norm(s)
+                # câu hỏi nêu số liệu cụ thể: câu/dòng ví dụ mà mọi con số đều khác số trong câu hỏi ("90% dự toán 30 triệu" khi hỏi
+                # 40/50 triệu) mô tả trường hợp khác → không dùng làm kết luận
+                u_nums = set(NUM_RE.findall(low))
+                if q_nums and u_nums and not (u_nums & q_nums) and EXAMPLE_ROW_RE.search(norm(
+                        self.dp.chunks[self.dp.idx[cl["refs"][0]["chunk_id"]]]["heading"])):
+                    continue
                 score = self.unit_rel(s, P, w, total) + {"guide": 0.3, "signs": -0.15}.get(sec, 0.0)
                 score += 0.05 if sec == "guide" and len(units) > 1 else 0.0       # hòa điểm → trọn mục "Hướng xử lý"
                 # câu hỏi thời hạn ("trong bao nhiêu ngày") → câu nêu thời hạn phải làm ("trong vòng 05 ngày") hơn câu nêu hệ quả
@@ -2128,18 +2508,31 @@ class PolicyAssist:
                     score += 0.15
                 pol = ""
                 if yn and pw:
-                    tk = set(tokenize(s, bigrams=False))
-                    pcov = sum(v for t, v in pw.items() if t in tk) / sum(pw.values())
-                    # động từ chính của vị ngữ (bỏ trạng từ "tự", "tự ý") phải có trong câu căn cứ – lập trường xét ngay trước nó
-                    verb = next((t for t in yn["terms"] if t not in ("tự", "ý", "quyền")), "")     # "có quyền sửa" → sửa
-                    if pcov >= 0.3 and verb in tk:
-                        st = self.stance(s, [verb])
-                        pol = ("Không" if st == "NEG" or (st == "COND" and self.cond_violated(s, yn["situation_text"])) else
-                               "Có" if st == "POS" and pcov >= 0.5 else "")
-                        score += 0.5 if pol else 0.0
+                    pol = self.polarity(s, yn)[0]
+                    if pol and NUM_THRESHOLD_RE.search(low) and not cl.get("decisive"):
+                        pol = ""
+                    rv = self.ratio_verdict(P, s, yn) if yn else ""
+                    if rv:
+                        pol = rv
+                        score += 1.0
+                    dec = P.get("decisive")
+                    if not pol and cl.get("decisive") and dec and dec.get("unit") in units:     # lập trường đã xác định ở P4
+                        pol = dec["pol"]
+                    # dòng của một mã trạng thái mà câu hỏi không nhắc ("NOTIFY_ONLY: … không lập lại hóa đơn" khi câu hỏi
+                    # hỏi về HOLD) nói về tình huống khác → không dùng để kết luận có/không
+                    row_code = re.match(r"\s*([A-Z]{3,}(?:_[A-Z0-9]+)*)\s*[:–-]", s)
+                    if pol and P["codes"] and row_code and row_code.group(1) not in P["codes"]:
+                        pol = ""
+                    score += 0.5 if pol else 0.0
+                    if pol and cl.get("decisive"):           # câu quyết định được kéo vào để trả lời vế có/không
+                        score += 1.0
+                if cl.get("threshold") and PCT_RE.search(s):
+                    score += 1.0
                 score *= 1.0 if k == lead else 0.8           # căn cứ chính do pipeline chọn được ưu tiên
                 if best is None or score > best[0] + 1e-9:
                     best = (score, k, units, pol)
+        if faq_best is not None and (best is None or not best[3]):
+            best = faq_best
         if best is None:
             return {"k": lead, "unit": None, "text": kept[lead]["text"], "polarity": ""}
         _, k, units, pol = best
@@ -2212,12 +2605,19 @@ class PolicyAssist:
             same_kind = (c["source_type"] != "LEGAL") if only_sim_named else not (
                 P["intent"] == "LEGAL" and pc["source_type"] == "LEGAL" and c["source_type"] != "LEGAL")
             adjacent = same_doc and near and own >= cfg.adjacent_ratio and gain >= cfg.adjacent_gain
+            # câu hỏi liệt kê ("phải bảo đảm những yêu cầu gì"): các khoản khác của cùng Điều xếp trong top-3 là phần còn lại của
+            # danh sách yêu cầu – dẫn kèm dù tự khớp câu hỏi kém hơn khoản chính
+            if (not adjacent and same_article and self.question_form(P)["list"] and r["rank"] < 3 and gain > 0
+                    and c["source_type"] == "LEGAL"):
+                adjacent = True
             in_budget_mismatch = re.search(r"ngoài ngân sách|vượt ngân sách", norm(P["question"])) and "trong ngân sách" in norm(c["heading"])
             complements = not in_budget_mismatch and (same_kind or not cfg.complement_same_kind) and own >= cfg.complement_ratio \
                 and gain >= cfg.complement_gain
             # câu hỏi so sánh ("khác … so với …"): nêu đủ hai vế từ cùng văn bản
             counterpart = cfg.compare_counterpart and compare and same_doc and len(chosen) == 1 and own >= 0.6
-            if fills_mix or adjacent or complements or counterpart:
+            # căn cứ khác tự khớp câu hỏi rõ rệt hơn chính căn cứ đứng đầu (≥ 1,25 lần) và xếp hạng sát nút → hai quy định cùng trả lời
+            stronger = (same_kind or not cfg.complement_same_kind) and not in_budget_mismatch and own >= 1.25                 and r["final"] >= 0.9 * primary["final"] and not same_doc
+            if fills_mix or adjacent or complements or counterpart or stronger:
                 chosen.append(r)
                 covered |= new
         if len(P["mentioned"]) >= 2 and not P["version_question"]:
@@ -2238,12 +2638,27 @@ class PolicyAssist:
                         and not sims and not P.get("pure_version", True))
         meta_version = (cfg.use_chronos and P["intent"] == "VERSIONING" and P["version_question"]
                         and P.get("pure_version", True))
+        # câu hỏi nêu ≥ 2 văn bản luật cùng chuỗi phiên bản và hỏi về chính các nguồn đó ("nhóm nguồn nào nên được ưu tiên
+        # theo thời điểm đó", "LAW08 có vai trò gì so với LAW07"): mệnh đề hiệu lực là câu trả lời, không chỉ là lưu ý
+        lm = P["law_mentioned"]
+        ask_sources = (cfg.use_chronos and P["intent"] == "VERSIONING" and P["version_question"] and not meta_version
+                       and not sims and any(sum(1 for x in lm if dp.chain(x) == dp.chain(d)) >= 2 for d in lm)
+                       and bool(SOURCE_ASK_RE.search(norm(P["question"]))))
         # (a) Câu hỏi phiên bản: dẫn dắt bằng metadata hiệu lực (CHRONOS)
         if cfg.use_chronos and P["intent"] == "VERSIONING":
             vc = self._version_claims(P, ranked)
-            if meta_version or sims or bait_version:
+            if meta_version or sims or bait_version or ask_sources:
                 claims += [c for c in vc if c["kind"] != "meta"]
                 warns += [f"Theo document_metadata.csv: {c['text']}" for c in vc if c["kind"] == "meta"]
+                if ask_sources:          # trích nguyên văn các điều khoản làm căn cứ cho mệnh đề hiệu lực (không thêm citation)
+                    quoted, at = set(), 1
+                    for rf in (claims[0]["refs"] if claims and claims[0]["kind"] == "version" else []):
+                        if rf["chunk_id"] not in quoted:
+                            quoted.add(rf["chunk_id"])
+                            c = dp.chunks[rf["i"]]
+                            claims.insert(at, {"text": f"{dp.label[c['chunk_id']]}: {c['chunk_text']}", "kind": "legal",
+                                               "refs": [rf]})
+                            at += 1
             else:
                 warns += [f"Theo document_metadata.csv: {c['text']}" for c in vc if c["kind"] in ("version", "meta")]
         # (b) Nội dung: chỉ trích từ chunk còn hiệu lực/nội bộ tại mốc
@@ -2308,6 +2723,10 @@ class PolicyAssist:
             elif sims and P["intent"] == "VERSIONING":
                 used = {rf["chunk_id"] for cl in claims for rf in cl["refs"]}
                 chosen = [r for r in usable if r["state"] == INTERNAL and r["chunk_id"] not in used][:2]
+            elif ask_sources:
+                used = {rf["chunk_id"] for cl in claims for rf in cl["refs"]}
+                chosen = [r for r in chosen if r["chunk_id"] not in used
+                          and not DOC_EFFECT_RE.search(norm(dp.chunks[r["i"]]["heading"]))][:1]
             elif bait_version:
                 used = {rf["chunk_id"] for cl in claims for rf in cl["refs"]}
                 chosen = [r for r in chosen if r["chunk_id"] not in used
@@ -2334,8 +2753,108 @@ class PolicyAssist:
                 for d in (dp.mentioned_docs(src.group(1)) if src else []):
                     docs |= set(dp.successors_in_force(d, ref)) if dp.doc_state(d, ref) in (EXPIRED, REF_ONLY) else {d}
                 cand = [r for r in usable if r["document_id"] in docs and not is_sec(r)]
-                if cand:
-                    chosen.append(max(cand, key=lambda r: self.own_relevance(P, r["i"])))
+                if cand:              # đoạn nguồn gốc định nghĩa đúng các mã trạng thái mà FAQ/sổ tay nêu trước, rồi đoạn khớp câu hỏi nhất
+                    sec_codes = self.codes[chosen[0]["i"]] - {"SIM", "LAW", "FAQ", "CNTT"}
+                    key = lambda r: (len(sec_codes & self.codes[r["i"]]) >= 2, self.own_relevance(P, r["i"]))
+                    srcs = sorted(cand, key=key, reverse=True)
+                    chosen.append(srcs[0])
+                    # câu hỏi liệt kê ("cần kiểm tra những điều kiện nào"): quy định gốc thường chia ở nhiều Điều (điều kiện – Điều 5,
+                    # thời hạn – Điều 8) → dẫn thêm đoạn thứ hai của nguồn ưu tiên nếu nó cũng tự khớp câu hỏi (≥ 0,9 đoạn thứ nhất)
+                    if self.question_form(P)["list"] and len(srcs) > 1:
+                        big = lambda t: {f"{x} {y}" for x, y in zip(norm(t).split(), norm(t).split()[1:])}
+                        hb = big(dp.chunks[srcs[1]["i"]]["heading"]) - big(dp.chunks[srcs[0]["i"]]["heading"])
+                        # tiêu đề đoạn thứ hai nêu đúng cụm từ người hỏi dùng ("điều kiện") mà đoạn thứ nhất không có
+                        if big(P["question"]) & hb and \
+                                self.own_relevance(P, srcs[1]["i"]) >= 0.8 * self.own_relevance(P, srcs[0]["i"]):
+                            chosen.append(srcs[1])
+            # câu hỏi có/không: các căn cứ đã chọn chưa nói rõ được/không được → dẫn kèm đúng câu quyết định (P4)
+            dec = P.get("decisive")
+            dec_row = None
+            if dec and chosen and not meta_version and P["intent"] != "VERSIONING" \
+                    and not any(self.decisive_unit(P, r["i"], strict=False, faq=bool(dec.get("faq"))) for r in chosen):
+                dec_row = next((r for r in usable if r["i"] == dec["i"]), None)
+                if dec_row is not None:
+                    chosen.append(dec_row)
+            # sổ tay tình huống trong top-k khớp câu hỏi rõ hơn căn cứ chính (≥ 1,15 lần) mà chưa được dẫn: phần "Hướng xử lý"
+            # của nó là cách xử lý nghiệp vụ cho đúng tình huống → dẫn kèm (README mục 2: sổ tay đứng sau quy chế/quy trình)
+            guide_row = None
+            if chosen and not meta_version and P["intent"] in ("INTERNAL", "MIXED") and not P.get("premise") \
+                    and len(chosen) < cfg.max_answer_chunks and not any(is_sec(r) for r in chosen):
+                base_own = self.own_relevance(P, chosen[0]["i"]) if dp.chunks[chosen[0]["i"]]["content_type"] == "SOURCE_TABLE_TEXT" else 9e9
+                g = [r for r in usable if is_sec(r) and r not in chosen and dp.chunks[r["i"]]["document_type"] != "FAQ"
+                     and re.search(r"(?im)^\s*hướng xử lý", dp.chunks[r["i"]]["chunk_text"])
+                     and self.own_relevance(P, r["i"]) >= 1.15 * base_own]
+                if g:
+                    guide_row = max(g, key=lambda r: self.own_relevance(P, r["i"]))
+                    chosen.append(guide_row)
+            pr_row = None
+            if P.get("priority_rule") is not None and not meta_version and chosen and \
+                    not any(r["i"] == P["priority_rule"] for r in chosen):
+                pr_row = next((r for r in usable if r["i"] == P["priority_rule"]), None)
+                if pr_row is not None:
+                    chosen.append(pr_row)
+            role_rows = []
+            if P.get("role") and not meta_version and chosen:
+                role_rows = [r for r in usable if r["i"] in P["role"][0] and r not in chosen]
+                chosen.extend(role_rows)
+            # câu hỏi có/không về việc một người TỰ làm một thao tác ("người dùng thông thường có được tự xóa…", "mình tự xóa đi được
+            # không"): điều khoản phân quyền truy cập trong top-k cũng là căn cứ trả lời (quyền theo vai trò)
+            acc_row = None
+            yn_ = self.question_form(P)["yesno"]
+            if yn_ and "tự" in norm(P["question"]).split() and chosen and not meta_version:
+                acc = [r for r in usable if r not in chosen and ACCESS_HEAD_RE.search(norm(dp.chunks[r["i"]]["heading"]))
+                       and self.own_relevance(P, r["i"]) >= 0.9 * self.own_relevance(P, chosen[0]["i"])]
+                if acc:
+                    acc_row = max(acc, key=lambda r: self.own_relevance(P, r["i"]))
+                    chosen.append(acc_row)
+            # câu hỏi nêu tỷ lệ: dẫn kèm câu nêu ngưỡng % của quy định (nếu căn cứ đã chọn chưa có)
+            thr = P.get("threshold")
+            thr_row = None
+            if thr is not None and not meta_version and chosen and not any(
+                    PCT_RE.search(dp.chunks[r["i"]]["chunk_text"]) and not EXAMPLE_ROW_RE.search(norm(dp.chunks[r["i"]]["heading"]))
+                    for r in chosen):
+                thr_row = next((r for r in usable if r["i"] == thr), None)
+                if thr_row is not None:
+                    chosen.append(thr_row)
+            # câu hỏi có tiền đề đồng nhất hai mã trạng thái: căn cứ là định nghĩa của mã thứ nhất (ưu tiên điều khoản giải thích
+            # thuật ngữ), kèm định nghĩa mã thứ hai nếu cùng tài liệu có; tiền đề sai thì nói rõ trước (KẾT LUẬN)
+            P.pop("premise", None)
+            pm = PREMISE_RE.search(P["question"])
+            if pm and pm.group(1) != pm.group(2) and not meta_version:
+                a_code, b_code = pm.group(1), pm.group(2)
+                def defs(code):
+                    rx = re.compile(rf"^(?:\d{{1,2}}\.\s*)?(?:Trạng thái\s+)?{code}\w*\s*(?:[:–-]|được sử dụng khi)")
+                    out = []
+                    for r in usable:
+                        u = next((u for u in self.units(dp.chunks[r["i"]]) if rx.match(u.strip())), None)
+                        if u:
+                            out.append((r, u))
+                    return out
+                da = defs(a_code)
+                if da:
+                    term = lambda r: bool(re.search(r"thuật ngữ|giải thích", norm(dp.chunks[r["i"]]["heading"])))
+                    ra, ua = max(da, key=lambda x: (term(x[0]), x[0]["final"]))
+                    db = [(r, u) for r, u in defs(b_code) if r["document_id"] == ra["document_id"]]
+                    picks = [(ra, [ua])]
+                    if db:
+                        rb, ub = db[0]
+                        if rb is ra:
+                            picks = [(ra, [ua, ub])]
+                        else:
+                            picks.append((rb, [ub]))
+                    chosen = [r for r, _ in picks]
+                    P["premise"] = {"a": a_code, "b": b_code, "units": {r["i"]: us for r, us in picks},
+                                    "same": False, "lead": ra["i"]}
+            # câu hỏi có/không đã có câu quyết định: căn cứ không hề nhắc động từ được hỏi ("xóa") chỉ khớp phụ ("trực tiếp" = gửi trực
+            # tiếp cho người mua) → không dẫn
+            if dec and chosen and not meta_version:
+                verb = next((t for t in (self.question_form(P)["yesno"] or {}).get("terms", []) if t not in ("tự", "ý", "quyền")), "")
+                dec_own = self.own_relevance(P, dec["i"])
+                pair = set(P.get("counterpart") or ())
+                off = lambda r: (r is not dec_row and r["i"] != dec["i"] and r["i"] not in pair and verb
+                                 and verb not in self.tokset[r["i"]] and self.own_relevance(P, r["i"]) < 0.6 * dec_own)
+                if any(r["i"] == dec["i"] for r in chosen) or dec_row is not None:
+                    chosen = [r for r in chosen if not off(r)] or chosen
             both = len({dp.chunks[r["i"]]["source_type"] for r in chosen}) > 1
             order = sorted(chosen, key=lambda r: (dp.chunks[r["i"]]["source_type"] != "LEGAL", is_sec(r),
                                                   r["rank"] if both else 0))
@@ -2345,7 +2864,15 @@ class PolicyAssist:
                 whole_proc = r["i"] == (P.get("counterpart") or (None,))[0]     # câu hỏi quy trình: trích trọn quy trình
                 picked = self.pick_units(c, P, max_units=cfg.primary_units if main else 2,
                                          full_chars=cfg.primary_full_chars, whole=whole_proc)
-                claims.append({"text": " ".join(picked),
+                if r is dec_row:
+                    picked = [dec["unit"]]
+                elif P.get("premise") and r["i"] in P["premise"]["units"]:
+                    picked = P["premise"]["units"][r["i"]]
+                elif r in role_rows:
+                    picked = self.role_units(c, P["role"][1]) or picked
+                elif r is thr_row:
+                    picked = [u for u in self.units(c) if PCT_RE.search(u)][:2] or picked
+                claims.append({"decisive": r is dec_row, "threshold": r is thr_row, "text": " ".join(picked),
                                "kind": "legal" if c["source_type"] == "LEGAL" else "internal",
                                "refs": [{"chunk_id": c["chunk_id"], "i": r["i"], "doc": c["document_id"]}],
                                # câu/dòng đã trích (hiển thị), toàn bộ câu của đoạn (để chọn KẾT LUẬN), căn cứ chính
@@ -2433,8 +2960,9 @@ class PolicyAssist:
         if in_force:
             parts, refs = [], []
             for d in in_force:
-                extra = f", sửa đổi, bổ sung {dp.short(dp.amends[d])} ({dp.amends[d]})" if d in dp.amends else ""
-                parts.append(f"{dp.short(d)} ({d}, hiệu lực từ {fmt_date(dp.start(d))}{extra})")
+                extra = (f", sửa đổi, bổ sung {dp.short(dp.amends[d])} ({dp.amends[d]}) – văn bản nền vẫn áp dụng ở phần "
+                         f"không bị sửa đổi" if d in dp.amends else "")
+                parts.append(f"{dp.short(d)} ({abbr_doc(dp.number.get(d, ''))}{d}, hiệu lực từ {fmt_date(dp.start(d))}{extra})")
                 refs += refs_for(d)
             claims.append({"text": f"{prefix}Tại ngày {day}, nguồn cần ưu tiên áp dụng là " + "; ".join(parts) + ".",
                            "kind": "version" if refs else "meta", "refs": refs})
@@ -2483,9 +3011,18 @@ class PolicyAssist:
         for ch in chains:
             if len(ch) >= 2 and (len([d for d in targets if d in ch]) >= 2 or re.search(r"chuỗi|quan hệ|versioning", q)):
                 seq = " → ".join(
-                    f"{d} ({dp.number.get(d, '')}, " + ("hợp nhất – tham khảo" if dp.doc_state(d, ref) == REF_ONLY else
-                    f"{fmt_date(dp.start(d))}–{fmt_date(dp.end(d)) or 'nay'}") + ")" for d in ch)
-                claims.append({"text": f"Chuỗi phiên bản theo metadata: {seq}.", "kind": "chain", "refs": []})
+                    f"{d} ({dp.number.get(d, '')}, " + (f"sửa đổi, bổ sung {dp.amends[d]}, " if d in dp.amends else "") + ("hợp nhất – chỉ để tham chiếu" if dp.doc_state(d, ref) == REF_ONLY else
+                    f"{fmt_date(dp.start(d))}–{fmt_date(dp.end(d)) or 'nay, hiện hành'}") + ")" for d in ch)
+                # mốc hiệu lực của các văn bản thay thế nhau (bỏ văn bản hợp nhất, văn bản sửa đổi một phần) có nối liền không
+                main = [d for d in ch if dp.doc_state(d, ref) != REF_ONLY and d not in dp.amends and dp.start(d)]
+                gaps = [(a, b) for a, b in zip(main, main[1:]) if dp.end(a) and
+                        (date.fromisoformat(dp.end(a)) + timedelta(days=1)).isoformat() != dp.start(b)]
+                tail = ""
+                if len(main) >= 2 and all(dp.end(a) for a in main[:-1]):
+                    tail = (" Các mốc hiệu lực nối liền: văn bản sau có hiệu lực ngay ngày kế tiếp ngày văn bản trước hết hiệu lực."
+                            if not gaps else " Có khoảng trống giữa các mốc hiệu lực: " +
+                            "; ".join(f"{a} hết hiệu lực {fmt_date(dp.end(a))}, {b} hiệu lực từ {fmt_date(dp.start(b))}" for a, b in gaps) + ".")
+                claims.append({"text": f"Chuỗi phiên bản theo metadata: {seq}.{tail}", "kind": "chain", "refs": []})
         return claims
 
     # ------------------------------------------------------------------ P7
@@ -2685,11 +3222,32 @@ class PolicyAssist:
         res.key_point = ({"text": concl["text"], "polarity": concl["polarity"],
                           "refs": [num[rf["chunk_id"]] for rf in kept[concl["k"]]["refs"]],
                           "items": list(concl.get("units") or [concl["text"]])} if concl else {})
+        # câu hỏi nêu hai khoản tiền và căn cứ có ngưỡng %: tính sẵn tỷ lệ để người dùng đối chiếu (phép tính của hệ thống, ghi rõ)
+        amts = [float(x.replace(".", "").replace(",", ".")) for x in
+                re.findall(r"(\d+(?:[.,]\d+)*)\s*(?:triệu|tỷ)", norm(P["question"]))]
+        if len(amts) == 2 and min(amts) > 0:
+            thr = next((m for cl in kept for u in (cl.get("units") or []) for m in [NUM_THRESHOLD_RE.search(norm(u))]
+                        if m and PCT_RE.search(u)), None)
+            if thr is not None:
+                pct = 100 * min(amts) / max(amts)
+                fmt = lambda v: f"{v:g}".replace(".", ",")
+                warns.append(f"Đối chiếu số liệu (hệ thống tự tính từ câu hỏi): {fmt(min(amts))}/{fmt(max(amts))} = {fmt(round(pct, 1))}% – "
+                             "so với ngưỡng % trong căn cứ đã trích; hãy kiểm tra lại cách tính trước khi áp dụng.")
         res.warnings += warns
         res.needs_review = conf < cfg.review_confidence
         if res.needs_review:
             res.warnings.append("Độ tin cậy trung bình – nên chuyển chuyên viên kế toán rà soát (human-in-the-loop).")
         src = "; ".join(f"[{n}] {self.dp.label[cid]}" for cid, n in num.items())
+        # câu hỏi về chính các nguồn ("nên dẫn nguồn nào theo thứ tự", "cần kết hợp tài liệu nào"): nêu thứ tự dẫn nguồn ngay trong
+        # câu trả lời – pháp luật đang có hiệu lực → quy chế/quy trình → sổ tay/FAQ (README mục 2), tên văn bản theo metadata
+        if P["intent"] != "VERSIONING" and SOURCE_LIST_Q_RE.search(norm(P["question"])) and len({c[:5] for c in order}) >= 2:
+            tier = lambda cid: (0 if cid.startswith("LAW") else
+                                2 if self.dp.chunks[self.dp.idx[cid]]["document_type"] in SECONDARY_TYPES else 1)
+            seq = sorted(order, key=lambda cid: (tier(cid), num[cid]))
+            parts = [f"{self.dp.label[cid]} ({self.dp.short(cid[:5])})" for cid in seq]
+            note = " Sổ tay/FAQ chỉ để tham khảo." if any(tier(c) == 2 for c in seq) else ""
+            lines.append("Thứ tự dẫn nguồn (văn bản pháp luật đang có hiệu lực trước, tài liệu nội bộ sau): "
+                         + " → ".join(parts) + "." + note)
         res.answer = ("\n".join(lines) + f"\nNguồn: {src}." + "".join(f"\nLưu ý: {w}" for w in scope_notes + warns)
                       + f"\n{DISCLAIMER}")
         res.decision = "ANSWER"
@@ -3225,6 +3783,11 @@ def _support_lines(r: Result, dp: DataPack) -> list[tuple[list[int], list[str]]]
         chunks = [cited[t - 1] for t in tags if 0 < t <= len(cited)]
         problems: list[str] = []
         out.append((tags, problems))
+        if body.startswith("Thứ tự dẫn nguồn"):         # dòng sinh từ metadata: mọi văn bản nêu ra phải có thật và đã được dẫn
+            docs = [x.upper() for x in DOCID_RE.findall(body)]
+            if not docs or not all(x in dp.doc for x in docs) or not set(docs) <= {c[:5] for c in cited}:
+                problems.append(f"thứ tự dẫn nguồn nêu văn bản không có trong metadata hoặc chưa được dẫn: {body[:60]}")
+            continue
         if body.startswith("Chuỗi phiên bản"):
             if not all(d.upper() in dp.doc for d in DOCID_RE.findall(body)):
                 problems.append(f"chuỗi phiên bản nêu văn bản không có trong metadata: {body[:60]}")
@@ -3250,6 +3813,8 @@ def _support_lines(r: Result, dp: DataPack) -> list[tuple[list[int], list[str]]]
             continue
         text = re.sub(r"^(?:LAW|SIM)\d{2} – [^:]{1,80}: ", "", body)        # bỏ nhãn citation đứng đầu trích dẫn
         text = re.sub(r"^(?:Có|Không)\.\s+", "", text)                     # từ trả lời câu có/không của KẾT LUẬN
+        # lời bác tiền đề đồng nhất hai mã trạng thái: phần còn lại (định nghĩa nguyên văn) vẫn phải khớp nguồn
+        text = re.sub(r"^Tiền đề chưa đúng – [A-Z][A-Z_]+ không có nghĩa là [A-Z][A-Z_]+\.\s+", "", text)
         ctoks = set().union(*(set(tokenize(dp.chunks[dp.idx[c]]["heading"] + " " + dp.chunks[dp.idx[c]]["chunk_text"],
                                            bigrams=False)) for c in chunks if c in dp.idx))
         atoks = set(tokenize(text, bigrams=False))
@@ -3427,7 +3992,7 @@ SYSTEMS = {
     "B0 – BM25 thuần (baseline)": dict(name="B0", w_tfidf=0.0, use_guard=False, use_chronos=False, use_rerank=False,
                                       use_prf=False, use_structure=False, use_gate=False, use_audit=False,
                                       use_rewrite=False, use_expansion=False, use_forced=False, w_coverage=0.0,
-                                      max_answer_chunks=1),
+                                      max_answer_chunks=1, use_decisive=False),
     "CHRONOS-LEDGER (đầy đủ)": dict(name="FULL"),
     "– bỏ CHRONOS (versioning)": dict(name="NO_CHRONOS", use_chronos=False),
     "– bỏ Authority rerank": dict(name="NO_RERANK", use_rerank=False),
@@ -3602,7 +4167,7 @@ SAME_ANSWER_STRESS = {"PARAPHRASE", "NO_DIACRITIC", "ABBREV_TYPO", "ABBREV_CODEM
 CORRECT_FULL, CORRECT_PART = 0.70, 0.40
 BOOT_N, BOOT_SEED = 2000, 2026
 _OFF = dict(use_guard=False, use_chronos=False, use_rerank=False, use_prf=False, use_structure=False, use_gate=False,
-            use_audit=False, max_answer_chunks=1, min_confidence=0.0)
+            use_audit=False, max_answer_chunks=1, min_confidence=0.0, use_decisive=False)
 # Ablation thêm dần (báo cáo mục 5.3): bật lần lượt từng khối của pipeline từ B0 đến hệ thống đầy đủ B6; B2′ thay CHRONOS
 # bằng cách của pipeline tham khảo (lọc cứng theo ngày trước khi xếp hạng) để so hai cách xử lý phiên bản.
 ABLATION_STEPS = {
@@ -4406,6 +4971,174 @@ EMPH_RE = re.compile(
     r"|(?P<must>\b(?:không được phép|không được|nghiêm cấm|chậm nhất|không vượt quá|tối đa|tối thiểu|"
     r"không cho phép)\b)")
 
+# Ô Ngày tham chiếu (component v2): một ô nhập văn bản thường nên bàn phím/bộ gõ nào (Unikey, Telex, VNI…) cũng gõ được số;
+# tự chèn dấu "/" theo dd/mm/yyyy, có nút × để xóa và nút lịch mở lịch chọn ngày tự vẽ (.pa-cal: tông navy, tiếng Việt, không dùng lịch của trình duyệt). Python kiểm tra ngày có thật.
+DATE_BOX_HTML = ('<div class="pa-date"><input class="txt" type="text" inputmode="numeric" maxlength="10" placeholder="dd/mm/yyyy" '
+                 'aria-label="Ngày tham chiếu (dd/mm/yyyy)" autocomplete="off" spellcheck="false">'
+                 '<button class="clr pa-ic" type="button" aria-label="Xóa ngày" title="Xóa ngày" hidden>close</button>'
+                 '<button class="cal pa-ic" type="button" aria-label="Chọn ngày trên lịch" title="Chọn ngày trên lịch">calendar_month</button></div>')
+DATE_BOX_JS = """
+export default function (component) {
+  const { parentElement, setStateValue, data } = component;
+  const box = parentElement.querySelector(".pa-date");
+  const input = box.querySelector(".txt"), clear = box.querySelector(".clr"), cal = box.querySelector(".cal");
+  input._paSet = setStateValue;
+  const d = data || {};
+  if (input._paGen !== d.gen) {               // lần đầu, hoặc Python vừa đặt ngày (chọn câu mẫu): hiện đúng ngày đó
+    const first = input._paGen === undefined;
+    input._paGen = d.gen; input.value = d.text || "";
+    if (first) input._paSent = input.value;
+  }
+  input.disabled = cal.disabled = !!d.disabled;
+  box.classList.toggle("off", !!d.disabled);
+  box.classList.toggle("bad", !!d.invalid);
+  const send = (delay) => {
+    clearTimeout(input._paTimer);
+    input._paTimer = setTimeout(() => {
+      if (input.value !== input._paSent) { input._paSent = input.value; input._paSet("text", input.value); }
+    }, delay);
+  };
+  // "15052025" → "15/05/2025"; "1/5/2025", "1-5-2025", "1.5.2025" đều nhận; ký tự không phải số bị bỏ
+  const format = (raw, typing) => {
+    const digits = (s) => s.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 65248)).replace(/[^0-9]/g, "");
+    const parts = raw.split(/[\\/\\-. ]+/).map(digits);
+    const hadSep = parts.length;
+    const lim = [2, 2, 4], out = [];
+    for (let i = 0; i < 3; i++) {
+      let p = parts[i] || "";
+      if (p.length > lim[i]) { if (i < 2) parts[i + 1] = p.slice(lim[i]) + (parts[i + 1] || ""); p = p.slice(0, lim[i]); }
+      out.push(p);
+    }
+    let s = out[0];
+    if (out[1] || out[2] || (out[0] && (hadSep > 1 || (typing && out[0].length === 2)))) s += "/" + out[1];
+    if (out[2] || (out[1] && (hadSep > 2 || (typing && out[1].length === 2)))) s += "/" + out[2];
+    return s;
+  };
+  const complete = () => /^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$/.test(input.value) || input.value === "";
+  const onInput = (e) => {
+    if (e && e.isComposing) return;            // bộ gõ đang ghép: đợi compositionend
+    const atEnd = input.selectionStart === input.value.length;
+    const typing = !e || !e.inputType || !e.inputType.startsWith("delete");
+    const v = atEnd ? format(input.value, typing) : input.value.replace(/[^0-9\\/]/g, "").slice(0, 10);
+    if (v !== input.value) { const pos = input.selectionStart; input.value = v; if (!atEnd) input.setSelectionRange(pos, pos); }
+    clear.hidden = !input.value || input.disabled;
+    box.classList.remove("bad");
+    if (complete()) send(250);
+  };
+  const onBlur = () => { input.value = format(input.value, false); clear.hidden = !input.value || input.disabled; send(0); };
+  const onKey = (e) => { if (e.key === "Enter") { e.preventDefault(); onBlur(); } };
+  const onClear = () => { input.value = ""; clear.hidden = true; box.classList.remove("bad"); send(0); input.focus(); };
+  // Lịch chọn ngày tự vẽ (tông navy, tiếng Việt, tuần bắt đầu từ Thứ Hai) – gắn vào <body> để không bị khung chứa cắt
+  const mk = (y, m, dd) => { const t = new Date(2000, 0, 1); t.setFullYear(y, m, dd); return t; };
+  const same = (a, b) => !!a && !!b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  const two = (n) => String(n).padStart(2, "0");
+  const selected = () => {
+    const m = input.value.match(/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})$/);
+    if (!m) return null;
+    const t = mk(+m[3], +m[2] - 1, +m[1]);
+    return t.getMonth() === +m[2] - 1 && t.getDate() === +m[1] ? t : null;
+  };
+  const closeCal = () => {
+    const pop = input._paPop;
+    if (!pop) return;
+    pop.remove(); input._paPop = null;
+    document.removeEventListener("mousedown", pop._out, true);
+    document.removeEventListener("keydown", pop._esc, true);
+    window.removeEventListener("resize", pop._close);
+  };
+  const place = (pop) => {
+    const r = input.closest(".pa-date").getBoundingClientRect(), h = pop.offsetHeight, w = pop.offsetWidth;
+    const up = r.bottom + 6 + h > window.innerHeight && r.top - 6 - h > 0;
+    pop.style.top = (up ? r.top - 6 - h : r.bottom + 6) + "px";
+    pop.style.left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8)) + "px";
+  };
+  const draw = (pop) => {
+    const y = pop._y, m = pop._m, sel = selected(), now = new Date();
+    let h = '<div class="hd"><button type="button" class="nav pa-ic" data-step="-1" aria-label="Tháng trước" title="Tháng trước">'
+      + 'chevron_left</button><div class="ttl"><select class="mo" aria-label="Tháng">';
+    for (let i = 0; i < 12; i++) h += `<option value="${i}"${i === m ? " selected" : ""}>Tháng ${i + 1}</option>`;
+    h += '</select><select class="yr" aria-label="Năm">';
+    for (let yy = Math.max(1, y - 15); yy <= Math.min(9999, y + 15); yy++) h += `<option value="${yy}"${yy === y ? " selected" : ""}>${yy}</option>`;
+    h += '</select></div><button type="button" class="nav pa-ic" data-step="1" aria-label="Tháng sau" title="Tháng sau">chevron_right</button></div>'
+      + '<div class="wk">' + ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((w) => `<span>${w}</span>`).join("") + '</div><div class="gr">';
+    const off = (mk(y, m, 1).getDay() + 6) % 7;
+    for (let i = 0; i < 42; i++) {
+      const t = mk(y, m, 1 - off + i);
+      const cls = "d" + (t.getMonth() !== m ? " out" : "") + (same(t, now) ? " today" : "") + (same(t, sel) ? " sel" : "");
+      h += `<button type="button" class="${cls}" data-d="${t.getFullYear()}|${t.getMonth()}|${t.getDate()}">${t.getDate()}</button>`;
+    }
+    h += '</div><div class="ft"><button type="button" class="lnk" data-act="clear">Xóa ngày</button>'
+      + '<button type="button" class="lnk" data-act="today">Hôm nay</button></div>';
+    pop.innerHTML = h; place(pop);
+  };
+  const pick = (t) => {
+    input.value = `${two(t.getDate())}/${two(t.getMonth() + 1)}/${String(t.getFullYear()).padStart(4, "0")}`;
+    clear.hidden = false; box.classList.remove("bad"); send(0); closeCal();
+  };
+  const onCal = () => {
+    if (input._paPop) { closeCal(); return; }
+    const pop = document.createElement("div"), base = selected() || new Date();
+    pop.className = "pa-cal"; pop.setAttribute("role", "dialog"); pop.setAttribute("aria-label", "Chọn ngày tham chiếu");
+    pop.style.fontFamily = getComputedStyle(input).fontFamily;
+    pop._y = base.getFullYear(); pop._m = base.getMonth();
+    pop.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      if (b.dataset.step) {
+        const t = mk(pop._y, pop._m + Number(b.dataset.step), 1);
+        if (t.getFullYear() >= 1 && t.getFullYear() <= 9999) { pop._y = t.getFullYear(); pop._m = t.getMonth(); draw(pop); }
+      } else if (b.dataset.d) {
+        const p = b.dataset.d.split("|").map(Number); pick(mk(p[0], p[1], p[2]));
+      } else if (b.dataset.act === "today") { pick(new Date()); }
+      else if (b.dataset.act === "clear") { closeCal(); onClear(); }
+    });
+    pop.addEventListener("change", (e) => {
+      if (e.target.classList.contains("mo")) pop._m = Number(e.target.value);
+      if (e.target.classList.contains("yr")) pop._y = Number(e.target.value);
+      draw(pop);
+    });
+    pop._out = (e) => { if (!pop.contains(e.target) && !(e.target.closest && e.target.closest(".pa-date .cal"))) closeCal(); };
+    pop._esc = (e) => { if (e.key === "Escape") { closeCal(); input.focus(); } };
+    pop._close = closeCal;
+    document.body.appendChild(pop); input._paPop = pop; draw(pop);
+    document.addEventListener("mousedown", pop._out, true);
+    document.addEventListener("keydown", pop._esc, true);
+    window.addEventListener("resize", pop._close);
+  };
+  if (d.disabled) closeCal();
+  input.addEventListener("input", onInput);
+  input.addEventListener("compositionend", onInput);
+  input.addEventListener("blur", onBlur);
+  input.addEventListener("keydown", onKey);
+  clear.addEventListener("click", onClear);
+  cal.onclick = onCal;                         // gán đè (không cộng dồn qua các lần vẽ lại) để một lần bấm chỉ mở/đóng một lần
+  clear.hidden = !input.value || input.disabled;
+  if (input.value !== input._paSent) send(0);
+  return () => {
+    input.removeEventListener("input", onInput);
+    input.removeEventListener("compositionend", onInput);
+    input.removeEventListener("blur", onBlur);
+    input.removeEventListener("keydown", onKey);
+    clear.removeEventListener("click", onClear);
+  };
+}
+"""
+
+
+def parse_ref_text(text: str) -> tuple[date | None, bool]:
+    """Chuỗi gõ ở ô Ngày tham chiếu → (ngày, hợp lệ). Rỗng = không có ngày (hợp lệ); phải đúng dd/mm/yyyy và là ngày có thật."""
+    t = (text or "").strip()
+    if not t:
+        return None, True
+    m = re.fullmatch(r"(\d{1,2})/(\d{1,2})/(\d{4})", t)
+    if not m:
+        return None, False
+    try:
+        return date(int(m.group(3)), int(m.group(2)), int(m.group(1))), True
+    except ValueError:
+        return None, False
+
+
 # Ô tìm kiếm lịch sử (component v2 của Streamlit): gửi từ khóa sau MỖI lần gõ, kể cả khi bộ gõ tiếng Việt đang ghép chữ
 # (st.text_input đợi bộ gõ ghép xong cả từ mới gửi); trễ 90 ms để không gửi dồn. Hàm JS được gọi lại mỗi lần vẽ lại nên giữ
 # nguyên ô nhập (không mất con trỏ) và không huỷ lần gửi đang chờ.
@@ -4529,7 +5262,8 @@ h1,h2,h3{color:var(--pa-navy);}
 .pa-chip.ok{background:var(--pa-ok-bg);color:var(--pa-ok);}
 .pa-chip.bad{background:#FDE7E3;color:#A3300F;}
 /* ---------- vùng hội thoại ---------- */
-[data-testid="stLayoutWrapper"]:has(> .st-key-chatlog){flex:0 0 auto!important;height:max(320px,calc(100vh - 300px))!important;}
+/* khung hội thoại chiếm hết phần còn lại của cột → đáy ô nhập câu hỏi luôn bằng đáy panel nguồn bên phải */
+[data-testid="stLayoutWrapper"]:has(> .st-key-chatlog){flex:1 1 0!important;height:auto!important;min-height:260px!important;}
 [data-testid="stLayoutWrapper"]:has(> .st-key-srcpanel){flex:0 0 auto!important;height:max(480px,calc(100vh - 150px))!important;}
 .st-key-chatlog,.st-key-srcpanel{height:100%!important;}
 .st-key-chatlog{background:var(--pa-soft);border:1px solid var(--pa-line)!important;border-radius:16px!important;padding:4px 6px!important;}
@@ -4637,18 +5371,64 @@ mark.pa-key{background:var(--pa-mark);color:inherit;padding:1px 3px;border-radiu
  box-shadow:0 2px 10px #14284B0F;}
 .st-key-composer [data-testid="stForm"]{border:none;padding:0;}
 .st-key-composer [data-baseweb="textarea"]{background:#F6F8FB!important;border:1px solid #E3E8F0!important;border-radius:12px!important;}
-.st-key-composer textarea{font-size:15.5px;line-height:1.5;background:transparent!important;}
-.st-key-send button{height:68px;min-width:96px;border-radius:12px;font-weight:700;font-size:15px;}
+/* ô hỏi cao đúng MỘT dòng, tự cao dần theo nội dung (tối đa ~6 dòng) – nút Gửi cao bằng ô một dòng, neo đáy */
+.st-key-composer [data-testid="stTextArea"],.st-key-composer [data-testid="stTextArea"]>div,
+.st-key-composer [data-baseweb="textarea"],.st-key-composer [data-baseweb="base-input"]{height:auto!important;min-height:0!important;}
+.st-key-composer textarea{font-size:15.5px;line-height:1.5;background:transparent!important;height:44px!important;
+ min-height:44px!important;max-height:156px;padding:10px 12px!important;resize:none;}
+@supports (field-sizing:content){.st-key-composer textarea{field-sizing:content;height:auto!important;}}
+.st-key-send button{height:46px;min-height:46px;min-width:96px;border-radius:12px;font-weight:700;font-size:15px;}
 .st-key-daterow{padding:0 2px!important;}
 .pa-dlab{font-size:13px;font-weight:700;color:#3B4656;white-space:nowrap;}
 .pa-hint{font-size:12.5px;color:#6B7486;line-height:1.4;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .st-key-daterow [data-testid="stElementContainer"]:has(.pa-hint){min-width:0;flex:1 1 auto;}
 .st-key-daterow [data-testid="stCheckbox"] label{white-space:nowrap;}
 .pa-hint b{color:#3B4656;}
+.pa-hint b.bad{color:#A3300F;}
+.st-key-daterow [data-testid="stElementContainer"]:has(.pa-date),.st-key-daterow [data-testid="stLayoutWrapper"]:has(.pa-date),
+.st-key-daterow .st-key-refdate{flex:0 0 164px!important;width:164px!important;min-width:164px;}
+.pa-date{position:relative;display:flex;align-items:center;gap:2px;height:38px;padding:0 4px 0 11px;background:#F6F8FB;
+ border:1px solid #D5DDEA;border-radius:10px;box-sizing:border-box;width:100%;}
+.pa-date:focus-within{border-color:var(--pa-navy2);box-shadow:0 0 0 2px #1F3B6E1F;}
+.pa-date.bad{border-color:#C8472B;background:#FDF3F0;}
+.pa-date.off{opacity:.55;}
+.pa-date .txt{flex:1 1 auto;min-width:0;width:100%;border:none;outline:none;background:transparent;font:inherit;font-size:14.5px;
+ font-weight:700;color:#1B2536;padding:0;font-variant-numeric:tabular-nums;}
+.pa-date .txt::placeholder{font-weight:500;color:#9AA3B2;}
+.pa-date button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:24px;height:26px;border:none;
+ background:transparent;color:#6B7486;cursor:pointer;font-size:18px;border-radius:6px;padding:0;}
+.pa-date button:hover:not(:disabled){background:#E3E8F0;color:var(--pa-navy);}
+.pa-date button:disabled{cursor:default;}
+.pa-date button[hidden]{display:none;}
+.pa-cal{position:fixed;z-index:1000060;width:300px;box-sizing:border-box;padding:14px 14px 10px;background:#fff;color:#1B2536;
+ border:1px solid #DCE3EE;border-radius:16px;box-shadow:0 14px 36px #14284B2E,0 2px 6px #14284B14;font-size:14px;}
+.pa-cal button:not(.pa-ic),.pa-cal select{font:inherit;}
+.pa-cal button,.pa-cal select{cursor:pointer;}
+.pa-cal .hd{display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+.pa-cal .ttl{flex:1 1 auto;display:flex;justify-content:center;gap:4px;}
+.pa-cal select{border:1px solid transparent;border-radius:8px;background:transparent;padding:5px 4px;font-weight:700;font-size:14.5px;
+ color:#14284B;outline:none;}
+.pa-cal select:hover,.pa-cal select:focus-visible{background:#F3F6FB;border-color:#DCE3EE;}
+.pa-cal .nav{flex:0 0 auto;width:32px;height:32px;margin:0;border:none;border-radius:50%;background:transparent;color:#3B4656;
+ font-size:22px;display:inline-flex;align-items:center;justify-content:center;padding:0;}
+.pa-cal .nav:hover{background:#EEF2F8;color:#14284B;}
+.pa-cal .wk,.pa-cal .gr{display:grid;grid-template-columns:repeat(7,1fr);justify-items:center;}
+.pa-cal .wk span{font-size:12px;font-weight:700;color:#7A8499;padding:4px 0 6px;}
+.pa-cal .wk span:nth-child(n+6){color:#B4532A;}
+.pa-cal .d{width:36px;height:36px;margin:1px 0;border:none;border-radius:50%;background:transparent;color:#1B2536;font-size:14px;
+ font-variant-numeric:tabular-nums;padding:0;transition:background .12s;}
+.pa-cal .d:hover{background:#E6ECF6;}
+.pa-cal .d.out{color:#B3BBC8;}
+.pa-cal .d.today{box-shadow:inset 0 0 0 1.5px #1E3A6E;font-weight:700;color:#1E3A6E;}
+.pa-cal .d.sel,.pa-cal .d.sel:hover{background:#1E3A6E;color:#fff;font-weight:700;box-shadow:none;}
+.pa-cal .d:focus-visible,.pa-cal .nav:focus-visible,.pa-cal .lnk:focus-visible{outline:2px solid #5E93E0;outline-offset:1px;}
+.pa-cal .ft{display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid #EEF1F6;}
+.pa-cal .lnk{border:none;background:transparent;color:#1E3A6E;font-weight:600;font-size:13.5px;padding:6px 10px;border-radius:8px;}
+.pa-cal .lnk:hover{background:#EEF2F8;}
 .st-key-daterow [data-testid="stDateInput"] input{font-weight:700;}
 .st-key-daterow [data-testid="stCheckbox"] p{font-size:13.5px;font-weight:600;color:#3B4656;}
-.st-key-samplepop button{min-height:34px;padding:2px 12px;background:#fff!important;border:1px solid #DCE2EC!important;border-radius:9px;}
-.st-key-samplepop button p{color:#3B4656!important;font-weight:600;font-size:13px;}
+[class*="st-key-samplepop"] button{min-height:34px;padding:2px 12px;background:#fff!important;border:1px solid #DCE2EC!important;border-radius:9px;}
+[class*="st-key-samplepop"] button p{color:#3B4656!important;font-weight:600;font-size:13px;}
 [data-testid="stPopoverBody"]:has(.st-key-pick){width:min(720px,92vw)!important;max-width:min(720px,92vw)!important;}
 /* ---------- panel nguồn ---------- */
 .pa-src-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 2px 8px;border-bottom:1px solid var(--pa-line);}
@@ -4678,7 +5458,12 @@ mark.pa-key{background:var(--pa-mark);color:inherit;padding:1px 3px;border-radiu
 .pa-src .prio{margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#3B4656;}
 .pa-src .empty{padding:24px 6px;font-size:14px;line-height:1.6;color:var(--pa-muted);}
 .pa-src .empty b{display:block;font-size:15px;color:var(--pa-ink);margin-bottom:4px;}
-.st-key-srcclose button{min-height:30px;padding:0 9px;border-radius:8px;}
+/* hai nút "Mở nguồn gốc" và "Đóng" cùng kích cỡ, chia đôi hàng */
+.st-key-srcbtns>div{flex:1 1 0!important;min-width:0;}
+.st-key-srcbtns button,.st-key-srcbtns a{width:100%;min-height:40px;}
+/* ---------- trang Xuất bài nộp: nút chạy bên trái, hai nút tải bên phải cùng hàng ---------- */
+.st-key-subrow{align-items:center;}
+.st-key-subdl{justify-content:flex-end;flex:1 1 auto!important;}
 /* ---------- các trang khác ---------- */
 .pa-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:4px 0 8px;}
 .pa-stat{background:#fff;border:1px solid var(--pa-line);border-radius:14px;padding:12px 14px;}
@@ -5440,8 +6225,18 @@ def run_ui():
     ss.setdefault("sess", new_session())
     ss.setdefault("sel", None)
     ss.setdefault("q_text", "")
-    ss.setdefault("q_date", SNAPSHOT)           # ngày tham chiếu mặc định = ngày chụp Data Pack, đổi được
+    ss.setdefault("q_date_txt", f"{SNAPSHOT:%d/%m/%Y}")   # ngày tham chiếu (chuỗi dd/mm/yyyy) mặc định = ngày chụp Data Pack
+    ss.setdefault("date_seen", ss.q_date_txt)   # chuỗi gần nhất nhận từ ô ngày
+    ss.setdefault("date_gen", 0)                # tăng khi Python tự đặt ngày (chọn câu mẫu) để ô ngày hiện lại
     ss.setdefault("auto_date", False)           # ô Tự động: ngày nêu trong câu hỏi, không có thì ngày hôm nay
+
+    def sync_ref_date() -> str:
+        """Lấy chuỗi người dùng vừa gõ/chọn ở ô ngày (nếu có thay đổi) vào ss.q_date_txt; trả về chuỗi hiện hành."""
+        box = ss.get("refdate")
+        txt = box.get("text") if isinstance(box, dict) else getattr(box, "text", None)
+        if isinstance(txt, str) and txt != ss.date_seen:
+            ss.q_date_txt = ss.date_seen = txt
+        return ss.q_date_txt
 
     # ------------------------------------------------------------------ hành động (callback)
     def ask(question: str, ref, mode: str = "manual"):
@@ -5464,7 +6259,14 @@ def run_ui():
             return
         auto = bool(ss.get("auto_date"))
         # ngày nêu trong câu hỏi luôn được ưu tiên (P1 Planning); tự động + câu không nêu ngày → ngày hôm nay
-        ref = date.today() if auto else (ss.get("q_date") or SNAPSHOT)
+        # ô ngày để trống → không có ngày tham chiếu (như CLI --date none): văn bản nhiều phiên bản sẽ dừng ở cổng G6
+        typed = sync_ref_date()
+        ref, ok = parse_ref_text(typed)
+        if auto:
+            ref = date.today()
+        elif not ok:                                 # ngày gõ dở hoặc không có thật – không lặng lẽ dùng ngày khác
+            ss.flash = f"Ngày tham chiếu “{typed}” chưa đúng. Hãy gõ theo dd/mm/yyyy (ví dụ 15/05/2025) hoặc xóa trống rồi gửi lại."
+            return
         for q in qs_[:10]:
             ask(q, ref, "auto" if auto else "manual")
         if len(qs_) > 10:
@@ -5475,7 +6277,10 @@ def run_ui():
         qid = ss.get("pick")
         if qid:
             q = qrow[qid]
-            ss.q_text, ss.q_date, ss.auto_date = q.question_text, parse_date(q.reference_date) or SNAPSHOT, False
+            ss.q_text, ss.auto_date = q.question_text, False
+            ss.q_date_txt = f"{parse_date(q.reference_date) or SNAPSHOT:%d/%m/%Y}"
+            ss.date_gen += 1
+            ss.pick_gen = ss.get("pick_gen", 0) + 1       # đổi khóa của hộp "Câu mẫu" → hộp tự thu lại sau khi chọn
         ss.pick = None
 
     def select(t: int, cid: str | None):
@@ -5567,6 +6372,10 @@ def run_ui():
     @st.cache_resource(show_spinner=False)
     def search_box_component(version: str):
         return st.components.v2.component("pa_history_search", html=SEARCH_BOX_HTML, js=SEARCH_BOX_JS, isolate_styles=False)
+
+    @st.cache_resource(show_spinner=False)
+    def date_box_component(version: str):
+        return st.components.v2.component("pa_ref_date", html=DATE_BOX_HTML, js=DATE_BOX_JS, isolate_styles=False)
 
     @st.fragment
     def sidebar_history():
@@ -5862,21 +6671,28 @@ def run_ui():
             # hàng 1: ô câu hỏi + nút Gửi (Ctrl+Enter để gửi)
             with st.form("ask", border=False):
                 with st.container(horizontal=True, vertical_alignment="bottom", gap="small", key="askrow"):
-                    st.text_area("Câu hỏi", key="q_text", height=68, label_visibility="collapsed",
+                    st.text_area("Câu hỏi", key="q_text", height=68, label_visibility="collapsed",     # CSS thu về một dòng
                                  placeholder="Nhập câu hỏi…")
                     st.form_submit_button("Gửi", type="primary", icon=":material/send:", on_click=on_submit, key="send")
             # hàng 2 (mảnh): ngày tham chiếu quyết định văn bản nào còn hiệu lực
             auto = bool(ss.get("auto_date"))
             with st.container(horizontal=True, vertical_alignment="center", gap="small", wrap=False, key="daterow"):
                 st.html(f'<span class="pa-dlab">{ic("calendar_month")}Ngày tham chiếu</span>', width="content")
-                st.date_input("Ngày tham chiếu", key="q_date", format="DD/MM/YYYY", label_visibility="collapsed",
-                              width=132, disabled=auto, min_value=date(2010, 1, 1), max_value=date(2035, 12, 31))
+                # ô ngày: gõ được (mọi bàn phím/bộ gõ), xóa được (×), chọn được trên lịch; không giới hạn khoảng ngày
+                typed = sync_ref_date()
+                qd, ok = parse_ref_text(typed)
+                date_box_component(code_version)(key="refdate", default={"text": typed}, on_text_change=lambda: None,
+                                                 data={"text": typed, "gen": ss.date_gen, "disabled": auto,
+                                                       "invalid": not ok and not auto})
                 st.checkbox("Tự động", key="auto_date",
                             help="Dùng ngày nêu trong câu hỏi; câu không nêu ngày thì dùng ngày hôm nay.")
                 hint = (f"theo ngày trong câu hỏi, nếu không có: hôm nay <b>{date.today():%d/%m/%Y}</b>" if auto
+                        else '<b class="bad">Ngày chưa đúng</b> – gõ theo dd/mm/yyyy, ví dụ 15/05/2025' if not ok
+                        else "<b>chưa có ngày</b> – văn bản có nhiều phiên bản sẽ cần ngày tham chiếu" if qd is None
                         else "ngày nêu trong câu hỏi (nếu có) được ưu tiên")
                 st.html(f'<span class="pa-hint">{hint}</span>', width="stretch")
-                with st.popover("Câu mẫu", icon=":material/list_alt:", key="samplepop", help="Chọn 1 trong 90 câu hỏi mẫu của BTC (tự điền câu hỏi và ngày)"):
+                with st.popover("Câu mẫu", icon=":material/list_alt:", key=f"samplepop{ss.get('pick_gen', 0)}",
+                                help="Chọn 1 trong 90 câu hỏi mẫu của BTC (tự điền câu hỏi và ngày)"):
                     st.selectbox("Câu hỏi mẫu của BTC", list(qrow), index=None, key="pick", on_change=on_pick,
                                  format_func=lambda x: f"{x} · {qrow[x].question_text}",
                                  placeholder="Gõ để tìm trong 90 câu hỏi mẫu…")
@@ -5912,11 +6728,11 @@ def run_ui():
             show_doc(c["document_id"], cid)
         with st.container(horizontal=True, gap="small", key="srcbtns"):
             if url:
-                st.link_button("Mở nguồn gốc", url, icon=":material/open_in_new:", help="Trang văn bản gốc (source_url trong Data Pack)", width="stretch")
+                st.link_button("Nguồn gốc", url, icon=":material/open_in_new:", help="Mở trang văn bản gốc (source_url trong Data Pack)", width="stretch")
             else:
-                st.link_button("Mở nguồn gốc", "about:blank", icon=":material/open_in_new:", disabled=True, width="stretch",
+                st.link_button("Nguồn gốc", "about:blank", icon=":material/open_in_new:", disabled=True, width="stretch",
                                help="Tài liệu nội bộ giả lập – không có nguồn gốc ngoài Data Pack")
-            st.button("Đóng", key="srcclose", icon=":material/close:", on_click=select, args=(t, None))
+            st.button("Đóng", key="srcclose", icon=":material/close:", on_click=select, args=(t, None), width="stretch")
 
     def page_submit():
         st.html('<div class="pa-h1">Xuất bài nộp</div><div class="pa-h1-sub">Chạy bộ câu hỏi và ghi <b>outputs/submission.csv</b> '
@@ -5930,7 +6746,12 @@ def run_ui():
             if not need <= set(qdf.columns):
                 st.error(f"Thiếu cột: {', '.join(sorted(need - set(qdf.columns)))}")
                 return
-        if st.button(f"Chạy {len(qdf)} câu hỏi và xuất submission.csv", icon=":material/play_arrow:", type="primary"):
+        # một hàng: nút chạy bên trái · hai nút tải bên phải (điền sau khi có kết quả – chạy xong là tải được ngay)
+        with st.container(horizontal=True, vertical_alignment="center", gap="small", key="subrow"):
+            run_clicked = st.button(f"Chạy {len(qdf)} câu hỏi và xuất submission.csv", icon=":material/play_arrow:", type="primary")
+            dl_slot = st.container(horizontal=True, horizontal_alignment="right", vertical_alignment="center", gap="small",
+                                   key="subdl")
+        if run_clicked:
             bar = st.progress(0.0, text="Đang xử lý…")
             sub, results = run_batch(pa, qdf, lambda n, tot, q: bar.progress(n / tot, text=f"{q} ({n}/{tot})"))
             bar.empty()
@@ -5969,13 +6790,14 @@ def run_ui():
             "confidence": st.column_config.NumberColumn("confidence", format="%.3f", width="small"),
             "abstain": st.column_config.TextColumn("abstain", width="small"),
             "latency_ms": st.column_config.NumberColumn("latency_ms", format="%d", width="small")})
-        with st.container(horizontal=True, vertical_alignment="center", gap="small"):
-            st.download_button("submission.csv", data, "submission.csv", "text/csv", icon=":material/download:", type="primary",
-                               disabled=bool(problems))
-            st.download_button("submission.xlsx – mở bằng Excel", submission_xlsx_bytes(sub), "submission.xlsx",
-                               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", icon=":material/download:")
-            st.caption(f"Lưu tại {csv_path.relative_to(ROOT) if csv_path.is_relative_to(ROOT) else csv_path} và "
-                       f"{csv_path.with_suffix('.xlsx').name} · {b['time']:%H:%M %d/%m/%Y}")
+        with dl_slot:
+            st.download_button("Tải CSV", data, "submission.csv", "text/csv", icon=":material/download:", type="primary",
+                               disabled=bool(problems), key="dl_csv", help="submission.csv – file nộp BTC")
+            st.download_button("Tải Excel", submission_xlsx_bytes(sub), "submission.xlsx",
+                               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", icon=":material/download:",
+                               key="dl_xlsx", help="submission.xlsx – cùng nội dung, để xem bằng Excel")
+        st.caption(f"Lưu tại {csv_path.relative_to(ROOT) if csv_path.is_relative_to(ROOT) else csv_path} và "
+                   f"{csv_path.with_suffix('.xlsx').name} · {b['time']:%H:%M %d/%m/%Y}")
 
     def page_kpi():
         st.html('<div class="pa-h1">Đánh giá KPI</div>')

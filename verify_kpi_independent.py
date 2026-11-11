@@ -1,26 +1,32 @@
 """Dùng: python verify_kpi_independent.py (sau `python policyassist.py eval`).
 Kiểm tra KPI độc lập trên mọi tập: chỉ dùng pandas + file nhãn gốc + outputs/eval_results_all.csv (cột citations,
-retrieved, predicted do hệ thống xuất) + document_metadata; không import policyassist. So với outputs/eval_by_set.csv."""
+retrieved, predicted do hệ thống xuất) + document_metadata; không import policyassist. So với outputs/eval_by_set.csv.
+Chạy được trên Windows, macOS và Linux (đường dẫn dựng bằng pathlib)."""
 import sys
 from pathlib import Path
 
 import pandas as pd
 
-sys.stdout.reconfigure(encoding="utf-8")
-R = str(Path(__file__).resolve().parent)
-DP = R + r"\data\DataPack-CASE1_PolicyAssist"
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:                                                  # noqa: BLE001
+    pass
+R = Path(__file__).resolve().parent
+DP = R / "data" / "DataPack-CASE1_PolicyAssist"
+OUT = R / "outputs"
+EV = R / "data" / "eval"
 sp = lambda v: [x.strip() for x in str(v).replace("\n", ";").split(";") if x.strip() and x.strip().lower() != "nan"]
-res = pd.read_csv(R + r"\outputs\eval_results_all.csv", encoding="utf-8-sig", dtype=str, keep_default_na=False)
-bys = pd.read_csv(R + r"\outputs\eval_by_set.csv", encoding="utf-8-sig")
-meta = pd.read_csv(DP + r"\03_metadata\document_metadata.csv", dtype=str, keep_default_na=False).set_index("document_id")
-cmap = pd.read_csv(DP + r"\citation_map.csv", dtype=str, keep_default_na=False)
+res = pd.read_csv(OUT / "eval_results_all.csv", encoding="utf-8-sig", dtype=str, keep_default_na=False)
+bys = pd.read_csv(OUT / "eval_by_set.csv", encoding="utf-8-sig")
+meta = pd.read_csv(DP / "03_metadata" / "document_metadata.csv", dtype=str, keep_default_na=False).set_index("document_id")
+cmap = pd.read_csv(DP / "citation_map.csv", dtype=str, keep_default_na=False)
 label_of = dict(zip(cmap.chunk_id, cmap.citation_label))
 
-ak = pd.read_csv(DP + r"\05_answer_sample\answer_key_sample.csv", dtype=str, keep_default_na=False)
-ext = pd.read_csv(R + r"\data\eval\ext60_labels.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
-st6 = pd.read_csv(R + r"\data\eval\stress60_labels.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
-par = pd.read_csv(R + r"\data\eval\paraphrase_questions.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
-prb = pd.read_csv(R + r"\data\eval\probe_questions.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
+ak = pd.read_csv(DP / "05_answer_sample" / "answer_key_sample.csv", dtype=str, keep_default_na=False)
+ext = pd.read_csv(EV / "ext60_labels.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
+st6 = pd.read_csv(EV / "stress60_labels.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
+par = pd.read_csv(EV / "paraphrase_questions.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
+prb = pd.read_csv(EV / "probe_questions.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
 LAB = {  # tập → (bảng nhãn, cột chunk vàng, cột nhãn citation, cột văn bản đúng cho versioning)
     "Dev-30": (ak, "relevant_chunk_ids", "citation_labels", "relevant_document_ids"),
     "Ext-60": (ext, "relevant_chunk_ids", "citation_labels", "relevant_document_ids"),
@@ -100,3 +106,4 @@ for setn, (lab, gcol, ccol, vcol) in LAB.items():
         tgt = "unsupported_rate" if key == "unsupported" else key
         print(f"  trung bình cột {key:18s} {col.mean() if len(col) else float('nan'):.3f} · chương trình {prog(setn, tgt):.3f} ({len(col)} câu)")
 print("\nKẾT LUẬN:", "các KPI tính lại độc lập KHỚP" if ok_all else "CÓ LỆCH – xem chi tiết")
+sys.exit(0 if ok_all else 1)

@@ -1,40 +1,40 @@
 ﻿chỉ số,khóa,tập,giá trị,số câu,CI 95%,B0,mục tiêu,nguồn mục tiêu,đánh giá
 1. Retrieval Recall@5,recall_at_5,Dev-30,0.936,24.33/26,0.859–1.000,0.538,≥ 0.8,đề thi,Đạt
-1. Retrieval Recall@5,recall_at_5,Ext-60,0.887,44.33/50,0.827–0.940,0.647,≥ 0.8,đề thi,Đạt
-1. Retrieval Recall@5,recall_at_5,Public-90,0.904,68.67/76,0.855–0.947,0.61,≥ 0.8,đề thi,Đạt
-1. Retrieval Recall@5,recall_at_5,Stress-60,0.71,36.93/52,0.633–0.788,0.36,≥ 0.8,đề thi,Chưa đạt
+1. Retrieval Recall@5,recall_at_5,Ext-60,0.907,45.33/50,0.850–0.960,0.647,≥ 0.8,đề thi,Đạt
+1. Retrieval Recall@5,recall_at_5,Public-90,0.917,69.67/76,0.871–0.958,0.61,≥ 0.8,đề thi,Đạt
+1. Retrieval Recall@5,recall_at_5,Stress-60,0.742,38.57/52,0.672–0.814,0.36,≥ 0.8,đề thi,Chưa đạt
 1. Retrieval Recall@5,recall_at_5,Probe-25,,,,,≥ 0.8,đề thi,
-1. Retrieval Recall@5,recall_at_5,Paraphrase-52,0.853,35.83/42,0.762–0.925,0.54,≥ 0.8,đề thi,Đạt
+1. Retrieval Recall@5,recall_at_5,Paraphrase-52,0.901,37.83/42,0.833–0.956,0.54,≥ 0.8,đề thi,Đạt
 MRR@5,mrr,Dev-30,0.962,25/26,,0.508,,,
 MRR@5,mrr,Ext-60,0.844,42.18/50,,0.673,,,
 MRR@5,mrr,Public-90,0.884,67.18/76,,0.616,,,
-MRR@5,mrr,Stress-60,0.839,43.62/52,,0.438,,,
+MRR@5,mrr,Stress-60,0.868,45.12/52,,0.438,,,
 MRR@5,mrr,Probe-25,,,,,,,
-MRR@5,mrr,Paraphrase-52,0.887,37.25/42,,0.573,,,
+MRR@5,mrr,Paraphrase-52,0.917,38.5/42,,0.573,,,
 Recall@5 theo văn bản,doc_recall_at_5,Dev-30,0.962,25/26,,0.771,,,
-Recall@5 theo văn bản,doc_recall_at_5,Ext-60,0.94,47/50,,0.85,,,
-Recall@5 theo văn bản,doc_recall_at_5,Public-90,0.947,72/76,,0.823,,,
-Recall@5 theo văn bản,doc_recall_at_5,Stress-60,0.868,45.13/52,,0.654,,,
+Recall@5 theo văn bản,doc_recall_at_5,Ext-60,0.95,47.5/50,,0.85,,,
+Recall@5 theo văn bản,doc_recall_at_5,Public-90,0.954,72.5/76,,0.823,,,
+Recall@5 theo văn bản,doc_recall_at_5,Stress-60,0.882,45.88/52,,0.654,,,
 Recall@5 theo văn bản,doc_recall_at_5,Probe-25,,,,,,,
-Recall@5 theo văn bản,doc_recall_at_5,Paraphrase-52,0.956,40.17/42,,0.798,,,
-2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Dev-30,0.831,21.61/26,0.764–0.897,0.619,≥ 0.7,đội,Đạt
-2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Ext-60,0.645,32.23/50,0.563–0.721,0.549,≥ 0.7,đội,Chưa đạt
-2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Public-90,0.708,53.84/76,0.645–0.769,0.573,≥ 0.7,đội,Đạt
-2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Stress-60,0.668,12.69/19,0.548–0.778,0.393,≥ 0.7,đội,Chưa đạt
+Recall@5 theo văn bản,doc_recall_at_5,Paraphrase-52,0.98,41.17/42,,0.798,,,
+2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Dev-30,0.867,22.55/26,0.807–0.925,0.619,≥ 0.7,đội,Đạt
+2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Ext-60,0.801,40.05/50,0.753–0.845,0.607,≥ 0.7,đội,Đạt
+2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Public-90,0.824,62.6/76,0.785–0.859,0.611,≥ 0.7,đội,Đạt
+2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Stress-60,0.834,15.85/19,0.766–0.899,0.43,≥ 0.7,đội,Đạt
 2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Probe-25,,,,,≥ 0.7,đội,
-2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Paraphrase-52,0.775,20.14/26,0.698–0.848,0.645,≥ 0.7,đội,Đạt
-"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Dev-30,0.904,23.5/26,,0.577,,,
-"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Ext-60,0.65,32.5/50,,0.5,,,
-"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Public-90,0.737,56/76,,0.526,,,
-"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Stress-60,0.684,13/19,,0.342,,,
+2. Answer Accuracy / Correctness (độ phủ ý chính),answer_accuracy,Paraphrase-52,0.812,21.11/26,0.744–0.878,0.65,≥ 0.7,đội,Đạt
+"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Dev-30,0.923,24/26,,0.558,,,
+"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Ext-60,0.85,42.5/50,,0.57,,,
+"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Public-90,0.875,66.5/76,,0.566,,,
+"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Stress-60,0.895,17/19,,0.342,,,
 "thang 0 / 0,5 / 1 (tự động)",answer_correctness,Probe-25,,,,,,,
-"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Paraphrase-52,0.808,21/26,,0.577,,,
-3. Citation Accuracy (đúng nhãn),citation_accuracy,Dev-30,0.891,23.17/26,0.808–0.962,0.442,≥ 0.8,đề thi,Đạt
-3. Citation Accuracy (đúng nhãn),citation_accuracy,Ext-60,0.953,47.67/50,0.910–0.990,0.69,≥ 0.8,đề thi,Đạt
-3. Citation Accuracy (đúng nhãn),citation_accuracy,Public-90,0.932,70.83/76,0.893–0.967,0.605,≥ 0.8,đề thi,Đạt
-3. Citation Accuracy (đúng nhãn),citation_accuracy,Stress-60,0.758,39.42/52,0.662–0.846,0.385,≥ 0.8,đề thi,Chưa đạt
+"thang 0 / 0,5 / 1 (tự động)",answer_correctness,Paraphrase-52,0.846,22/26,,0.577,,,
+3. Citation Accuracy (đúng nhãn),citation_accuracy,Dev-30,0.894,23.25/26,0.821–0.958,0.442,≥ 0.8,đề thi,Đạt
+3. Citation Accuracy (đúng nhãn),citation_accuracy,Ext-60,0.95,47.5/50,0.910–0.990,0.693,≥ 0.8,đề thi,Đạt
+3. Citation Accuracy (đúng nhãn),citation_accuracy,Public-90,0.931,70.75/76,0.893–0.966,0.607,≥ 0.8,đề thi,Đạt
+3. Citation Accuracy (đúng nhãn),citation_accuracy,Stress-60,0.848,44.08/52,0.785–0.907,0.394,≥ 0.8,đề thi,Đạt
 3. Citation Accuracy (đúng nhãn),citation_accuracy,Probe-25,,,,,≥ 0.8,đề thi,
-3. Citation Accuracy (đúng nhãn),citation_accuracy,Paraphrase-52,0.821,34.5/42,0.714–0.917,0.512,≥ 0.8,đề thi,Đạt
+3. Citation Accuracy (đúng nhãn),citation_accuracy,Paraphrase-52,0.897,37.67/42,0.833–0.956,0.516,≥ 0.8,đề thi,Đạt
 citation đủ 4 điều kiện,citation_valid_4,Dev-30,1.0,26/26,,0.9,,,
 citation đủ 4 điều kiện,citation_valid_4,Ext-60,1.0,50/50,,0.883,,,
 citation đủ 4 điều kiện,citation_valid_4,Public-90,1.0,76/76,,0.889,,,
@@ -71,24 +71,24 @@ Recall ABSTAIN,abstention_recall,Paraphrase-52,1.0,,,0.0,,,
 6. Versioning Accuracy,versioning_accuracy,Stress-60,1.0,14/14,1.000–1.000,0.214,≥ 0.9,đội,Đạt
 6. Versioning Accuracy,versioning_accuracy,Probe-25,1.0,6/6,1.000–1.000,0.167,≥ 0.9,đội,Đạt
 6. Versioning Accuracy,versioning_accuracy,Paraphrase-52,1.0,6/6,1.000–1.000,0.333,≥ 0.9,đội,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Dev-30,33.9,30 câu,,11.1,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Ext-60,39.8,60 câu,,13.1,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Public-90,37.9,90 câu,,12.4,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Stress-60,41.4,60 câu,,11.6,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Probe-25,22.1,25 câu,,9.8,≤ 10000,đề thi,Đạt
-7. Latency trung bình (ms),latency_ms_avg,Paraphrase-52,35.8,52 câu,,9.7,≤ 10000,đề thi,Đạt
-Latency p95 (ms),latency_ms_p95,Dev-30,97.4,30 câu,,17.0,,,
-Latency p95 (ms),latency_ms_p95,Ext-60,89.6,60 câu,,21.0,,,
-Latency p95 (ms),latency_ms_p95,Public-90,97.4,90 câu,,20.5,,,
-Latency p95 (ms),latency_ms_p95,Stress-60,85.2,60 câu,,17.0,,,
-Latency p95 (ms),latency_ms_p95,Probe-25,43.0,25 câu,,14.0,,,
-Latency p95 (ms),latency_ms_p95,Paraphrase-52,79.4,52 câu,,13.4,,,
+7. Latency trung bình (ms),latency_ms_avg,Dev-30,41.0,30 câu,,14.3,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Ext-60,55.1,60 câu,,15.0,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Public-90,50.4,90 câu,,14.8,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Stress-60,47.0,60 câu,,13.0,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Probe-25,30.1,25 câu,,11.1,≤ 10000,đề thi,Đạt
+7. Latency trung bình (ms),latency_ms_avg,Paraphrase-52,51.8,52 câu,,14.1,≤ 10000,đề thi,Đạt
+Latency p95 (ms),latency_ms_p95,Dev-30,110.1,30 câu,,22.0,,,
+Latency p95 (ms),latency_ms_p95,Ext-60,122.0,60 câu,,24.0,,,
+Latency p95 (ms),latency_ms_p95,Public-90,121.5,90 câu,,23.5,,,
+Latency p95 (ms),latency_ms_p95,Stress-60,116.3,60 câu,,22.0,,,
+Latency p95 (ms),latency_ms_p95,Probe-25,75.0,25 câu,,17.0,,,
+Latency p95 (ms),latency_ms_p95,Paraphrase-52,126.9,52 câu,,22.4,,,
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Dev-30,0.667,2/3,,0.0,≥ 0.85,đội,Chưa đạt
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Ext-60,0.444,4/9,,0.111,≥ 0.85,đội,Chưa đạt
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Public-90,0.5,6/12,,0.083,≥ 0.85,đội,Chưa đạt
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Stress-60,1.0,1/1,,0.0,≥ 0.85,đội,Đạt
 Chỉ số phụ: Source Priority (câu MIXED),source_priority,Probe-25,,,,,≥ 0.85,đội,
-Chỉ số phụ: Source Priority (câu MIXED),source_priority,Paraphrase-52,0.25,1/4,,0.0,≥ 0.85,đội,Chưa đạt
+Chỉ số phụ: Source Priority (câu MIXED),source_priority,Paraphrase-52,0.5,2/4,,0.0,≥ 0.85,đội,Chưa đạt
 Quyết định ANSWER/ABSTAIN đúng,quyết định đúng,Dev-30,1.0,30/30,1.000–1.000,0.867,,,
 Quyết định ANSWER/ABSTAIN đúng,quyết định đúng,Ext-60,1.0,60/60,1.000–1.000,0.833,,,
 Quyết định ANSWER/ABSTAIN đúng,quyết định đúng,Public-90,1.0,90/90,1.000–1.000,0.844,,,

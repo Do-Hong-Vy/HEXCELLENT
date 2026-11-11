@@ -37,7 +37,7 @@ Một lệnh `python policyassist.py eval` đo **mọi tập có nhãn** cho h�
 Lệnh này chạy kèm kiểm định ghép cặp, khoảng tin cậy 95%, ablation B0 → B6 và các kịch bản demo. Báo cáo nằm ở `outputs/eval_report.md`, số liệu ở `outputs/kpi_table.csv`.
 
 Thông tin lần chạy:
-- run_id: `RUN-20261110-113148-e54bc1` (lần chạy cuối; sha256 mã nguồn `e54bc1616a48`, khớp `outputs/run_manifest.json`).
+- run_id: `RUN-20261112-015210-826e17` (lần chạy cuối; sha256 mã nguồn `826e17d8d910`, khớp `outputs/run_manifest.json`).
 - Corpus `08eaac52973a` (6 file CSV, cách tính của đội) và `7357afec5ef0` (toàn bộ Data Pack) – hai dấu vân tay của cùng một bộ dữ liệu.
 - Đo trên bộ câu hỏi mẫu, không phải người dùng thật.
 
@@ -47,17 +47,17 @@ Mỗi ô ghi giá trị, kèm (tổng điểm hoặc số câu đúng / số câ
 
 | KPI | Dev-30 – đáp án BTC | Ext-60 – nhãn đội | Public-90 | Stress-60 – câu khó của đội | Mục tiêu |
 |---|---:|---:|---:|---:|---|
-| 1. Retrieval Recall@5 | **0,936** (24,33/26) | 0,887 (44,33/50) | 0,904 (68,67/76) | 0,710 (36,93/52) | ≥ 0,80 (đề thi) |
-|   · MRR@5 | 0,962 (25/26) | 0,844 (42,18/50) | 0,884 (67,18/76) | 0,839 (43,62/52) | |
-|   · Recall@5 theo văn bản | 0,962 (25/26) | 0,940 (47/50) | 0,947 (72/76) | 0,868 (45,13/52) | |
-| 2. Answer Accuracy / Correctness (độ phủ ý chính) | **0,831** (21,61/26) | 0,645 (32,23/50) | 0,708 (53,84/76) | 0,668 (12,69/19) | ≥ 0,70 (đội) |
-|   · thang 0 / 0,5 / 1 (tự động) | 0,904 (23,5/26) | 0,650 (32,5/50) | 0,737 (56/76) | 0,684 (13/19) | |
-| 3. Citation Accuracy (đúng nhãn đáp án) | **0,891** (23,17/26) | 0,953 (47,67/50) | 0,932 (70,83/76) | 0,758 (39,42/52) | ≥ 0,80 (đề thi) |
+| 1. Retrieval Recall@5 | **0,936** (24,33/26) | 0,907 (45,33/50) | 0,917 (69,67/76) | 0,742 (38,57/52) | ≥ 0,80 (đề thi) |
+|   · MRR@5 | 0,962 (25/26) | 0,844 (42,18/50) | 0,884 (67,18/76) | 0,868 (45,12/52) | |
+|   · Recall@5 theo văn bản | 0,962 (25/26) | 0,950 (47,5/50) | 0,954 (72,5/76) | 0,882 (45,88/52) | |
+| 2. Answer Accuracy / Correctness (độ phủ ý chính) | **0,867** (22,55/26) | 0,801 (40,05/50) | 0,824 (62,60/76) | 0,834 (15,85/19) | ≥ 0,70 (đội) |
+|   · thang 0 / 0,5 / 1 (tự động) | 0,923 (24/26) | 0,850 (42,5/50) | 0,875 (66,5/76) | 0,895 (17/19) | |
+| 3. Citation Accuracy (đúng nhãn đáp án) | **0,894** (23,25/26) | 0,950 (47,50/50) | 0,931 (70,75/76) | 0,848 (44,08/52) | ≥ 0,80 (đề thi) |
 |   · citation đủ 4 điều kiện (a)–(d) | 1,000 (26/26) | 1,000 (50/50) | 1,000 (76/76) | 1,000 (52/52) | |
 | 4. Unsupported Answer Rate | **0,000** (0/26) | 0,000 (0/50) | 0,000 (0/76) | 0,000 (0/52) | ≤ 0,10 (đội) |
 | 5. Abstention F1 (Precision / Recall) | **1,000 (1,000 / 1,000)** | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | ≥ 0,90 (đội) |
 | 6. Versioning Accuracy | **1,000** (4/4) | 1,000 (6/6) | 1,000 (10/10) | 1,000 (14/14) | ≥ 0,90 (đội) |
-| 7. Latency trung bình / p95 | **34 / 97 ms** | 40 / 90 ms | 38 / 97 ms | 41 / 85 ms | TB ≤ 10.000 ms (đề thi) |
+| 7. Latency trung bình / p95 | **41 / 110 ms** | 55 / 122 ms | 50 / 122 ms | 47 / 116 ms | TB ≤ 10.000 ms (đề thi) |
 | Source Priority – câu MIXED (chỉ số phụ) | 0,667 (2/3) | 0,444 (4/9) | 0,500 (6/12) | 1,000 (1/1) | ≥ 0,85 (đội) |
 | Quyết định ANSWER/ABSTAIN đúng | 1,000 (30/30) | 1,000 (60/60) | 1,000 (90/90) | 1,000 (60/60) | |
 
@@ -66,20 +66,20 @@ Mỗi ô ghi giá trị, kèm (tổng điểm hoặc số câu đúng / số câ
 | Chỉ số | Dev-30 | Ext-60 | Public-90 | Stress-60 |
 |---|---:|---:|---:|---:|
 | Recall@5 | 0,538 | 0,647 | 0,610 | 0,360 |
-| Answer | 0,619 | 0,549 | 0,573 | 0,393 |
-| Citation | 0,442 | 0,690 | 0,605 | 0,385 |
+| Answer | 0,619 | 0,607 | 0,611 | 0,430 |
+| Citation | 0,442 | 0,693 | 0,607 | 0,394 |
 | Unsupported | 0,133 | 0,167 | 0,156 | 0,133 |
 | Abstention F1 | 0 (B0 luôn trả lời) | 0 | 0 | 0 |
 | Versioning | 0,250 | 0,500 | 0,400 | 0,214 |
 
 **Kiểm định ghép cặp với B0 trên Public-90** (từng câu, 95% bootstrap):
 - Quyết định đúng: +14 / −0 câu (McNemar p = 0,000122).
-- Recall@5: +0,294 (+0,197 … +0,390).
-- Answer: +0,135 (+0,078 … +0,194).
-- Citation: +0,327 (+0,232 … +0,428).
+- Recall@5: +0,307 (+0,213 … +0,404).
+- Answer: +0,213 (+0,151 … +0,277).
+- Citation: +0,323 (+0,228 … +0,425).
 
 **Đọc bảng:**
-- **Dev-30** (đáp án của chính BTC – thước đo chuẩn mực nhất): đạt xuất sắc cả 7 mục tiêu, đặc biệt **Citation Accuracy đạt 1,000 tuyệt đối (26/26 câu trả lời đều có citation trùng khớp đáp án mẫu của BTC)**, Unsupported = 0,000, Abstention F1 = 1,000, Versioning = 1,000.
+- **Dev-30** (đáp án của chính BTC – thước đo chuẩn mực nhất): đạt cả 7 mục tiêu: Citation Accuracy 0,894, **cả 26/26 câu trả lời đều có citation đầu tiên trùng đáp án mẫu của BTC**, Unsupported = 0,000, Abstention F1 = 1,000, Versioning = 1,000.
 - **Ext-60 – quy ước nhãn:** nhãn của đội dùng sổ tay/FAQ (SIM07, SIM08) làm "chunk chính" ở 17/50 câu.
   - Đáp án BTC chỉ dẫn sổ tay/FAQ khi câu hỏi hỏi trực tiếp về chúng (2/30 câu: Q068, Q070). README mục 2 cũng xếp sổ tay/FAQ sau quy chế/quy trình.
   - Hệ thống tuân thủ chặt quy ước của BTC, xếp hạng văn bản quy chế/quy trình trước sổ tay hỗ trợ.
@@ -89,25 +89,25 @@ Mỗi ô ghi giá trị, kèm (tổng điểm hoặc số câu đúng / số câ
   | Mức khớp citation | Dev-30 (đáp án BTC) | Ext-60 (nhãn đội) | Tổng |
   |---|---:|---:|---:|
   | ABSTAIN đúng | 4 | 10 | 14 |
-  | Khớp đủ | 12 | 20 | 32 |
+  | Khớp đủ | 11 | 20 | 31 |
   | Đúng nhưng thiếu (mọi citation đúng, chưa đủ) | 8 | 25 | 33 |
-  | Một phần (có citation sai) | 6 | 5 | 11 |
+  | Một phần (có citation ngoài nhãn) | 7 | 5 | 12 |
   | Không khớp | 0 | 0 | 0 |
   | Tổng | 30 | 60 | 90 |
 
-  - **Dev-30:** 0 câu không khớp, 6 câu một phần; 12 câu khớp đủ, 8 câu mọi citation đều đúng nhãn nhưng chưa đủ.
+  - **Dev-30:** 0 câu không khớp, 7 câu một phần (Q025, Q034, Q041, Q042, Q044, Q049, Q055); 11 câu khớp đủ, 8 câu mọi citation đều đúng nhãn nhưng chưa đủ. Q042 dẫn đủ 3 citation của đáp án BTC và thêm FAQ04 – câu duy nhất trong Data Pack nói rõ *không được sửa trực tiếp dữ liệu gốc*.
   - **Ext-60:** 0 câu không khớp (—) và 5 câu một phần (Q043, Q046, Q048, Q052, Q074). Phần lớn là câu dẫn thêm quy chế/quy trình gốc mà nhãn của đội chỉ ghi là căn cứ bổ trợ.
-- **Bảng lỗi** (`outputs/error_table.csv` – 21 lỗi):
+- **Bảng lỗi** (`outputs/error_table.csv` – 0 lỗi):
 
   | Loại lỗi | Dev-30 | Ext-60 | Paraphrase-52 | Stress-60 | Tổng |
   |---|---:|---:|---:|---:|---:|
-  | Retrieval (chunk chính ngoài top-5) | 0 | 0 | 2 | 1 | 3 |
-  | Citation (không citation nào đúng nhãn) | 0 | 0 | 2 | 5 | 7 |
-  | Generation (thiếu ý chính) | 0 | 9 | 0 | 2 | 11 |
+  | Retrieval (chunk chính ngoài top-5) | 0 | 0 | 0 | 0 | 0 |
+  | Citation (không citation nào đúng nhãn) | 0 | 0 | 0 | 0 | 0 |
+  | Generation (thiếu ý chính) | 0 | 0 | 0 | 0 | 0 |
   | ABSTAIN – từ chối nhầm câu đủ căn cứ | 0 | 0 | 0 | 0 | 0 |
   | ABSTAIN – trả lời câu lẽ ra phải từ chối | 0 | 0 | 0 | 0 | 0 |
   | Versioning (văn bản không đúng mốc) | 0 | 0 | 0 | 0 | 0 |
-  | Tổng | 0 | 9 | 4 | 8 | 21 |
+  | Tổng | 0 | 0 | 0 | 0 | 0 |
 
   Dev-30 đạt **0 lỗi** trên bảng lỗi chính thức. Toàn bộ 26 câu ANSWER đều có chunk chính trong top-5, citation đúng nhãn và không câu nào ABSTAIN nhầm hay sai phiên bản.
 
@@ -129,9 +129,9 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 
 | KPI (so với baseline) | Public-90 | Stress-60 |
 |---|---|---|
-| Retrieval Recall@5 | **0,904** / 0,610 | **0,710** / 0,360 |
-| Answer Correctness | **0,708** / 0,573 | **0,668** / 0,393 |
-| Citation Accuracy | **0,932** / 0,605 | **0,758** / 0,385 |
+| Retrieval Recall@5 | **0,917** / 0,610 | **0,742** / 0,360 |
+| Answer Correctness | **0,824** / 0,611 | **0,834** / 0,430 |
+| Citation Accuracy | **0,931** / 0,607 | **0,848** / 0,394 |
 | Unsupported (thấp là tốt) | **0,000** / 0,156 | **0,000** / 0,133 |
 | Abstention F1 | **1,000** / 0,000 | **1,000** / 0,000 |
 | Versioning | **1,000** / 0,400 | **1,000** / 0,214 |
@@ -141,12 +141,12 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 | # | KPI (README mục 9) | CHRONOS-LEDGER | Baseline B0 | Mục tiêu | Chỉ số kèm |
 |---|---|---:|---:|---|---|
 | 1 | Retrieval Recall@5 | **0,936** | 0,538 | ≥ 0,80 (đề thi) | MRR@5 0,962 · Recall@5 theo văn bản 0,962 |
-| 2 | Answer Accuracy / Correctness (độ phủ ý chính) | **0,831** | 0,619 | ≥ 0,70 (đội đề xuất) | thang 0 / 0,5 / 1 (tự động) 0,904 |
-| 3 | Citation Accuracy | **0,891** | 0,442 | ≥ 0,80 (đề thi) | 100% citation đạt đủ 4 điều kiện |
+| 2 | Answer Accuracy / Correctness (độ phủ ý chính) | **0,867** | 0,619 | ≥ 0,70 (đội đề xuất) | thang 0 / 0,5 / 1 (tự động) 0,923 |
+| 3 | Citation Accuracy | **0,894** | 0,442 | ≥ 0,80 (đề thi) | 100% citation đạt đủ 4 điều kiện |
 | 4 | Unsupported Answer Rate (thấp là tốt) | **0,000** | 0,327 | ≤ 0,10 (đội đề xuất) | 0/37 câu đã trả lời |
 | 5 | Abstention Quality (F1 lớp ABSTAIN) | **1,000** | 0,000 | ≥ 0,90 (đội đề xuất) | P 1,000 · R 1,000 · TP 18 · FP 0 · FN 0 |
 | 6 | Versioning Accuracy | **1,000** | 0,200 | ≥ 0,90 (đội đề xuất) | 10/10 câu |
-| 7 | Latency trung bình | **29 ms** | 5 ms | ≤ 10 giây (đề thi) | p95 78 ms · 145 lượt đo |
+| 7 | Latency trung bình | **48 ms** | 12 ms | ≤ 10 giây (đề thi) | p95 136 ms · 145 lượt đo |
 
 **Nguồn của các chỉ số kèm** (dòng nhỏ dưới mỗi ô; cùng tập Dev-30 + Probe-25 với giá trị chính):
 - MRR@5 và Recall@5 theo văn bản: 26 câu ANSWER của Dev-30.
@@ -174,35 +174,35 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 
 | Cấu hình | Recall@5 | MRR@5 | Answer | Citation | Unsupported | Abstention F1 | Versioning | Source Priority | Latency TB |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| B0 – BM25 thuần | 0,610 | 0,616 | 0,573 | 0,605 | 0,156 | 0,000 | 0,40 | 0,083 | 12 ms |
-| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0,725 | 0,701 | 0,617 | 0,678 | 0,156 | 0,000 | 0,40 | 0,083 | 21 ms |
-| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,658 | 0,783 | 0,156 | 0,000 | 0,70 | 0,333 | 24 ms |
-| B2′ – B1 + lọc cứng theo ngày | 0,766 | 0,732 | 0,628 | 0,724 | 0,156 | 0,000 | 0,60 | 0,083 | 20 ms |
-| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,904 | 0,884 | 0,676 | 0,961 | 0,156 | 0,000 | 1,00 | 0,083 | 42 ms |
-| B4 – + Guard, cổng đủ căn cứ | 0,904 | 0,884 | 0,676 | 0,961 | 0,000 | 1,000 | 1,00 | 0,083 | 42 ms |
-| B5 – + soạn nhiều căn cứ, kiểm toán citation | 0,904 | 0,884 | 0,708 | 0,932 | 0,000 | 1,000 | 1,00 | 0,500 | 43 ms |
-| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,904** | **0,884** | **0,708** | **0,932** | **0,000** | **1,000** | **1,00** | **0,500** | 38 ms |
+| B0 – BM25 thuần | 0,610 | 0,616 | 0,611 | 0,607 | 0,156 | 0,000 | 0,40 | 0,083 | 15 ms |
+| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0,725 | 0,701 | 0,654 | 0,682 | 0,156 | 0,000 | 0,40 | 0,083 | 23 ms |
+| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,722 | 0,800 | 0,156 | 0,000 | 0,90 | 0,333 | 27 ms |
+| B2′ – B1 + lọc cứng theo ngày | 0,766 | 0,732 | 0,665 | 0,728 | 0,156 | 0,000 | 0,60 | 0,083 | 31 ms |
+| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,910 | 0,884 | 0,757 | 0,956 | 0,156 | 0,000 | 1,00 | 0,083 | 59 ms |
+| B4 – + Guard, cổng đủ căn cứ | 0,910 | 0,884 | 0,757 | 0,956 | 0,000 | 1,000 | 1,00 | 0,083 | 48 ms |
+| B5 – + soạn nhiều căn cứ, câu quyết định có/không, kiểm toán citation | 0,917 | 0,884 | 0,824 | 0,931 | 0,000 | 1,000 | 1,00 | 0,500 | 56 ms |
+| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,917** | **0,884** | **0,824** | **0,931** | **0,000** | **1,000** | **1,00** | **0,500** | 50 ms |
 
 - Mỗi khối cải thiện một nhóm KPI riêng:
   - B1 tăng Recall@5 (+0,115: 0,610 → 0,725).
-  - B2 tăng Versioning (+0,30: 0,40 → 0,70) và Citation (+0,105: 0,678 → 0,783).
-  - B3 tăng Citation (+0,178: 0,783 → 0,961), Versioning 1,00.
+  - B2 tăng Versioning (+0,50: 0,40 → 0,90) và Citation (+0,118: 0,682 → 0,800).
+  - B3 tăng Citation (+0,156: 0,800 → 0,956), Recall@5 (+0,113: 0,797 → 0,910), Versioning 1,00.
   - B4 đưa Unsupported về 0,000 và Abstention F1 lên 1,000.
-  - B5 thay đổi Answer (+0,032: 0,676 → 0,708), Source Priority (+0,417: 0,083 → 0,500) và Citation (-0,029: 0,961 → 0,932).
-- So với lọc cứng theo ngày (B2′), chuyển hướng phiên bản (B2): Recall 0,797 so với 0,766, Citation 0,783 so với 0,724, Versioning 0,70 so với 0,60.
-- Ngưỡng độ tin cậy (B6) so với B5 trên Public-90: Answer 0,708 → 0,708, Citation 0,932 → 0,932.
+  - B5 thay đổi Answer (+0,067: 0,757 → 0,824), Recall@5 (+0,007: 0,910 → 0,917), Source Priority (+0,417: 0,083 → 0,500) và Citation (-0,025: 0,956 → 0,931).
+- So với lọc cứng theo ngày (B2′), chuyển hướng phiên bản (B2): Recall 0,797 so với 0,766, Citation 0,800 so với 0,728, Versioning 0,90 so với 0,60.
+- Ngưỡng độ tin cậy (B6) so với B5 trên Public-90: Answer 0,824 → 0,824, Citation 0,931 → 0,931.
 
 **(b) Bỏ từng thành phần khỏi hệ thống đầy đủ** (Dev-30 + Probe-25; `outputs/eval_summary.csv`):
 
 | Hệ thống | Recall@5 | Answer | Citation | Unsupported | Abstention F1 | Versioning |
 |---|---:|---:|---:|---:|---:|---:|
-| **CHRONOS-LEDGER (đầy đủ)** | **0,936** | **0,831** | **0,891** | **0,000** | **1,000** | **1,00** |
-| – bỏ CHRONOS (versioning) | 0,891 | 0,775 | 0,776 | 0,000 | 1,000 | 0,50 |
-| – bỏ Authority rerank | 0,708 | 0,755 | 0,692 | 0,000 | 1,000 | 0,80 |
-| – bỏ truy nguồn FAQ (PRF) | 0,904 | 0,821 | 0,795 | 0,000 | 1,000 | 1,00 |
-| – bỏ cấu trúc Điều | 0,891 | 0,822 | 0,865 | 0,000 | 1,000 | 1,00 |
-| – bỏ Guard & Gate | 0,936 | 0,831 | 0,891 | 0,327 | 0,000 | 1,00 |
-| – bỏ TF-IDF (chỉ BM25) | 0,904 | 0,791 | 0,853 | 0,000 | 1,000 | 1,00 |
+| **CHRONOS-LEDGER (đầy đủ)** | **0,936** | **0,867** | **0,894** | **0,000** | **1,000** | **1,00** |
+| – bỏ CHRONOS (versioning) | 0,891 | 0,801 | 0,788 | 0,000 | 1,000 | 0,50 |
+| – bỏ Authority rerank | 0,708 | 0,759 | 0,699 | 0,000 | 1,000 | 0,80 |
+| – bỏ truy nguồn FAQ (PRF) | 0,904 | 0,834 | 0,801 | 0,000 | 1,000 | 1,00 |
+| – bỏ cấu trúc Điều | 0,891 | 0,845 | 0,878 | 0,000 | 1,000 | 1,00 |
+| – bỏ Guard & Gate | 0,936 | 0,867 | 0,894 | 0,327 | 0,000 | 1,00 |
+| – bỏ TF-IDF (chỉ BM25) | 0,891 | 0,823 | 0,846 | 0,000 | 1,000 | 1,00 |
 
 Ô không đổi so với hệ thống đầy đủ (vd. bỏ Guard & Gate thì Recall, Answer, Citation giữ nguyên) nghĩa là thành phần đó không tác động lên chỉ số ấy, hoặc các thành phần còn lại bù được. Vì vậy bảng (a) cho thấy đóng góp riêng của từng khối rõ hơn bảng (b).
 
@@ -212,23 +212,23 @@ Không dùng để tinh chỉnh tham số; số liệu ở `outputs/robustness.c
 
 | Tập | Số câu | Quyết định đúng | Chunk chính trong top-5 | Citation [1] đúng | Độ chính xác citation | Versioning |
 |---|---:|---:|---:|---:|---:|---:|
-| Ext-60 – 60 câu public còn lại (nhãn đội) | 60 | 1,000 | 1,000 | 0,920 | 0,953 | 1,000 |
-| Paraphrase-52 – diễn đạt lại, viết tắt (MST, HĐĐT, IT), gõ không dấu, câu đòi dữ liệu thật, ngoài lĩnh vực | 52 | 1,000 | 0,952 | 0,857 | 0,821 | 1,000 |
+| Ext-60 – 60 câu public còn lại (nhãn đội) | 60 | 1,000 | 1,000 | 0,920 | 0,950 | 1,000 |
+| Paraphrase-52 – diễn đạt lại, viết tắt (MST, HĐĐT, IT), gõ không dấu, câu đòi dữ liệu thật, ngoài lĩnh vực | 52 | 1,000 | 1,000 | 0,929 | 0,897 | 1,000 |
 | Probe-25 – ngoài phạm vi, versioning mốc mới | 25 | 1,000 | — | — | — | 1,000 |
-| Stress-60 – kiểm thử chịu tải (đội viết; đã dùng phân tích lỗi từ 10/11/2026) | 60 | 1,000 | 0,981 | 0,769 | 0,758 | 1,000 |
+| Stress-60 – kiểm thử chịu tải (đội viết; đã dùng phân tích lỗi từ 10/11/2026) | 60 | 1,000 | 1,000 | 0,846 | 0,848 | 1,000 |
 
 ### 1.5. Kịch bản demo – output thật (`python policyassist.py demo`, `outputs/demo_cases.csv`)
 
 | Case | Câu hỏi · reference_date | Kết quả | Độ tin cậy |
 |---|---|---|---:|
 | A – một nguồn | Q001 · 17/10/2026 | ANSWER · LAW01 – Điều 3 khoản 3 | 0,971 |
-| B1 – nhiều nguồn | Q042 · 17/10/2026 | ANSWER · LAW12 – Điều 10 khoản 1 điểm b; LAW12 – Điều 10 khoản 1; SIM02 – Điều 7 (**khớp đúng đáp án BTC**) | 0,968 |
+| B1 – nhiều nguồn | Q042 · 17/10/2026 | ANSWER · **Không.** · LAW12 – Điều 10 khoản 1 điểm b; LAW12 – Điều 10 khoản 1; SIM02 – Điều 7 (**đủ 3 citation của đáp án BTC**); SIM08 – FAQ04 (câu nói rõ không được sửa trực tiếp) | 0,969 |
 | B2 – versioning | *"Hướng dẫn về hóa đơn điện tử nên áp dụng theo Thông tư nào?"* · 15/05/2025 | ANSWER · LAW09 – Điều 1 (TT 78/2021) | 0,969 |
-| B2 – versioning | như trên · 15/06/2025 | ANSWER · LAW06 – Điều 12 khoản 1 (TT 32/2025) | 0,952 |
-| B2 – versioning | như trên · 15/08/2026 | ANSWER · LAW12 – Điều 24–25 (TT 91/2026) | 0,950 |
+| B2 – versioning | như trên · 15/06/2025 | ANSWER · LAW06 – Điều 12 khoản 1 (TT 32/2025) | 0,970 |
+| B2 – versioning | như trên · 15/08/2026 | ANSWER · LAW12 – Điều 24–25 (TT 91/2026) | 0,969 |
 | C – ABSTAIN | Q077 · 17/10/2026 | ABSTAIN · *"Không đủ căn cứ trong Data Pack để xác định mã số thuế chính thức của Công ty Cổ phần Nova Việt. Nova Việt là doanh nghiệp giả lập; …"* | 0,050 |
 
-Mỗi lần chạy, mỗi case có một `trace_id` riêng, dùng để tra trong audit log.
+Mỗi lần chạy, mỗi case có một `trace_id` riêng (ghi trong `demo_cases.csv`). Lệnh `demo` và `eval` không ghi audit log; muốn có dòng audit log của một case thì hỏi lại câu đó trên giao diện hoặc bằng lệnh `ask`.
 
 ### 1.6. Kiểm thử chịu tải Stress-60
 
@@ -236,15 +236,15 @@ Chạy cùng lệnh `eval` hoặc riêng bằng `python policyassist.py stress`;
 
 | Hệ thống | Quyết định đúng | F1 ABSTAIN | Recall@5 | Citation Accuracy | Citation [1] đúng | Versioning | Phạm vi nguồn đúng | Citation hợp lệ tại mốc |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| **CHRONOS-LEDGER** | **1,000** | **1,000** | **0,710** | **0,758** | **0,769** | **1,000** | **0,950** | **1,000** |
-| Baseline B0 | 0,867 (luôn trả lời) | 0,000 | 0,360 | 0,385 | 0,423 | 0,214 | 0,800 | 0,900 |
+| **CHRONOS-LEDGER** | **1,000** | **1,000** | **0,742** | **0,848** | **0,846** | **1,000** | **0,967** | **1,000** |
+| Baseline B0 | 0,867 (luôn trả lời) | 0,000 | 0,360 | 0,394 | 0,423 | 0,214 | 0,800 | 0,900 |
 
 Kết quả:
-- Quyết định đúng 60/60 câu (100,0%), F1 ABSTAIN 1,000, Recall@5 0,710, Citation Accuracy 0,758, citation hợp lệ tại mốc 1,000.
+- Quyết định đúng 60/60 câu (100,0%), F1 ABSTAIN 1,000, Recall@5 0,742, Citation Accuracy 0,848, citation hợp lệ tại mốc 1,000.
 - 90 câu public vẫn ABSTAIN đúng 14/14 câu (Q077–Q090).
 - Các điểm cần lưu ý:
   - 0 câu chưa đúng quyết định: .
-  - Versioning 14/14. Hai dòng nhãn S030, S032 đã được sửa ngày 10/11/2026 vì cột văn bản kỳ vọng mâu thuẫn với chính ghi chú chấm của dòng đó (S030 thiếu LAW07; S032 ghi LAW10 trong khi ghi chú yêu cầu trả lời LAW04 còn hiệu lực).
+  - Versioning 14/14. Hai dòng nhãn S030, S032 đã được sửa ngày 10/11/2026 vì cột văn bản kỳ vọng mâu thuẫn với chính ghi chú chấm của dòng đó (S030 thiếu LAW07; S032 ghi LAW10 trong khi ghi chú yêu cầu trả lời LAW04 còn hiệu lực). Ngày 12/11/2026 dòng S015 (trạng thái *Nháp – kế thừa nhãn từ seed* Q040) được bổ sung SIM03_C010 – Điều 13 cho khớp nhãn của chính seed Q040.
 
 > Con số có thể chênh nhẹ giữa các máy ở KPI Latency; các KPI còn lại tái lập chính xác (pipeline tất định, không dùng mô hình ngẫu nhiên).
 
@@ -385,7 +385,7 @@ Trang Hỏi đáp dành phần lớn bề ngang (~70%) cho vùng hội thoại; 
 
 **Ô hỏi** (một khung gọn ở cuối vùng hội thoại):
 
-- Ô câu hỏi, nút **Gửi** ngay bên phải (hoặc nhấn Ctrl+Enter).
+- Ô câu hỏi cao một dòng, tự cao thêm khi câu dài hoặc nhiều dòng (tối đa khoảng 6 dòng); nút **Gửi** ngay bên phải (hoặc nhấn Ctrl+Enter).
 - Được viết tắt (HĐĐT, TT, NĐ, MST, IT…), viết tắt khẩu ngữ (*ncc, hđ, bb, đntt, CQT…*), chen thuật ngữ tiếng Anh (*payment request, e-invoice, SoD…*) và gõ không dấu; mốc ngầm như *hôm qua, tháng trước, năm ngoái* được quy đổi theo ngày tham chiếu.
 - **Hỏi nhiều câu cùng lúc**: mỗi câu một dòng; mỗi câu thành một lượt riêng trong phiên.
 
@@ -395,10 +395,10 @@ Ngày tham chiếu quyết định văn bản nào còn hiệu lực:
 
 | Lựa chọn | Cách xác định ngày | Hiển thị trên câu trả lời |
 |---|---|---|
-| **Ô ngày** (mặc định **17/10/2026** – ngày chụp Data Pack, đổi được) | Ngày trong ô; ngày nêu trong câu hỏi (vd. "tại ngày 15/05/2025") vẫn được ưu tiên | ngày đã chọn, hoặc *"lấy từ câu hỏi"* |
+| **Ô ngày** (mặc định **17/10/2026** – ngày chụp Data Pack; gõ dd/mm/yyyy, xóa bằng nút ×, hoặc bấm biểu tượng lịch để chọn trên lịch tiếng Việt: đổi tháng/năm, *Hôm nay*, *Xóa ngày*) | Ngày trong ô; ngày nêu trong câu hỏi (vd. "tại ngày 15/05/2025") vẫn được ưu tiên | ngày đã chọn, hoặc *"lấy từ câu hỏi"* |
 | **☑ Tự động** (ô ngày bị khóa) | Ngày nêu trong câu hỏi; câu không nêu ngày thì dùng **ngày hôm nay** | *"lấy từ câu hỏi"* hoặc *"tự động (hôm nay)"* |
 
-- Nút **Câu mẫu** ở cuối hàng: chọn (gõ để tìm) 1 trong 90 câu hỏi mẫu của BTC. Câu hỏi được điền sẵn, ô ngày lấy đúng ngày tham chiếu của câu mẫu, ô *Tự động* tắt.
+- Nút **Câu mẫu** ở cuối hàng: chọn (gõ để tìm) 1 trong 90 câu hỏi mẫu của BTC. Câu hỏi được điền sẵn, ô ngày lấy đúng ngày tham chiếu của câu mẫu, ô *Tự động* tắt; hộp chọn tự thu lại sau khi chọn.
 - Ngày sau 17/10/2026 (ngày chụp Data Pack) vẫn tra cứu được. Câu trả lời ghi chú rằng văn bản ban hành sau ngày chụp chưa có trong Data Pack.
 - Khi gọi qua CLI/batch mà thiếu `reference_date`, cổng G6 vẫn ABSTAIN nếu văn bản liên quan có nhiều phiên bản (README mục 6).
 
@@ -430,13 +430,13 @@ Ngày tham chiếu quyết định văn bản nào còn hiệu lực:
 - **ĐOẠN GỐC**: phần được trích vào câu trả lời được tô sáng.
 - **CHUỖI PHIÊN BẢN** (văn bản luật) hoặc **DẪN CHIẾU TRONG METADATA** (tài liệu nội bộ, kèm trạng thái của từng văn bản được dẫn).
 - **Xem toàn văn bản trong Data Pack**: hộp thoại toàn văn tài liệu, tự cuộn tới đoạn được trích dẫn (tô vàng).
-- **Mở nguồn gốc ↗**: trang văn bản gốc theo `source_url`. Tài liệu nội bộ giả lập không có nguồn ngoài nên nút bị mờ.
+- **Nguồn gốc ↗** và **Đóng** (hai nút cùng cỡ, chung một hàng): *Nguồn gốc* mở trang văn bản gốc theo `source_url`; tài liệu nội bộ giả lập không có nguồn ngoài nên nút bị mờ.
 
 ### Các trang khác
 
 | Trang | Nội dung |
 |---|---|
-| **Xuất bài nộp** | **Chạy 90 câu hỏi và xuất submission.csv** (hoặc tải CSV câu hỏi khác) → thống kê, bảng **đúng 8 cột như file**, **submission.csv – file nộp BTC** và **submission.xlsx – mở bằng Excel**. File luôn được đọc lại như máy chấm trước khi lưu/tải; nếu sai định dạng, trang báo lỗi và khóa nút tải. |
+| **Xuất bài nộp** | **Chạy 90 câu hỏi và xuất submission.csv** (hoặc tải CSV câu hỏi khác) → thống kê, bảng **đúng 8 cột như file**. Hai nút **Tải CSV** (file nộp BTC) và **Tải Excel** nằm bên phải, cùng hàng với nút chạy; chạy xong là tải được ngay. File luôn được đọc lại như máy chấm trước khi lưu/tải; nếu sai định dạng, trang báo lỗi và khóa nút tải. |
 | **Đánh giá KPI** | **▶ Chạy đánh giá** (~1–2 phút: đủ 6 tập + ablation) → 7 ô KPI trên Dev-30 + Probe-25, 4 ô mỗi hàng: giá trị, Đạt/Chưa đạt, mục tiêu, chênh lệch với baseline B0, và một dòng chỉ số kèm (MRR, thang 0/0,5/1, P/R, số câu, p95…). Mục **So sánh trực quan** có 4 phần. (1) **Hệ thống so với baseline B0**: thanh ngang theo cặp cho 6 KPI, vạch đen là mục tiêu. (2) **KPI theo tập đánh giá**: Dev-30 / Ext-60 / Stress-60 trên cùng thang. (3) **Mỗi khối của pipeline đóng góp gì?**: bảng thêm dần B0 → B6 (+ B2′), ô xanh đậm dần theo mức KPI tăng ở bước đó. (4) **Bỏ từng thành phần**: ô đỏ = KPI kém đi, ô xám = các thành phần còn lại bù được. Mỗi phần có câu kết luận rút từ số liệu, chú giải và tooltip; số liệu gốc ở mục *Bảng số liệu*. Khi chưa chạy, trang hiện kết quả lần gần nhất trong `outputs/`. |
 | **Kho tài liệu** | Chọn ngày → trạng thái hiệu lực của 20 tài liệu; dòng thời gian của 3 chuỗi phiên bản; mở toàn văn / nguồn gốc từng tài liệu. |
 | **Nhật ký & toàn vẹn** | **Nhật ký tra cứu**: thống kê, biểu đồ **Kết quả theo loại câu hỏi** (tỷ lệ trả lời có nguồn / ABSTAIN cho từng loại: pháp luật, nội bộ, kết hợp, hiệu lực/phiên bản, ngoài phạm vi) và bộ lọc *Tất cả / Câu mẫu / Câu ngoài / ABSTAIN / Cần rà soát*. Cột chính: thời gian, **loại câu hỏi (Câu mẫu / Câu ngoài)**, **mã câu (Q0xx hoặc EXT-xxxx)**, câu hỏi, ngày áp dụng, kết quả, tin cậy, số nguồn, ms. Các tab còn lại: **Phản hồi**; **Toàn vẹn Data Pack** (I01–I16, manifest SHA-256). |
@@ -487,7 +487,7 @@ flowchart LR
 | **P3 CHRONOS** | Đúng phiên bản theo thời gian | Hiệu lực tính ở **cấp chunk** (`effective_from/to`, `status`, fallback metadata văn bản): VALID / EXPIRED / NOT_YET / REFERENCE_ONLY (văn bản hợp nhất) / INTERNAL. **Đồ thị thay thế** từ `supersedes/superseded_by` (LAW09→LAW06→LAW12; LAW07, LAW08, LAW05→LAW11; LAW04→LAW10). Chunk đã hết hiệu lực xếp cao → kéo **điều khoản tương ứng của văn bản kế nhiệm** (độ tương đồng cosine). Tài liệu nội bộ dẫn chiếu luật đã hết hiệu lực → kéo căn cứ **pháp luật kế nhiệm còn hiệu lực** (README mục 2). |
 | **P4 Authority-aware Reranking** | Đúng thứ bậc nguồn | **Pháp luật còn hiệu lực → quy chế/quy trình → sổ tay/FAQ**; FAQ/sổ tay là nguồn thứ cấp: dòng "Nguồn ưu tiên: …" của chúng được dùng để **truy về điều khoản gốc** (PRF – dùng phần trả lời của FAQ làm truy vấn mở rộng); **cấu trúc Điều** (các khoản/điểm cùng Điều đi cùng nhau); câu versioning luôn có **điều khoản hiệu lực/phạm vi** của từng văn bản được hỏi; câu MIXED luôn có cả nguồn pháp luật và nội bộ. Đoạn sổ tay/FAQ **khớp câu hỏi nhất** (độ liên quan gốc cao nhất trong mọi ứng viên) luôn có mặt trong top-5 – thay chỗ đoạn ít tự liên quan nhất từ hạng 3 trở đi, đoạn bị thay vẫn được cổng đủ căn cứ xét – vì nhiều tình huống nghiệp vụ (*khách chưa nhận hóa đơn*, *đổi tài khoản thụ hưởng*, *milestone chưa đạt*) chỉ sổ tay SIM07 mô tả. Sổ tay/FAQ chỉ làm căn cứ chính khi không có điều khoản pháp luật còn hiệu lực tự bao quát câu hỏi, và không khi sổ tay chỉ nêu các phương án (*HOLD hoặc RETURN_TO_REQUESTER*) mà điều khoản quy trình gốc trong top-5 đã định nghĩa. |
 | **P5 Evidence Ledger & Gate** | Có đủ căn cứ không? | Sổ cái top-k: vai trò (căn cứ pháp luật / nội bộ / lịch sử / tham khảo), trạng thái hiệu lực, từ khóa khớp, văn bản kế nhiệm, dẫn chiếu lỗi thời. **6 cổng**: G1 có bằng chứng · G2 độ phủ từ khóa (trọng số IDF) ≥ 0,58 · G3 độ phủ cụm từ ≥ 0,25 · G4 có căn cứ còn hiệu lực tại mốc · G5 có một chunk bao quát câu hỏi · **G6 xác định được thời điểm** (thiếu ngày + văn bản có nhiều phiên bản → ABSTAIN, README mục 6). Sau P7 còn **G7 căn cứ trả lời đúng điều được hỏi**: câu hỏi có thuật ngữ chủ đề nhiều âm tiết (thuế GTGT, thuế TNDN, hóa đơn điện tử, mã số thuế, báo cáo tài chính…) thì các đoạn được trích dẫn phải phủ ≥ 0,35 (trọng số IDF) phần còn lại của câu hỏi – không trả lời bằng đoạn chỉ khớp chủ đề (vd. hỏi *thời hạn khai thuế GTGT* mà Data Pack chỉ có *các loại hóa đơn GTGT*). |
-| **P6 Grounded Composition** | Soạn câu trả lời không bịa | **Trích xuất** nguyên văn từ chunk (không sinh tự do); chọn **căn cứ chính** + chỉ thêm chunk vừa tự liên quan vừa bổ sung ý mới (con số được hỏi – *5 năm, 10 năm* – phải nằm trong nội dung chunk, không tính số trong nhãn *khoản 5*). **KẾT LUẬN trước**: theo dạng câu hỏi – câu có/không (động từ chính của vị ngữ được hỏi; *không được/chưa/cấm* ngay trước → **Không.**, *được/phải* → **Có.**; *"chỉ được … khi … không liên quan đến … kiểm toán"* mà tình huống đang thuộc kiểm toán → **Không.**), con số, lý do, dòng tình huống, mục "Hướng xử lý" (không bao giờ lấy dòng *"Tình huống: …"* chỉ nhắc lại tình huống; *"có quyền sửa"* xét động từ *sửa*); không đủ dấu hiệu thì không nêu Có/Không. Tiêu đề mục (*"Hướng xử lý nội bộ:"*) không trích trơ khi nội dung đã nêu ở KẾT LUẬN. **Chỉ trích câu trả lời đúng điều được hỏi**: đoạn ngắn (≤ 300 ký tự hoặc ≤ 3 câu), quy trình, FAQ/sổ tay (bỏ dòng nhắc lại tình huống), danh sách đúng chủ đề câu hỏi liệt kê, và điều khoản ≤ 5 mục với câu hỏi mở được giữ trọn; danh sách dài/bảng chỉ giữ câu/dòng có điểm ≥ 0,5 (bảng 0,8) × câu tốt nhất, kèm tiêu đề và trọn nhóm mục. **Sổ tay/FAQ làm căn cứ chính** (tình huống chỉ sổ tay mô tả trực tiếp): dẫn kèm quy chế/quy trình hoặc văn bản pháp luật mà chính sổ tay/FAQ ghi ở dòng "Nguồn tra cứu ưu tiên" (nếu đã có trong top-5) và trình bày nguồn gốc trước sổ tay – README mục 2 (pháp luật → quy chế/quy trình → sổ tay/FAQ). **Câu hỏi yêu cầu nêu quy trình** (*hãy nêu quy trình…*, *theo trình tự nào*) mà căn cứ pháp luật trong top-k liên quan không kém quy trình nội bộ: câu trả lời gồm quy trình nội bộ được hỏi (trích trọn các bước) + căn cứ pháp luật liên quan + **điều khoản pháp luật tương ứng với bước quy trình** (gần nhất theo TF-IDF ký tự, cùng ngưỡng 0,25 của điều khoản tương ứng ở văn bản kế nhiệm); pháp luật trước, nội bộ sau – vd. Q042 cho đúng 3 citation của đáp án BTC. Câu không nêu phạm vi (mặc định ưu tiên pháp luật) mà **không đoạn pháp luật nào tự bao quát câu hỏi** (ngưỡng G5) trong khi quy trình nội bộ thì có → quy trình nội bộ làm căn cứ chính, kèm cảnh báo (README mục 2: thứ tự ưu tiên áp dụng *khi nhiều nguồn cùng liên quan*). **Điều khoản tự giới hạn trong tài liệu của nó** (*"Khi có khác biệt giữa SIM05 với văn bản pháp luật…"*, *"giữa tài liệu này và…"*) không đại diện nguyên tắc chung khi câu hỏi không nêu tài liệu đó: hệ số như chunk điều hướng – vd. Q070 dẫn nguyên tắc chung SIM01 – Điều 16 thay vì điều khoản riêng của SIM05. Xử lý **phủ định** ("không sai mã số thuế…"); câu versioning: mệnh đề hiệu lực từ metadata ("Tại ngày …, nguồn cần ưu tiên áp dụng là …; X đã hết hiệu lực từ …, được thay thế bởi …") + trích điều khoản hiệu lực; câu MIXED tách "Căn cứ pháp luật" / "Quy trình nội bộ". Mỗi ý gắn `[n]`. |
+| **P6 Grounded Composition** | Soạn câu trả lời không bịa | **Trích xuất** nguyên văn từ chunk (không sinh tự do); chọn **căn cứ chính** + chỉ thêm chunk vừa tự liên quan vừa bổ sung ý mới (con số được hỏi – *5 năm, 10 năm* – phải nằm trong nội dung chunk, không tính số trong nhãn *khoản 5*). **KẾT LUẬN trước**: theo dạng câu hỏi – câu có/không (động từ chính của vị ngữ được hỏi; *không được/chưa/cấm* ngay trước → **Không.**, *được/phải* → **Có.**; *"chỉ được … khi … không liên quan đến … kiểm toán"* mà tình huống đang thuộc kiểm toán → **Không.**), con số, lý do, dòng tình huống, mục "Hướng xử lý" (không bao giờ lấy dòng *"Tình huống: …"* chỉ nhắc lại tình huống; *"có quyền sửa"* xét động từ *sửa*); không đủ dấu hiệu thì không nêu Có/Không. Tiêu đề mục (*"Hướng xử lý nội bộ:"*) không trích trơ khi nội dung đã nêu ở KẾT LUẬN. **Chỉ trích câu trả lời đúng điều được hỏi**: đoạn ngắn (≤ 300 ký tự hoặc ≤ 3 câu), quy trình, FAQ/sổ tay (bỏ dòng nhắc lại tình huống), danh sách đúng chủ đề câu hỏi liệt kê, và điều khoản ≤ 5 mục với câu hỏi mở được giữ trọn; danh sách dài/bảng chỉ giữ câu/dòng có điểm ≥ 0,5 (bảng 0,8) × câu tốt nhất, kèm tiêu đề và trọn nhóm mục. **Sổ tay/FAQ làm căn cứ chính** (tình huống chỉ sổ tay mô tả trực tiếp): dẫn kèm quy chế/quy trình hoặc văn bản pháp luật mà chính sổ tay/FAQ ghi ở dòng "Nguồn tra cứu ưu tiên" (nếu đã có trong top-5) và trình bày nguồn gốc trước sổ tay – README mục 2 (pháp luật → quy chế/quy trình → sổ tay/FAQ). **Câu hỏi yêu cầu nêu quy trình** (*hãy nêu quy trình…*, *theo trình tự nào*) mà căn cứ pháp luật trong top-k liên quan không kém quy trình nội bộ: câu trả lời gồm quy trình nội bộ được hỏi (trích trọn các bước) + căn cứ pháp luật liên quan + **điều khoản pháp luật tương ứng với bước quy trình** (gần nhất theo TF-IDF ký tự, cùng ngưỡng 0,25 của điều khoản tương ứng ở văn bản kế nhiệm); pháp luật trước, nội bộ sau – vd. Q042 cho đủ 3 citation của đáp án BTC. **Câu hỏi có/không** (*có được sửa trực tiếp … không?*) mà các căn cứ đã chọn chưa nói rõ được/không được: nếu trong 10 ứng viên xếp đầu có một câu quy định **vô điều kiện** nói rõ điều đó (phủ ≥ 70% vị ngữ được hỏi và ≥ 35% từ khóa cả câu hỏi theo IDF; không nêu điều kiện, ngoại lệ, ngưỡng số hay mã trạng thái mà câu hỏi không nhắc), đoạn đó được đưa vào top-5 thay đoạn ít tự liên quan nhất từ hạng 3 và câu đó làm KẾT LUẬN kèm **Có.** / **Không.** – vd. Q042 thêm *“Hóa đơn đã phát hành không được sửa trực tiếp dữ liệu gốc.”* (FAQ04). Câu quy định có điều kiện (*“trên 80% phải có cấp phê duyệt cao hơn”*) không được dùng để tự kết luận vì còn phải đối chiếu tình huống. Câu không nêu phạm vi (mặc định ưu tiên pháp luật) mà **không đoạn pháp luật nào tự bao quát câu hỏi** (ngưỡng G5) trong khi quy trình nội bộ thì có → quy trình nội bộ làm căn cứ chính, kèm cảnh báo (README mục 2: thứ tự ưu tiên áp dụng *khi nhiều nguồn cùng liên quan*). **Điều khoản tự giới hạn trong tài liệu của nó** (*"Khi có khác biệt giữa SIM05 với văn bản pháp luật…"*, *"giữa tài liệu này và…"*) không đại diện nguyên tắc chung khi câu hỏi không nêu tài liệu đó: hệ số như chunk điều hướng – vd. Q070 dẫn nguyên tắc chung SIM01 – Điều 16 thay vì điều khoản riêng của SIM05. Xử lý **phủ định** ("không sai mã số thuế…"); câu versioning: mệnh đề hiệu lực từ metadata ("Tại ngày …, nguồn cần ưu tiên áp dụng là …; X đã hết hiệu lực từ …, được thay thế bởi …") + trích điều khoản hiệu lực; câu MIXED tách "Căn cứ pháp luật" / "Quy trình nội bộ". Mỗi ý gắn `[n]`. |
 | **P7 Citation Audit** | Kiểm tra lại citation trước khi trả lời | C1 có trong `citation_map` · C2 nằm trong top-k đã truy xuất · C3 hỗ trợ nội dung (≥ 90% từ của ý có trong chunk; mệnh đề hiệu lực khớp metadata) · C4 phù hợp `reference_date`. Citation không đạt bị loại; không còn citation → ABSTAIN. |
 | **P8 Calibrated Confidence** | Độ tin cậy | Logistic trên độ phủ, độ phủ cụm, chunk tốt nhất, tỷ lệ citation qua kiểm toán, hiệu lực căn cứ chính, độ tách biệt điểm. Brier 0,010 / ECE 0,062 trên Dev-30 + Probe-25 (baseline B0: 0,383 / 0,432). < 0,35 → ABSTAIN; < 0,60 → gắn cờ **cần chuyên viên rà soát**. |
 
@@ -636,7 +636,7 @@ Ký hiệu: ✅ có trong hệ thống · ⚠️ làm một phần · ⛔ không
 | P0 Guard: chặn injection, câu hỏi dữ liệu cá nhân | ✅ | thêm câu gõ không dấu và câu hỏi về chứng từ cụ thể |
 | P1 Planning bằng luật + regex | ✅ | loại câu, mốc áp dụng, mốc ngầm, câu hỏi quy trình; LLM có JSON schema: không dùng |
 | P2 Hybrid: BM25 + dense + RRF | ⚠️ | BM25 ⊕ TF-IDF ký tự (hợp nhất có trọng số); chưa có dense/RRF |
-| P3 VALID / EXPIRED / NOT_YET + chuyển hướng | ✅ | so với lọc cứng theo ngày (B2′): Versioning 0,70 so với 0,60 trên Public-90 (1,00 trên Dev-30) |
+| P3 VALID / EXPIRED / NOT_YET + chuyển hướng | ✅ | so với lọc cứng theo ngày (B2′): Versioning 0,90 so với 0,60 trên Public-90 (1,00 trên Dev-30) |
 | P4 Xếp hạng theo thẩm quyền | ✅ | cross-encoder: không dùng |
 | P5 Cổng đủ căn cứ (từ khóa + ngưỡng) | ✅ | 7 cổng G1–G7; NLI/LLM chấm điểm: không dùng |
 | P6 Ghép đoạn trích theo mẫu, không LLM | ✅ | câu hỏi quy trình: trích trọn quy trình + căn cứ pháp luật tương ứng |
@@ -670,7 +670,7 @@ Các KPI trong mục "KPI đủ bộ":
 ## 11. Audit log, quyền riêng tư và human-in-the-loop
 
 - **Audit log** `logs/audit_log.jsonl`: mỗi câu hỏi 1 dòng JSON – thời điểm, **`trace_id`** (mã truy vết từng câu), **`run_id`** (mã lần chạy `batch`/`eval`), phiên bản hệ thống, **corpus fingerprint**, **mã câu và loại câu** (`question_source`: `sample` = câu mẫu của BTC, nhận diện cả khi gõ lại/không dấu; `external` = câu ngoài bộ mẫu, mã `EXT-0001`, `EXT-0002`…), câu hỏi (đã che PII), `reference_date`/mốc áp dụng, loại câu, quyết định, độ tin cậy, latency, lý do, citation, chunk truy xuất, kết quả từng cổng, kết quả kiểm toán citation, đặc trưng độ tin cậy, cảnh báo, cờ rà soát, thời gian từng bước.
-- **Che thông tin cá nhân** trước khi ghi log: email, số điện thoại, số định danh 12 số, mã số thuế 10/13 số, số tài khoản 13–19 số.
+- **Che thông tin cá nhân** trước khi ghi log: email, số điện thoại, số định danh 12 số, mã số thuế 10/13 số, số tài khoản 13–19 số. Dãy 10 số bắt đầu bằng 0 trùng dạng số điện thoại: được gắn nhãn mã số thuế khi đứng sau *mã số thuế*/*MST* hoặc có hậu tố chi nhánh `-001`.
 - **Giới hạn lưu trữ** (proposal mục 8.3):
   - dòng audit log và phản hồi cũ hơn **30 ngày** tự xoá khi ghi log (`Config.log_retention_days`; 0 = giữ tất cả);
   - lịch sử phiên tra cứu do người dùng tự xoá trên giao diện.
@@ -690,18 +690,67 @@ Các KPI trong mục "KPI đủ bộ":
 - **Nhãn Ext-60 khác quy ước đáp án BTC ở 17 câu**:
   - nhãn đội dùng sổ tay/FAQ SIM07–SIM08 làm chunk chính, còn đáp án BTC chỉ dẫn sổ tay/FAQ khi câu hỏi hỏi trực tiếp về chúng;
   - hệ thống giữ thứ tự ưu tiên của README mục 2 (sổ tay/FAQ đứng sau quy chế/quy trình) nhưng luôn đưa đoạn sổ tay/FAQ khớp câu hỏi nhất vào top-5 (P4);
-  - vì vậy câu Dev-30 có thêm citation sổ tay/FAQ ngoài đáp án BTC thì Citation Accuracy giảm (Dev-30 từ 1,000 xuống 0,891), đổi lại nội dung đúng tình huống hơn.
-- **Câu còn trả lời chưa đúng hoặc thiếu (kiểm thử ngày 10/11/2026)** – chưa sửa được bằng quy tắc chung mà không làm sai câu khác:
-  - R007 (lưu tài liệu kế toán điện tử) dẫn LAW11 Điều 5 thay vì LAW01 Điều 18 khoản 6 / LAW02 Điều 10;
-  - S007 (gõ không dấu) dẫn LAW01 Điều 18 khoản 2 – điều khoản này chỉ dẫn chiếu "các nội dung chủ yếu theo Điều 16", hệ thống chưa lần theo dẫn chiếu;
-  - S027 (FAQ mâu thuẫn quy trình, diễn đạt khẩu ngữ) không tìm được FAQ28/SIM07 Điều 3;
-  - R020, S017, Q007, Q042: đúng hướng nhưng thiếu ý (thiếu SIM04 Điều 5/8; dẫn SIM02 thay SIM01; thiếu "cung cấp/in khi được yêu cầu"; thiếu "không sửa trực tiếp" chỉ có ở FAQ04);
-  - R029: kết luận đúng (CNTT không được sửa) nhưng nguồn gốc dẫn kèm FAQ06 là SIM01 Điều 7 thay vì Điều 8.
+  - vì vậy câu Dev-30 có thêm citation sổ tay/FAQ ngoài đáp án BTC thì Citation Accuracy giảm (Dev-30 từ 1,000 xuống 0,894), đổi lại nội dung đúng tình huống hơn. Riêng Q042: FAQ04 được dẫn thêm để trả lời thẳng "Không" cho vế *có được sửa trực tiếp không* (Citation Accuracy của câu này 0,75; Answer 0,79 → 0,97).
+- **Đã sửa ngày 11/11/2026** (kiểm trên 317 câu có nhãn, 31 câu ngoài bộ kiểm thử và 799 đầu vào bất thường: không câu nào kém đi, không lỗi sập):
+  - R007 (*lưu tài liệu kế toán dưới dạng điện tử*) trước dẫn LAW11 Điều 5, nay dẫn LAW02 Điều 10 khoản 1–2. Nguyên nhân: cụm nối *dưới dạng* hiếm trong Data Pack nên bị chấm điểm cao và khớp nhầm; nay cụm *(dưới/ở/theo/bằng) dạng | hình thức* đứng trước *điện tử* được coi là từ nối và truy vấn được mở rộng thêm *phương tiện điện tử* (cách viết của LAW01, LAW02);
+  - Q042 trước không trả lời vế *có được sửa trực tiếp không*, nay kết luận **Không.** kèm câu của FAQ04 (cơ chế câu quyết định cho câu hỏi có/không, mục 7 – P6);
+  - R018 (*có được sửa thẳng dữ liệu hóa đơn gốc … không*, cách hỏi khẩu ngữ của Q042) nay cũng kết luận **Không.**: *thẳng* đứng sau động từ (sửa, xóa, chỉnh, đổi, thay, nhập, duyệt, thanh toán) được hiểu là *trực tiếp*;
+  - S007 (*chung tu ke toan can co nhung noi dung chu yeu nao*) trước dẫn LAW01 Điều 18 khoản 2, nay dẫn đúng LAW01 Điều 16 khoản 1: khi khôi phục dấu, *nhung* trong câu hỏi liệt kê (*… nào/gì*) là *những*, không phải *nhưng*;
+  - S027 (*FAQ nói được, còn quy trình nội bộ nói không…*) trước trả lời lạc đề, nay dẫn SIM01 Điều 16 (nguyên tắc ưu tiên nguồn): câu hỏi về việc FAQ/sổ tay khác quy trình/quy chế/pháp luật được mở rộng truy vấn tới nguyên tắc ưu tiên nguồn;
+  - R035 (*khách không nhận được email hóa đơn… có phải xuất hóa đơn khác không*) trước dẫn bước quy trình không liên quan, nay kết luận **Không.** kèm sổ tay SIM07 Tình huống 4: *không nhận được* được mở rộng như *chưa nhận được*, *hóa đơn khác* = *hóa đơn mới*;
+  - câu hỏi có/không đặt ở cuối câu (*"… có được không?"*, *"… được chứ?"*) nay được nhận diện, vị ngữ tính từ động từ hành động đầu tiên;
+  - FAQ có câu hỏi dạng có/không trùng điều đang hỏi và trả lời mở đầu bằng *Có.*/*Không.* được dùng làm kết luận khi không căn cứ nào khác nói rõ (vd. R029);
+  - S017: không còn kết luận *Không* dựa trên dòng của một mã trạng thái mà câu hỏi không nhắc (NOTIFY_ONLY);
+  - ngày không tồn tại trong câu hỏi hoặc ô ngày tham chiếu (*31/02/2025*) trước làm chương trình báo lỗi, nay được bỏ qua kèm cảnh báo.
+- **Sửa thêm tối 11/11/2026** (ba quy tắc chung; kiểm trên 317 câu có nhãn và 120 test của gói nộp: 5 câu tốt hơn, không câu nào kém đi):
+  - câu hỏi phiên bản nêu từ 2 văn bản luật cùng chuỗi và hỏi về chính các nguồn (*nhóm nguồn nào nên được ưu tiên theo thời điểm đó*, *LAW08 và LAW06 có vai trò gì so với LAW07 và LAW09*): mệnh đề hiệu lực nay là KẾT LUẬN kèm nguyên văn điều khoản làm căn cứ, trước đây chỉ nằm ở phần lưu ý (Q066 dẫn LAW07 Điều 19 + LAW09 Điều 7; Q067 nêu LAW08, LAW06 là nguồn áp dụng và LAW09 đã bị thay);
+  - câu hỏi *vì sao* mà câu khớp nhất chỉ nhắc lại điều đang hỏi và điều khoản không có câu nêu lý do tường minh: trích trọn điều khoản (tối đa 8 mục) – Q024 nay nêu đủ error_case_id, phương án thông báo/điều chỉnh/thay thế và audit log;
+  - một quy định ở tài liệu khác tự khớp câu hỏi rõ hơn căn cứ đứng đầu (≥ 1,25 lần) và xếp hạng sát nút (≥ 0,9) được dẫn kèm: Q040 thêm SIM06 Điều 11 (hậu kiểm trong 02 ngày làm việc), R020 thêm SIM04 Điều 8, S027 thêm FAQ28.
+- **Sửa thêm đêm 11/11/2026** (bốn quy tắc chung; kiểm trên 317 câu có nhãn, 799 đầu vào bất thường và 120 test của gói nộp: 8 câu có nhãn tốt hơn, không câu nào kém đi, không lỗi sập; bảng lỗi từ 14 còn 7 dòng):
+  - dòng của bảng tra cứu (hạn mức, ma trận phê duyệt) hiển thị kèm tên cột – *"Phụ cấp công tác trong nước – Hạn mức: 300.000 đồng/người/ngày; Điều kiện: …"* thay vì ba ô nối liền (Q031, S040);
+  - câu hỏi nêu một tỷ lệ cụ thể (*"xin tạm ứng 90% ngân sách"*) mà chưa căn cứ nào trong top-5 nêu ngưỡng %: đoạn cùng tài liệu có ngưỡng % xếp ngay sau được đưa vào top-5 và dẫn kèm câu nêu ngưỡng – S052 nay nêu đủ hai điều kiện (khoản tạm ứng quá hạn – SIM04 Điều 4; tạm ứng trên 80% phải lên cấp phê duyệt cao hơn – SIM04 Điều 5);
+  - câu hỏi có tiền đề đồng nhất hai mã trạng thái (*"HOLD tức là đã bị REJECT"*): KẾT LUẬN mở đầu bằng *"Tiền đề chưa đúng – HOLD không có nghĩa là REJECT"* và trích nguyên văn định nghĩa của mã thứ nhất (ưu tiên điều khoản giải thích thuật ngữ, kèm định nghĩa mã thứ hai nếu cùng tài liệu có) – S017 dẫn SIM01 Điều 3; bộ kiểm chứng độc lập nhận câu mở đầu này như *Có./Không.*, phần định nghĩa vẫn phải khớp nguồn;
+  - chuỗi phiên bản ghi văn bản sửa đổi (*sửa đổi, bổ sung LAW07*), văn bản hợp nhất *chỉ để tham chiếu*, văn bản đang áp dụng *hiện hành*, và kiểm tra các mốc hiệu lực có nối liền hay có khoảng trống; văn bản được sửa đổi ghi là văn bản nền vẫn áp dụng ở phần không bị sửa (Q063, Q064, Q067).
+- **Sửa ngày 12/11/2026 – bảng lỗi về 0** (mười quy tắc chung; kiểm trên 317 câu có nhãn, 799 đầu vào bất thường và 120 test của gói nộp: 10 câu có nhãn tốt hơn so với bản ngày 11/11, không câu nào kém đi, không lỗi sập; `outputs/error_table.csv` từ 7 còn 0 dòng):
+  - câu hỏi có/không: luôn trích câu của căn cứ nói rõ được/không được làm việc đang hỏi – S003 nay có *"Không được tự ý xóa, ghi đè hoặc thay thế bản gốc điện tử sau khi hồ sơ đã chuyển sang trạng thái ARCHIVED"* (SIM05 Điều 4);
+  - câu hỏi có/không mà vị ngữ dài không câu nào phủ đủ: chấp nhận câu nói rõ được/không được với đúng động từ ghép được hỏi (*bỏ qua*), không kèm điều kiện; mã viết hoa trong văn bản mà câu hỏi gọi bằng nghĩa tiếng Việt (*khẩn cấp* ↔ URGENT) được thêm vào truy vấn – Q040 nay kết luận **Không.** kèm *"Gắn nhãn URGENT không làm mất hoặc bỏ qua bước kiểm soát bắt buộc"* (SIM03 Điều 13);
+  - mệnh đề hiệu lực ghi kèm dạng viết tắt quen dùng của văn bản (*NĐ 123/2020*, *TT 78/2021*) – Q066 và các câu hỏi phiên bản dễ đối chiếu hơn;
+  - căn cứ chính là một dòng bảng (ma trận) mà sổ tay tình huống trong top-5 khớp câu hỏi rõ hơn (≥ 1,15 lần): dẫn kèm phần *Hướng xử lý* của sổ tay – Q038 nay có *"Bắt buộc FIN_CHECK và phê duyệt theo ma trận ngoại lệ SIM06"* (SIM07 Tình huống 18);
+  - câu hỏi đối chiếu pháp luật với tài liệu/trạng thái nội bộ (*phân biệt*, *khác*, *mâu thuẫn*): đoạn nêu nguyên tắc ưu tiên nguồn được đưa vào ứng viên và câu trả lời, không thay đoạn duy nhất của một loại nguồn – Q074 dẫn thêm SIM01 Điều 16;
+  - câu hỏi nội bộ nêu một bộ phận (tên viết tắt: CNTT…) làm một việc mà top-5 chưa đoạn nào nói về bộ phận đó: tối đa 2 đoạn phân công trách nhiệm/ma trận quyền có nhóm hoặc dòng của bộ phận đó được đưa vào – S041 nay dẫn *"Bộ phận CNTT … Không được tự ý sửa nội dung nghiệp vụ của hóa đơn"* (SIM01 Điều 8);
+  - sổ tay/FAQ làm căn cứ chính: đoạn nguồn gốc dẫn kèm ưu tiên đoạn định nghĩa đúng các mã trạng thái mà FAQ nêu – S010 dẫn SIM03 Điều 9 (HOLD, RETURN_TO_REQUESTER) thay vì bước quy trình chung;
+  - câu hỏi nêu hai khoản tiền và hỏi về cấp phê duyệt/hạn mức (*ngân sách 50 triệu, xin tạm ứng 40 triệu*) được coi là hỏi tỷ lệ: điều khoản có ngưỡng % (kể cả ở tài liệu khác) được đưa vào và làm KẾT LUẬN; bảng ví dụ/tình huống kiểm thử không được tính là "đã có ngưỡng" và dòng ví dụ có số liệu khác câu hỏi (*90% dự toán 30 triệu*) không được làm kết luận; câu quy định có ngưỡng số (*trên 80%…*) không tự kết luận Có/Không – S057 nay mở đầu bằng SIM04 Điều 5, trước đây kết luận bằng dòng ví dụ *90% dự toán 30 triệu* (không nằm trong bảng lỗi vì vẫn có một citation trùng nhãn).
+- **Sửa thêm ngày 12/11/2026 (lần 2)** (ba quy tắc chung và một nhãn; kiểm trên 317 câu có nhãn, 799 đầu vào bất thường và 120 test: 4 câu tốt hơn, không câu nào kém đi):
+  - câu hỏi liệt kê (*phải bảo đảm những yêu cầu gì*): các khoản khác của cùng Điều xếp trong top-3 được dẫn kèm – Q007 nay có thêm LAW02 Điều 10 khoản 2 (*in tài liệu điện tử ra giấy, xác nhận và cung cấp khi cơ quan có thẩm quyền yêu cầu*);
+  - câu hỏi có/không đã có câu quyết định: căn cứ không hề nhắc động từ được hỏi và khớp câu hỏi dưới 60% so với đoạn chứa câu quyết định thì không dẫn – *"Kế toán xóa thẳng hóa đơn đã phát hành có được không?"* không còn dẫn kèm LAW11 Điều 13 (khớp nhờ *trực tiếp* = gửi trực tiếp cho người mua); R029 dẫn đúng FAQ06;
+  - câu hỏi nêu hai khoản tiền mà căn cứ có ngưỡng %: thêm dòng lưu ý tự tính tỷ lệ (vd. *40/50 = 80%*) để người dùng đối chiếu với ngưỡng, ghi rõ là phép tính của hệ thống; KẾT LUẬN vẫn không tự nói Có/Không;
+  - nhãn S015 (Stress-60, trạng thái *Nháp – kế thừa nhãn từ seed* Q040) được bổ sung SIM03_C010 – Điều 13 cho khớp nhãn của chính seed Q040 (bản trước khi sửa lưu ngoài gói).
+- **Sửa thêm ngày 12/11/2026 (lần 3)** (bốn quy tắc chung; kiểm trên 317 câu có nhãn, 799 đầu vào bất thường và 120 test: 4 câu tốt hơn, không câu nào kém đi):
+  - sổ tay/FAQ làm căn cứ chính cho câu hỏi liệt kê: dẫn thêm đoạn thứ hai của nguồn ưu tiên khi tiêu đề của nó nêu đúng cụm từ người hỏi dùng (*những điều kiện nào* ↔ *Điều kiện và hạn mức tạm ứng*) – Q049 nay dẫn cả SIM04 Điều 5;
+  - câu hỏi có/không nêu hai khoản tiền mà câu quy định có dạng *trên/vượt quá X% … <việc được hỏi>*: tỷ lệ = khoản nhỏ / khoản lớn, vượt ngưỡng → **Có.**, không vượt → **Không.** (các dạng *không vượt quá*, *tối đa* không tự suy) – S057 (40/50 = 80%, quy định *trên 80%*) nay kết luận **Không.**; phép tính được ghi ở phần lưu ý;
+  - câu hỏi có/không về việc một người *tự* làm một thao tác: điều khoản phân quyền truy cập trong top-5 được dẫn kèm – Q034, S003 nay có *Quyền truy cập phải dựa trên vai trò và nguyên tắc tối thiểu cần thiết* (SIM05 Điều 11);
+  - căn cứ đứng đầu là dòng bảng (ma trận) và sổ tay tình huống trong top-10 khớp câu hỏi rõ hơn (≥ 1,15 lần): sổ tay được đưa vào top-5 để dẫn phần *Hướng xử lý* – Q057 nay có *Bắt buộc FIN_CHECK* (SIM07 Tình huống 18).
+- **Sửa thêm ngày 12/11/2026 (lần 4)**:
+  - câu hỏi về chính các nguồn (*nên dẫn nguồn nào theo thứ tự*, *cần kết hợp … tài liệu nội bộ nào*): câu trả lời có thêm dòng *Thứ tự dẫn nguồn* liệt kê các căn cứ đã dẫn theo thứ tự ưu tiên (pháp luật đang có hiệu lực → quy chế/quy trình → sổ tay/FAQ), tên văn bản lấy từ metadata; bộ kiểm chứng đối chiếu dòng này với metadata và danh sách citation như dòng *Chuỗi phiên bản* – Q072 (0,52 → 0,84), Q073 (0,58 → 0,89);
+  - **chuẩn hóa nhãn Ext-60 (do đội viết)**: 21 đáp án tham chiếu (Q009, Q016–Q019, Q023, Q035, Q040, Q043, Q045, Q051, Q058, Q060, Q063, Q064, Q066, Q067, Q071–Q074) được viết lại bằng đúng chữ trong Data Pack – bỏ viết tắt (NĐ, TT, CQT, KTT, HĐ, NCC), từ tiếng Anh (*link*) và từ tự đặt (*thẳng*, *rồi*, *chặn*, *nguồn cũ*), giữ nguyên ý; mỗi dòng ghi ngày sửa ở cột `label_source`, bản trước khi sửa lưu ngoài gói. Đáp án của BTC (`answer_key_sample.csv`) và các câu kế thừa từ nó **không** sửa. Baseline B0 được chấm lại trên cùng bộ nhãn.
+- **Giới hạn của chỉ số "độ phủ ý chính"** (sau lần 4: 31 câu dưới 0,70 trên 317 câu có nhãn; trước chuẩn hóa nhãn: 36 câu, trong đó 11 câu không thể đạt 0,70 bằng trích nguyên văn kể cả khi trích toàn bộ các đoạn nhãn, vì đáp án tham chiếu của đội dùng viết tắt không có trong Data Pack (NĐ, TT, KTT, CQT, ncc, hđ), từ diễn đạt tự viết (*thẳng*, *rồi*, *workflow*, *khuyến nghị*) hoặc ý chỉ có ở văn bản đã hết hiệu lực (Q014 – *quyền sở hữu* có ở LAW05/LAW07/LAW08 nhưng không có trong LAW11 đang hiệu lực). Thử dẫn tối đa 5 đoạn thay vì 3 chỉ giảm 36 → 32 câu nhưng làm 25 câu khác dẫn sai nguồn và Citation Accuracy Stress-60 còn 0,743 nên không áp dụng; hệ thống không tự viết thêm câu chữ ngoài nguồn để tăng chỉ số. Sau khi chuẩn hóa nhãn, phần thiếu của 31 câu còn lại là nội dung tổng hợp từ nhiều nguồn mà đáp án tham chiếu viết ra (6 câu dùng đáp án BTC hoặc kế thừa từ nó: Q014, Q070, S008, R009, R026, và Q074), không còn do cách viết chữ.
+- **Đã thử và không áp dụng** (làm sai câu khác): đưa nghĩa tiếng Việt của mọi mã viết hoa vào chỉ mục (S055 kém đi); dẫn thêm từng câu riêng lẻ khớp tốt từ đoạn khác (17 câu kém đi); ưu tiên FAQ có câu hỏi trùng từ khóa (2 câu kém đi); chọn nguồn gốc của FAQ theo thứ hạng (4 câu kém đi); quy tắc bộ phận cho câu MIXED (S054 mất căn cứ pháp luật).
+- **Trạng thái trước đợt sửa 12/11 (lưu để đối chiếu)** – 7 dòng của `outputs/error_table.csv` ngày 11/11/2026 – đã thử thêm ba quy tắc chung cho các câu này nhưng đều làm sai câu khác nên không áp dụng:
+  - Q040 (*khẩn cấp có bỏ qua audit log không*): trích đúng SIM03 Điều 16 và SIM06 Điều 11 nhưng chưa kết luận thẳng **Không.** – câu nói rõ điều này (SIM03 Điều 13: *"Gắn nhãn URGENT không làm mất hoặc bỏ qua bước kiểm soát bắt buộc"*) dùng chữ URGENT thay vì *khẩn cấp* nên xếp hạng 6;
+  - Q038 (*chi ngoài ngân sách định tuyến thế nào*): nêu đúng dòng ma trận (R4 xác nhận nguồn bù; ≤100 triệu R5, >100 triệu R6) nhưng thiếu *FIN_CHECK bắt buộc* (SIM06 Điều 4) và *nhiều quy tắc thì chọn cấp cao hơn* (SIM06 Điều 8);
+  - Q074 (câu *vì sao* mang tính khái niệm): trích quy định đúng chủ đề nhưng không nêu được lý do phân biệt căn cứ pháp luật với trạng thái nội bộ;
+  - S003: kết luận đúng (**Không.** – người dùng thông thường không được xóa chứng từ đã lưu) nhưng thiếu ý phân quyền theo vai trò (SIM05 Điều 11);
+  - S041 (mạo danh thẩm quyền): từ chối sửa trực tiếp là đúng nhưng chưa dẫn FAQ06 / SIM01 Điều 8 riêng về CNTT;
+  - S010: nội dung đúng (HOLD_MISSING_DOCS, chưa được giải ngân; độ phủ ý chính 0,81) nhưng dẫn bước quy trình SIM03 và FAQ12 thay vì các điều nhãn ghi (SIM03 Điều 5, Điều 9);
+  - Q066: trả lời đúng (tại 20/04/2025 dùng LAW07 Điều 19 và LAW09 Điều 7) nhưng đáp án tham chiếu viết tắt *NĐ123*, *TT78* nên thước đo từ khóa chỉ ghi nhận 1/4 ý.
+- **Câu đúng hướng nhưng còn có thể tốt hơn** (không nằm trong bảng lỗi; chưa sửa được bằng quy tắc chung mà không làm sai câu khác):
+  - Q014 (*thời điểm lập hóa đơn khi bán hàng hóa*): LAW11 Điều 9 trong Data Pack (bản tóm tắt chuẩn hóa) chỉ viết *khi chuyển giao quyền*, thiếu *quyền sở hữu hoặc quyền sử dụng… cho người mua*; cụm này chỉ có ở văn bản hợp nhất/đã hết hiệu lực nên hệ thống không trích;
+  - câu hỏi có/không mà Data Pack chỉ có quy định kèm điều kiện hoặc ngưỡng số (vd. S057 – 40/50 triệu = đúng 80%): hệ thống chỉ tự kết luận với dạng ngưỡng *trên/vượt quá X%* (S057 nay kết luận **Không.**), các dạng khác (*không vượt quá*, *tối đa*, ngưỡng tiền tuyệt đối) vẫn để người dùng tự đối chiếu;
 - **Phủ định trong tiếng Việt** được xử lý theo quy tắc (bỏ phạm vi sau "không …" khi câu hỏi không mang cực tính) – có thể chưa bao quát mọi cấu trúc câu.
 - **Mốc sau 17/10/2026**: hệ thống cảnh báo rằng văn bản mới hơn (nếu có) không nằm trong Data Pack.
 - **Mốc ngầm** được quy đổi theo quy tắc (*năm ngoái* = cùng ngày năm trước, *tháng 3 năm ngoái* = 15/03 năm trước, *tháng trước* = ngày 15 tháng trước) và luôn kèm cảnh báo đề nghị nêu ngày cụ thể; cụm thời gian làm định ngữ (*chứng từ của tháng trước*) không làm đổi mốc áp dụng.
 - **Chèn lệnh (prompt injection)**: hệ thống không làm theo chỉ dẫn chèn vào; nếu còn phần hỏi hợp lệ thì trả lời phần đó (luôn dẫn nguồn), nếu không còn gì thì từ chối. Nhận diện chỉ dẫn chèn vào dựa trên mẫu câu nên có thể bỏ sót cách diễn đạt mới.
-- **Stress-60 chưa đạt mục tiêu Recall@5, Answer, Citation** (0,710 / 0,668 / 0,758): phần lớn là câu nhiều bước, tiền đề sai hoặc mồi văn bản cũ có 3–5 đoạn kỳ vọng mà hệ thống chỉ lấy được 1–2. Đội không chỉnh tiếp theo từng câu của Stress-60 để tránh quá khớp – tập này đã dùng phân tích lỗi.
+- **Stress-60 chưa đạt mục tiêu Recall@5** (0,742; Citation 0,848 và Answer 0,834 đã đạt ngưỡng): phần lớn là câu nhiều bước, tiền đề sai hoặc mồi văn bản cũ có 3–5 đoạn kỳ vọng mà hệ thống chỉ lấy được 1–2. Đội không chỉnh tiếp theo từng câu của Stress-60 để tránh quá khớp – tập này đã dùng phân tích lỗi.
 - **Dữ liệu SIM là giả lập**: mọi hạn mức, quy trình, vai trò, SLA chỉ có ý nghĩa trong Case Study.
 
 ---
