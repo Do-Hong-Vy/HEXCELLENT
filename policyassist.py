@@ -178,6 +178,62 @@ FRAMING = {"mô", "tả", "giữa", "quan", "giải", "thích", "trình", "bày"
            "nói", "làm", "tôi", "mình", "bạn", "giúp", "xin", "vui", "lòng", "nhé", "ạ"}          # lời hỏi giao tiếp
 # từ giao tiếp thường gặp khi gõ không dấu (ưu tiên hơn dạng có dấu phổ biến trong văn bản luật)
 CONVERSATIONAL = ("tôi", "mình", "bạn", "biết", "giúp", "muốn", "hỏi", "xin", "của")
+# Cụm từ tiếng Việt thông dụng trong câu hỏi đời thường – bổ sung cho mô hình khôi phục dấu những cách nói Data Pack ít dùng
+COMMON_PHRASES = """
+tại ngày|tại thời điểm|tại nova việt|tại công ty|tại đâu|tại sao|vì sao|như thế nào|thế nào|ra sao|là gì|bao nhiêu|bao lâu|khi nào
+hôm nay|hôm qua|ngày mai|năm nay|năm ngoái|năm sau|tháng này|tháng trước|tháng sau|hiện nay|hiện tại|bây giờ|lúc này|lúc đó|sau đó
+trước đó|khi đó|đến nay|từ nay|đã rồi|xong rồi|rồi mà|rồi thì|rồi mới|vậy thì|như vậy|vậy có|thế thì|thì sao|đúng không|phải không
+được không|có được|có cần|có phải|có thể|có nên|có còn|hay không|hay là|hoặc là|mà không|mà chưa|mà vẫn|nhưng mà|vẫn còn|vẫn phải
+vẫn được|chỉ cần|chỉ có|chỉ được|chỉ là|cả hai|cả ba|mọi người|mọi trường hợp|mỗi lần|mỗi ngày|mỗi tháng|một số|một vài|vài ngày
+hãy nêu|hãy mô tả|hãy cho|hãy giải thích|hãy liệt kê|hãy so sánh|hãy viết|hãy tóm tắt|xin hỏi|cho hỏi|cho tôi|cho mình|giúp tôi|giúp mình
+tôi muốn|tôi cần|tôi là|mình muốn|mình cần|mình là|tự xóa|tự sửa|tự ý|tự phê duyệt|tự duyệt|tự động|tự mình|tự làm|tự quyết định
+số tiền|số hóa đơn|số lượng|số ngày|mã số thuế|sai mã số thuế|người bán|bên bán|người mua|bên mua|bán hàng|mua hàng|hàng hóa
+chuyến công tác|chuyến đi|đi công tác|khoản cũ|khoản tạm ứng cũ|hóa đơn cũ|văn bản cũ|luật cũ|bản cũ|quy định cũ|cũ hay mới
+đúng quy định|đúng hạn|đúng không|đúng là|làm đúng|sử dụng|áp dụng|dùng để|dùng cho|dùng thông tư|nên dùng|được dùng|phải dùng
+thay đổi|đổi tài khoản|đổi người|đổi thông tin|tính thuế|tính từ|tính theo|cách tính|tính đến|nói rõ|nói là|nói không|nói được
+đợt thanh toán|nhiều đợt|từng đợt|kế toán trưởng|trưởng phòng|trưởng đơn vị|nằm ngoài|nằm trong|ngoài ngân sách|ngoài phạm vi
+thành ba|chia thành|tách thành|toàn bộ|hoàn toàn|đầy đủ|đủ điều kiện|đủ hồ sơ|chưa đủ|vài tuần|trong tuần|một tuần|dù đã|dù chưa
+dựa vào|dựa trên|trả lời|trả lại|trả về|hoàn trả|phần nào|phần còn lại|một phần|cái gì|cái này|cái đó|gọi là|cái gọi là|ngắn gọn
+tờ khai|giấy tờ|lãi suất|tiền lãi|thẳng vào|sửa thẳng|xóa thẳng|lúc nào|bao giờ|khá nhiều|rằng|cho rằng|nêu rõ|nêu trong|đang ở
+đang thuộc|đang chờ|đang xử lý|bản sao|bản gốc|bản chính|văn bản|cơ quan thuế|cơ quan|có mã|không có mã|sở hữu|trụ sở|tỷ lệ|tỷ đồng
+khẩu ngữ|xuất khẩu|câu hỏi|câu trả lời|hưởng|thụ hưởng|người thụ hưởng|hoạt động|lương|tiền lương|viết tắt|viết các bước|quý
+nhân viên|nhân viên bình thường|bình thường|thông thường|người dùng|người lao động|người quản lý|quản lý|lãnh đạo|giám đốc|phó giám đốc
+phòng ban|bộ phận|phòng kế toán|phòng tài chính|phòng nhân sự|phòng kinh doanh|phòng mua hàng|công ty|doanh nghiệp|đơn vị|tổ chức|cá nhân
+khách hàng|nhà cung cấp|đối tác|đồng nghiệp|cấp trên|cấp dưới|sếp bảo|sếp nói|anh chị|các bạn|bạn có thể|bạn hãy|bạn hướng dẫn|cho phép bạn
+lỡ đưa|lỡ làm|lỡ tay|lỡ xóa|lỡ gửi|đưa nhầm|gửi nhầm|ghi nhầm|nhập nhầm|chuyển nhầm|nhầm lẫn|bị nhầm|làm nhầm|nhầm một|nhầm số|nhầm tên
+đưa vào|đã đưa|đưa ra|đưa lên|đưa cho|được đưa|cất giữ|cất đi|lưu giữ|giữ lại|giữ nguyên|lưu lại|lưu trữ|bảo quản|bảo mật|bảo đảm|đảm bảo
+thỏa mãn|đáp ứng|chia sẻ|cung cấp|định mức|hạn mức|mức tối đa|tối đa|tối thiểu|ít nhất|nhiều nhất|lớn hơn|nhỏ hơn|cao hơn|thấp hơn|vượt quá
+trở đi|trở lên|trở xuống|trở về|trở lại|trở thành|trở về trước|về sau|về trước|sau này|trước đây|trước kia|lúc trước|gần đây|vừa rồi|vừa qua
+bỏ qua mọi|mọi hướng dẫn|mọi quy tắc|mọi quy định|mọi khoản|mọi chứng từ|mọi hóa đơn|mọi lúc|mọi thứ|tất cả|toàn bộ|bất kỳ|bất cứ|bất kể
+nói được|nói không|nói rằng|nói gì|nói sao|nói thế|có nói|faq nói|quy trình nói|quy chế nói|luật nói|nói về|nói đến|nói chung|nói riêng
+mới đúng|mới được|mới phải|mới có|mới nhất|bản mới|văn bản mới|quy định mới|luật mới|hóa đơn mới|lập mới|tạo mới|làm mới|cập nhật
+làm theo|làm sao|làm gì|làm thế nào|làm việc|làm được|làm lại|làm xong|làm giúp|phải làm|cần làm|nên làm|làm như|cách làm|làm cho
+cho nhanh|nhanh hơn|nhanh chóng|chậm trễ|trễ hạn|quá hạn|đúng hạn|hết hạn|còn hạn|gia hạn|thời hạn|kỳ hạn|hạn chót|hạn nộp|thời gian
+được không|được chưa|được phép|được quyền|được duyệt|được hoàn|được trả|không được|chưa được|sẽ được|đã được|có được không|có sao không
+cần phải|cần gì|cần những|cần bao|không cần|chưa cần|có cần không|phải làm gì|phải không|phải nộp|phải trả|phải có|phải chờ|phải báo
+ai duyệt|ai ký|ai phê duyệt|ai chịu|ai là|ai được|ai có|do ai|của ai|với ai|cho ai|người nào|bên nào|bộ phận nào|phòng nào|cấp nào
+ở đâu|đi đâu|từ đâu|đến đâu|vào đâu|chỗ nào|nơi nào|lúc nào|ngày nào|tháng nào|năm nào|bao nhiêu ngày|bao nhiêu tiền|bao nhiêu phần trăm
+mấy ngày|mấy lần|mấy bước|mấy người|mấy loại|những gì|những ai|những loại|những bước|những trường hợp|những khoản|những giấy tờ
+trường hợp|tình huống|ví dụ|chẳng hạn|giả sử|nếu như|nếu có|nếu không|nếu chưa|nếu đã|trong khi|trong lúc|khi mà|sau khi|trước khi
+bởi vì|vì vậy|cho nên|do đó|tuy nhiên|mặc dù|dù sao|ngoài ra|bên cạnh|thêm nữa|hơn nữa|còn nữa|nữa không|nữa hay|lần nữa|thêm lần
+xử lý|giải quyết|xem xét|kiểm tra|đối chiếu|xác nhận|xác minh|phê duyệt|từ chối|chấp nhận|chấp thuận|đồng ý|cho phép|yêu cầu|đề nghị
+thanh toán|chi trả|trả tiền|chuyển tiền|chuyển khoản|tạm ứng|hoàn ứng|quyết toán|hoàn tiền|thu hồi|nộp lại|nộp tiền|nộp thuế|khai thuế
+hóa đơn|chứng từ|hợp đồng|biên bản|tờ trình|báo cáo|hồ sơ|tài liệu|giấy đề nghị|phiếu chi|phiếu thu|sổ sách|số liệu|dữ liệu|thông tin
+sai sót|sai tên|sai địa chỉ|sai số tiền|bị sai|viết sai|ghi sai|sửa lại|sửa đổi|chỉnh sửa|điều chỉnh|thay thế|hủy bỏ|hủy hóa đơn|xóa bỏ
+có hiệu lực|hết hiệu lực|còn hiệu lực|hiệu lực từ|áp dụng từ|bắt đầu từ|kể từ|kể từ ngày|tính từ ngày|đến ngày|trước ngày|sau ngày|từ ngày
+bị phạt|xử phạt|mức phạt|tiền phạt|vi phạm|trái quy định|trái luật|hợp lệ|hợp pháp|không hợp lệ|bất hợp pháp|đúng luật|theo luật|theo quy định
+trực tiếp|gián tiếp|tự mình|một mình|cùng lúc|cùng một|giống nhau|khác nhau|khác gì|khác không|như nhau|tương tự|tương đương|ngang nhau
+quan trọng|cần thiết|bắt buộc|tùy chọn|ưu tiên|khẩn cấp|gấp lắm|rất gấp|đang gấp|việc gấp|ngay lập tức|ngay bây giờ|càng sớm|sớm nhất
+bước tiếp|bước đầu|bước cuối|tiếp theo|cuối cùng|đầu tiên|trước tiên|sau cùng|thứ tự|lần lượt|từng bước|các bước|quy trình|thủ tục
+tiền mặt|ngân hàng|tài khoản|số dư|ngân sách|chi phí|khoản chi|khoản thu|doanh thu|lợi nhuận|công nợ|khoản nợ|nợ quá hạn|giá trị|giá tiền
+đồng tiền|triệu đồng|nghìn đồng|tỷ đồng|phần trăm|một nửa|gấp đôi|gấp ba|tổng cộng|tổng số|tổng tiền|còn lại|còn thiếu|thiếu hồ sơ|bị thiếu
+ký tên|chữ ký|chữ ký số|đóng dấu|con dấu|ký duyệt|ký nháy|người ký|bên ký|ký hợp đồng|ủy quyền|thẩm quyền|quyền hạn|trách nhiệm|nghĩa vụ
+email|gửi email|gửi thư|gửi lại|gửi cho|nhận được|chưa nhận|đã nhận|đã gửi|chưa gửi|thông báo|báo cho|báo lại|báo cáo lại|liên hệ|hỏi ai
+giải thích|mô tả|liệt kê|tóm tắt|so sánh|phân biệt|trình bày|hướng dẫn|chỉ dẫn|chỉ giúp|nói giúp|kể tên|nêu tên|cho biết|muốn biết|cần biết
+hiểu là|hiểu sao|hiểu thế nào|nghĩa là|nghĩa là gì|có nghĩa|tức là|ý là|ý nghĩa|định nghĩa|khái niệm|viết tắt của|là viết tắt|thuật ngữ
+dựa vào nguồn|dựa vào đâu|dựa vào quy định|dựa vào văn bản|căn cứ vào|căn cứ nào|nguồn nào|theo nguồn|dẫn nguồn|trích nguồn
+nội bộ|bên ngoài|bên trong|trong nước|nước ngoài|toàn quốc|địa phương|trung ương|nhà nước|chính phủ|bộ tài chính|tổng cục|chi cục|cục thuế
+""".replace("\n", "|").strip("|").split("|")
 # âm tiết dẫn dắt chỉ bỏ khi tính độ phủ từ đơn (vẫn giữ trong cụm từ như "cơ quan", "bản sao", "đối chiếu")
 FRAMING_UNI = {"so", "khiến", "bản", "cơ", "khác", "thay", "vẫn", "luôn", "nhau", "vừa", "trăm", "riêng", "cách", "đi", "cả", "đối"}
 TOKEN_RE = re.compile(r"\d+(?:/[0-9a-zđ]+(?:-[0-9a-zđ]+)*)+|[a-zđ]+(?:_[a-zđ0-9]+)+|\d+|[^\W\d_]+",
@@ -815,6 +871,10 @@ def _fold_rx(rx: re.Pattern) -> re.Pattern:
 GUARD_FOLDED = {"injection": _fold_rx(INJECTION_RE), "illegal": _fold_rx(ILLEGAL_RE), "entity": _fold_rx(ENTITY_RE),
                 "record": _fold_rx(RECORD_RE), "ask": _fold_rx(ASK_RE), "procedural": _fold_rx(PROCEDURAL_RE),
                 "facts": {k: _fold_rx(v) for k, v in FACT_RE.items()}}
+# vị từ hay đi sau "không" phủ định ("hóa đơn không sai/hợp lệ/có mã/đúng") – khác "hóa đơn khống cho đối tác"
+NEG_PRED_RE = re.compile(r"sai|hợp|đúng|có|được|cần|phải|đủ|còn|bị|thể|ghi|rõ|khớp|trùng|nhận|gửi|thay|đổi|xuất|lập|ký|thuộc|"
+                         r"nằm|hiển|chính|chứa|kèm|mang|phát|đạt|đáp|tuân|theo|liên|đồng|giống|khác|thành|hiện|tồn|nên|đã|bắt")
+YESNO_OPEN_RE = re.compile(r"\b(?:có|cần|phải|được|nên|đã|bị)\b")     # mở đầu câu hỏi có/không: "có … không?"
 GUARD_ACCENTED = {"injection": INJECTION_RE, "illegal": ILLEGAL_RE, "entity": ENTITY_RE, "record": RECORD_RE, "ask": ASK_RE,
                   "procedural": PROCEDURAL_RE, "facts": FACT_RE}
 
@@ -830,7 +890,7 @@ MIXED_RE = re.compile(r"kết hợp|đồng thời|khác với|vừa liên quan|
                       r"căn cứ pháp luật|nguồn nên ưu tiên|dựa (?:vào|trên) (?:nguồn|căn cứ|văn bản) nào|"
                       r"(?:theo|căn cứ) (?:nguồn|văn bản) nào|phân biệt .{0,50} với .{0,50} nội bộ")
 CURRENT_RE = re.compile(r"hiện hành|hiện nay|hiện tại|bây giờ|hôm nay|đang có hiệu lực")
-DATE_IN_Q_RE = re.compile(r"(trước|từ|sau|tại|ngày)\s*(?:ngày\s*)?(\d{1,2}/\d{1,2}/\d{4})")
+DATE_IN_Q_RE = re.compile(r"(trước|truoc|từ|tu|sau|tại|tai|ngày|ngay)\s*(?:ng[àa]y\s*)?(\d{1,2}/\d{1,2}/\d{4})")
 # ---- P3/P4 cấu trúc văn bản ----
 EFFECT_HEAD_RE = re.compile(r"hiệu lực|(?:điều khoản|quy định) chuyển tiếp|thay thế (?:thông tư|nghị định|luật|văn bản)|phạm vi điều chỉnh")
 # câu hỏi phiên bản hỏi về CHÍNH các nguồn (nguồn nào được ưu tiên, văn bản này có vai trò gì so với văn bản kia)
@@ -1007,6 +1067,10 @@ ABBREV_AMBIG = {
     "tm": [("tiền mặt", r"bằng|chi|thu|thanh toán|tạm ứng|hay", r"tại quỹ"),
            ("thương mại", r"chiết khấu|phần mềm|kế toán|hóa đơn", r"điện tử")],
 }
+UNACCENTED_ABBR_RE = [(re.compile(p, re.I), r) for p, r in [
+    (r"(?<![\w/-])hddt(?![\w/-])", "HĐĐT"), (r"(?<![\w/-])hdkt(?![\w/-])", "HĐKT"), (r"(?<![\w/-])hdld(?![\w/-])", "HĐLĐ"),
+    (r"(?<![\w/-])hd(?![\w/-])", "HĐ"), (r"(?<![\w/-])tgd(?![\w/-])", "TGĐ"), (r"(?<![\w/-])nd(?=\s*\d{1,3}(?:/|\b))", "NĐ"),
+    (r"(?<=/)nd(?=-cp\b)", "NĐ")]]
 ABBREV_AMBIG_RE = re.compile(rf"(?<![\w/-])(?:{'|'.join(ABBREV_AMBIG)})(?![\w/-])", re.I)
 GLOSSARY_EN = [
     (r"payment requests?", "đề nghị thanh toán"), (r"urgent payments?", "thanh toán khẩn cấp"),
@@ -1091,9 +1155,12 @@ def relative_date(q: str, base: date) -> tuple[date | None, str]:
 
 
 def is_unaccented(text: str) -> bool:
-    """Câu gõ không dấu: từ 8 chữ cái trở lên và không quá 3% chữ cái mang dấu tiếng Việt."""
-    letters = [ch for ch in str(text) if ch.isalpha()]
-    return len(letters) >= 8 and sum(fold(ch) != ch.lower() for ch in letters) / len(letters) <= 0.03
+    """Câu gõ không dấu (kể cả lẫn vài từ có dấu): bỏ qua chữ viết tắt IN HOA (HĐĐT, NĐ, MST) và mã; còn từ 2 từ (hoặc 8 chữ cái) trở lên
+    và không quá 25% số từ mang dấu tiếng Việt (văn bản tiếng Việt có dấu thường trên 60% số từ mang dấu)."""
+    words = [w for w in re.findall(r"[^\W\d_]+", str(text)) if not (w.isupper() and len(w) > 1)]
+    if not words or (len(words) < 2 and len(words[0]) < 8):
+        return False
+    return sum(fold(w) != w.lower() for w in words) / len(words) <= 0.25
 
 
 # âm tiết tiếng Việt viết không dấu: phụ âm đầu? + 1–3 nguyên âm + phụ âm cuối? ("is", "allowed", "invoice" không thỏa)
@@ -1170,11 +1237,28 @@ class PolicyAssist:
             ws = re.findall(r"[^\W\d_]+", norm(t))
             uni.update(ws)
             bi.update(f"{a} {b}" for a, b in zip(ws, ws[1:]))
+        for ph in COMMON_PHRASES:                    # cụm thông dụng: trọng số như gặp 3 lần trong Data Pack
+            ws = ph.split()
+            for w in ws:
+                uni[w] += 3
+            for a, b in zip(ws, ws[1:]):
+                bi[f"{a} {b}"] += 3
+        own = [p for p, _ in REWRITES if re.fullmatch(r"[^\W\d_]+(?: [^\W\d_]+)+", p)] + list(EXPANSIONS)
+        for ph in own:                               # cụm trong bảng đồng nghĩa/mở rộng của chính hệ thống
+            ws = norm(ph).split()
+            for w in ws:
+                uni[w] += 3
+            for a, b in zip(ws, ws[1:]):
+                bi[f"{a} {b}"] += 3
+        for w in CONVERSATIONAL:                     # câu hỏi đời thường: "toi" là "tôi" (không phải "tối")
+            uni[w] += 50
         self.restore_uni: dict[str, str] = {}
         for w, n in uni.most_common():
             self.restore_uni.setdefault(fold(w), w)
-        for w in CONVERSATIONAL:                     # câu hỏi đời thường: "toi" là "tôi" (không phải "tối")
-            self.restore_uni[fold(w)] = w
+        self.lm_uni, self.lm_bi, self.lm_total = dict(uni), dict(bi), sum(uni.values())
+        self.lm_cands: dict[str, list[str]] = {}
+        for w in uni:
+            self.lm_cands.setdefault(fold(w), []).append(w)
         self.chunk_norm = [norm(c["heading"] + " " + c["chunk_text"]) for c in C]
         self.corpus_text = "\n".join(self.chunk_norm)
         self.term_chunks: dict[str, set[int]] = {}
@@ -1195,6 +1279,8 @@ class PolicyAssist:
         """Câu hỏi gõ không dấu ("chung tu ke toan la gi") → khôi phục dấu theo cụm từ/âm tiết phổ biến nhất trong Data Pack."""
         if not is_unaccented(text) or is_english(text):
             return text
+        if self.cfg.use_rewrite:
+            return self._restore_viterbi(text)
         words = list(re.finditer(r"[^\W\d_]+", text))
         out, last, i = [], 0, 0
         while i < len(words):
@@ -1225,6 +1311,51 @@ class PolicyAssist:
         out.append(text[last:])
         return "".join(out)
 
+    def _restore_viterbi(self, text: str) -> str:
+        """Chọn dạng có dấu cho cả chuỗi âm tiết sao cho xác suất theo cặp âm tiết liền nhau lớn nhất (Viterbi). Âm tiết đã có
+        dấu, chữ viết tắt IN HOA và âm tiết không có trong từ vựng được giữ nguyên; dấu câu ngắt chuỗi."""
+        words = list(re.finditer(r"[^\W\d_]+", text))
+        uni, bi, total = self.lm_uni, self.lm_bi, float(self.lm_total)
+        lp_uni = lambda w: math.log((uni.get(w, 0) + 0.5) / (total + 0.5 * len(uni)))
+
+        def lp_bi(a: str, b: str) -> float:      # nội suy cặp âm tiết với tần suất đơn
+            return math.log((bi.get(f"{a} {b}", 0) + 2.0 * (uni.get(b, 0) + 0.5) / total) / (uni.get(a, 0) + 2.0))
+
+        def options(n: int) -> list[str]:
+            w = words[n].group(0)
+            low = norm(w)
+            if (w.isupper() and len(w) > 1) or fold(w) != low:                       # mã/viết tắt, hoặc đã có dấu
+                return [low]
+            if low == "nhung" and re.match(r"\s+(?:\S+\s+){0,6}?(?:nao|gi)\b", fold(text[words[n].end():])):
+                return ["những"]                                                     # "những … nào/gì" của câu hỏi liệt kê
+            return self.lm_cands.get(low, [low])
+
+        chosen: dict[int, str] = {}
+        i = 0
+        while i < len(words):
+            j = i
+            while j + 1 < len(words) and text[words[j].end():words[j + 1].start()].strip() == "":
+                j += 1
+            best = {c: (lp_uni(c), [c]) for c in options(i)}
+            for n in range(i + 1, j + 1):
+                nxt = {}
+                for c in options(n):
+                    prev, (sc, path) = max(best.items(), key=lambda kv: kv[1][0] + lp_bi(kv[0], c))
+                    nxt[c] = (sc + lp_bi(prev, c), path + [c])
+                best = nxt
+            path = max(best.values(), key=lambda v: v[0])[1]
+            for n, c in zip(range(i, j + 1), path):
+                chosen[n] = c
+            i = j + 1
+        out, last = [], 0
+        for n, w in enumerate(words):
+            c = chosen[n]
+            if c != norm(w.group(0)):
+                out += [text[last:w.start()], _same_case(w.group(0), c)]
+                last = w.end()
+        out.append(text[last:])
+        return "".join(out)
+
     def rewrite(self, question: str) -> str:
         return self.rewrite_ex(question)[0]
 
@@ -1232,7 +1363,12 @@ class PolicyAssist:
         """Chuẩn hóa câu hỏi trước khi xử lý: khôi phục dấu (nếu gõ không dấu), từ đồng nghĩa (chỉ khi Data Pack không dùng
         đúng cụm đó), từ viết tắt (nhiều nghĩa → chọn theo ngữ cảnh), thuật ngữ tiếng Anh. Trả về câu đã chuẩn hóa và danh sách
         "viết tắt → cách hiểu" để người dùng kiểm tra."""
-        q = self.restore_diacritics(unicodedata.normalize("NFC", question))
+        q0 = unicodedata.normalize("NFC", question)
+        if is_unaccented(q0) and not is_english(q0):
+            # viết tắt có chữ Đ gõ không dấu: HDDT → HĐĐT, HD → HĐ, "ND 123/2020" → NĐ, TGD → TGĐ
+            for rx, rp in UNACCENTED_ABBR_RE:
+                q0 = rx.sub(lambda m, rp=rp: rp if m.group(0).isupper() else rp.lower(), q0)
+        q = self.restore_diacritics(q0)
         q = _OLD_TONE_RE.sub(lambda m: _OLD_TONE[m.group(1)], q)
         seen: list[str] = []
 
@@ -1300,10 +1436,36 @@ class PolicyAssist:
             words = norm(m.group(2)).split()[:2]
             if words and f"luật {' '.join(words)}" not in self.titles:
                 return True, f"Câu hỏi dựa trên “{m.group(0).strip()}” – văn bản này không có trong Data Pack."
-        # câu gõ không dấu: bước khôi phục dấu có thể chọn sai từ ("muc luong" → "mức lượng") nên dò lại trên câu gốc bỏ dấu
-        if raw and is_unaccented(raw) and (why := self._guard_rules(fold(raw), GUARD_FOLDED)):
-            return True, why
+        # câu gõ không dấu: bước khôi phục dấu có thể chọn sai từ ("muc luong" → "mức lượng") nên dò lại trên dạng bỏ dấu của
+        # câu đã tách vế (vế không có dữ liệu / chỉ dẫn chèn vào đã được xử lý ở bước tách câu, giống câu có dấu)
+        if raw and is_unaccented(raw):
+            fq = fold(q)
+            if (why := self._guard_rules(fq, GUARD_FOLDED)) and not self._harmless_reading(q, fq):
+                return True, why
         return False, ""
+
+    def _harmless_reading(self, q: str, fq: str) -> bool:
+        """Mẫu "hành vi trái pháp luật" khớp trên dạng bỏ dấu nhưng không khớp trên câu đã khôi phục dấu ("hoa don khong sai" =
+        "hóa đơn không sai", không phải "hóa đơn khống"). Chỉ coi là vô hại khi đó là lý do chặn DUY NHẤT và cách đọc có dấu
+        được mô hình ngôn ngữ xác nhận: mọi cặp âm tiết của cụm khớp đều có trong từ vựng, và từ đứng sau là vị từ
+        của "không" phủ định (sai, hợp lệ, có…), hoặc đứng cuối một câu hỏi có/không ("có cần lập hóa đơn không?"). Ngược lại giữ nguyên quyết định chặn."""
+        rx = GUARD_FOLDED
+        if rx["injection"].search(fq) or len(fq) != len(q):
+            return False
+        probe = dict(rx, illegal=re.compile(r"(?!)"))
+        if self._guard_rules(fq, probe):
+            return False
+        for m in rx["illegal"].finditer(fq):
+            span = q[m.start():m.end()].split()
+            if any(f"{a} {b}" not in self.lm_bi for a, b in zip(span, span[1:])):
+                return False
+            nxt = re.match(r" ([^\W\d_]+)", q[m.end():])
+            if nxt:
+                if not NEG_PRED_RE.fullmatch(nxt.group(1)):
+                    return False
+            elif not YESNO_OPEN_RE.search(re.split(r"[.!?;]", q[:m.start()])[-1]):
+                return False
+        return True
 
     def split_scope(self, q: str) -> tuple[str, list[str]]:
         """Tách phần không được xử lý khỏi câu hỏi, trả về (phần còn lại, ghi chú hiển thị cho người dùng):

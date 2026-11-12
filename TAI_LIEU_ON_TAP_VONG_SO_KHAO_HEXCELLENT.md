@@ -3,7 +3,7 @@
 **Dự án:** PolicyAssist AI – CHRONOS-LEDGER  
 **Đơn vị thực hiện:** Đội HEXCELLENT  
 
-> **Cập nhật 12/11/2026 (dùng cho Vòng 3):** mọi số liệu trong tài liệu này lấy từ lần chạy `RUN-20261112-020732-826e17` (mã nguồn sha256 `826e17d8d910`); chi tiết ở `README.md` mục 1 và thư mục `outputs/`. Số liệu bản Vòng sơ khảo đã cũ, không dùng để trả lời. Chức năng nào đã chạy được, chức năng nào còn là định hướng: xem tài liệu sản phẩm, mục 4 và mục 9.
+> **Cập nhật 12/11/2026 (dùng cho Vòng 3):** mọi số liệu trong tài liệu này lấy từ lần chạy `RUN-20261112-235519-23b749` (mã nguồn sha256 `23b7499be8a0`); chi tiết ở `README.md` mục 1 và thư mục `outputs/`. Số liệu bản Vòng sơ khảo đã cũ, không dùng để trả lời. Chức năng nào đã chạy được, chức năng nào còn là định hướng: xem tài liệu sản phẩm, mục 4 và mục 9.
 
 ---
 
@@ -148,7 +148,7 @@ Theo đúng nguyên tắc: **Cải tiến là gì → Vì sao cần cải tiến
 ### 3. Về dữ liệu và cách xử lý dữ liệu:
 **Ban Giám khảo hỏi:** *"Nếu người dùng gõ không dấu, viết tắt lộn xộn hoặc dùng từ khẩu ngữ, hệ thống xử lý thế nào để không tìm sai đoạn văn bản?"*
 > **Bạn trả lời:**  
-> *"Dạ thưa Ban Giám khảo, đội có bước chuẩn hóa câu hỏi độc lập (Query Normalization): tự động khôi phục dấu tiếng Việt theo ngữ cảnh, giải mã từ viết tắt dựa trên các từ đi kèm (ví dụ: 'gửi HĐ' là hóa đơn, nhưng 'ký HĐ' là hợp đồng), và loại bỏ toàn bộ các lời đệm khẩu ngữ trước khi đưa vào tìm kiếm. Thực tế trên tập kiểm thử 52 câu diễn đạt khẩu ngữ và viết tắt (Paraphrase-52), hệ thống vẫn đạt 100% quyết định đúng, Recall@5 đạt 0,901 và nguồn trích dẫn đầu tiên đúng 92,9%."*
+> *"Dạ thưa Ban Giám khảo, đội có bước chuẩn hóa câu hỏi độc lập (Query Normalization): tự động khôi phục dấu tiếng Việt theo ngữ cảnh, giải mã từ viết tắt dựa trên các từ đi kèm (ví dụ: 'gửi HĐ' là hóa đơn, nhưng 'ký HĐ' là hợp đồng), và loại bỏ toàn bộ các lời đệm khẩu ngữ trước khi đưa vào tìm kiếm. Thực tế trên tập kiểm thử 52 câu diễn đạt khẩu ngữ và viết tắt (Paraphrase-52), hệ thống vẫn đạt 100% quyết định đúng, Recall@5 đạt 0,901 và nguồn trích dẫn đầu tiên đúng 92,9%. Đội còn kiểm riêng: lấy 221 câu có dấu, bỏ dấu toàn bộ rồi hỏi lại – 221/221 câu cho đúng cùng quyết định, cùng nguồn và cùng mốc áp dụng như câu có dấu."*
 
 ### 4. Về tính khả thi của sản phẩm khả dụng tối thiểu:
 **Ban Giám khảo hỏi:** *"Sản phẩm này đã có thể đưa cho người dùng thật sử dụng được chưa và đòi hỏi máy chủ thế nào?"*

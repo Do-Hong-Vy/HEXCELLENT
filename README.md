@@ -37,7 +37,7 @@ Một lệnh `python policyassist.py eval` đo **mọi tập có nhãn** cho h�
 Lệnh này chạy kèm kiểm định ghép cặp, khoảng tin cậy 95%, ablation B0 → B6 và các kịch bản demo. Báo cáo nằm ở `outputs/eval_report.md`, số liệu ở `outputs/kpi_table.csv`.
 
 Thông tin lần chạy:
-- run_id: `RUN-20261112-020732-826e17` (lần chạy cuối; sha256 mã nguồn `826e17d8d910`, khớp `outputs/run_manifest.json`).
+- run_id: `RUN-20261112-235519-23b749` (lần chạy cuối; sha256 mã nguồn `23b7499be8a0`, khớp `outputs/run_manifest.json`).
 - Corpus `08eaac52973a` (6 file CSV, cách tính của đội) và `7357afec5ef0` (toàn bộ Data Pack) – hai dấu vân tay của cùng một bộ dữ liệu.
 - Đo trên bộ câu hỏi mẫu, không phải người dùng thật.
 
@@ -57,7 +57,7 @@ Mỗi ô ghi giá trị, kèm (tổng điểm hoặc số câu đúng / số câ
 | 4. Unsupported Answer Rate | **0,000** (0/26) | 0,000 (0/50) | 0,000 (0/76) | 0,000 (0/52) | ≤ 0,10 (đội) |
 | 5. Abstention F1 (Precision / Recall) | **1,000 (1,000 / 1,000)** | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | ≥ 0,90 (đội) |
 | 6. Versioning Accuracy | **1,000** (4/4) | 1,000 (6/6) | 1,000 (10/10) | 1,000 (14/14) | ≥ 0,90 (đội) |
-| 7. Latency trung bình / p95 | **18 / 50 ms** | 21 / 46 ms | 20 / 50 ms | 20 / 42 ms | TB ≤ 10.000 ms (đề thi) |
+| 7. Latency trung bình / p95 | **18 / 46 ms** | 20 / 43 ms | 19 / 45 ms | 20 / 42 ms | TB ≤ 10.000 ms (đề thi) |
 | Source Priority – câu MIXED (chỉ số phụ) | 0,667 (2/3) | 0,444 (4/9) | 0,500 (6/12) | 1,000 (1/1) | ≥ 0,85 (đội) |
 | Quyết định ANSWER/ABSTAIN đúng | 1,000 (30/30) | 1,000 (60/60) | 1,000 (90/90) | 1,000 (60/60) | |
 
@@ -146,7 +146,7 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 | 4 | Unsupported Answer Rate (thấp là tốt) | **0,000** | 0,327 | ≤ 0,10 (đội đề xuất) | 0/37 câu đã trả lời |
 | 5 | Abstention Quality (F1 lớp ABSTAIN) | **1,000** | 0,000 | ≥ 0,90 (đội đề xuất) | P 1,000 · R 1,000 · TP 18 · FP 0 · FN 0 |
 | 6 | Versioning Accuracy | **1,000** | 0,200 | ≥ 0,90 (đội đề xuất) | 10/10 câu |
-| 7 | Latency trung bình | **29 ms** | 13 ms | ≤ 10 giây (đề thi) | p95 79 ms · 145 lượt đo |
+| 7 | Latency trung bình | **18 ms** | 5 ms | ≤ 10 giây (đề thi) | p95 47 ms · 145 lượt đo |
 
 **Nguồn của các chỉ số kèm** (dòng nhỏ dưới mỗi ô; cùng tập Dev-30 + Probe-25 với giá trị chính):
 - MRR@5 và Recall@5 theo văn bản: 26 câu ANSWER của Dev-30.
@@ -176,12 +176,12 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | B0 – BM25 thuần | 0,610 | 0,616 | 0,611 | 0,607 | 0,156 | 0,000 | 0,40 | 0,083 | 7 ms |
 | B1 – + truy hồi lai, chuẩn hóa truy vấn | 0,725 | 0,701 | 0,654 | 0,682 | 0,156 | 0,000 | 0,40 | 0,083 | 10 ms |
-| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,722 | 0,800 | 0,156 | 0,000 | 0,90 | 0,333 | 12 ms |
+| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,722 | 0,800 | 0,156 | 0,000 | 0,90 | 0,333 | 11 ms |
 | B2′ – B1 + lọc cứng theo ngày | 0,766 | 0,732 | 0,665 | 0,728 | 0,156 | 0,000 | 0,60 | 0,083 | 10 ms |
-| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,910 | 0,884 | 0,757 | 0,956 | 0,156 | 0,000 | 1,00 | 0,083 | 22 ms |
-| B4 – + Guard, cổng đủ căn cứ | 0,910 | 0,884 | 0,757 | 0,956 | 0,000 | 1,000 | 1,00 | 0,083 | 20 ms |
-| B5 – + soạn nhiều căn cứ, câu quyết định có/không, kiểm toán citation | 0,917 | 0,884 | 0,824 | 0,931 | 0,000 | 1,000 | 1,00 | 0,500 | 21 ms |
-| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,917** | **0,884** | **0,824** | **0,931** | **0,000** | **1,000** | **1,00** | **0,500** | 20 ms |
+| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,910 | 0,884 | 0,757 | 0,956 | 0,156 | 0,000 | 1,00 | 0,083 | 21 ms |
+| B4 – + Guard, cổng đủ căn cứ | 0,910 | 0,884 | 0,757 | 0,956 | 0,000 | 1,000 | 1,00 | 0,083 | 19 ms |
+| B5 – + soạn nhiều căn cứ, câu quyết định có/không, kiểm toán citation | 0,917 | 0,884 | 0,824 | 0,931 | 0,000 | 1,000 | 1,00 | 0,500 | 20 ms |
+| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,917** | **0,884** | **0,824** | **0,931** | **0,000** | **1,000** | **1,00** | **0,500** | 19 ms |
 
 - Mỗi khối cải thiện một nhóm KPI riêng:
   - B1 tăng Recall@5 (+0,115: 0,610 → 0,725).
@@ -373,7 +373,7 @@ Trang Hỏi đáp dành phần lớn bề ngang (~70%) cho vùng hội thoại; 
 
 - Logo cán cân ⚖ và tên ứng dụng ở đầu cột.
 - **Ô tìm kiếm** (trên cùng, ngay dưới logo): kết quả cập nhật theo **từng ký tự gõ** – kể cả khi bộ gõ tiếng Việt đang ghép chữ, không phải gõ hết từ – trong **tên phiên, câu hỏi và câu trả lời** của mọi phiên đã lưu.
-  - Không phân biệt hoa/thường; gõ có dấu hay không dấu đều được (*hoa don* tìm ra *Hóa đơn*); hiểu viết tắt (*HĐĐT, MST, GTGT…*).
+  - Không phân biệt hoa/thường; gõ có dấu hay không dấu đều được (*hoa don* tìm ra *Hóa đơn*) và cho cùng kết quả (221/221 câu kiểm thử giống nhau về quyết định, nguồn, mốc); hiểu viết tắt (*HĐĐT, MST, GTGT…*).
   - Mỗi kết quả hiện tên phiên và đoạn trích *Hỏi: …* / *Đáp: …* chứa từ khóa, từ khóa được tô vàng.
   - Bấm một kết quả: mở phiên, cuộn tới đúng câu hỏi chứa từ khóa và hiện nguồn của câu đó ở panel bên phải. Bấm nút xoá trong ô (hoặc phím Esc) để quay lại lịch sử.
 - **Tra cứu mới** (nút vàng, dưới ô tìm kiếm): mở một phiên mới. Mỗi phiên chứa **nhiều câu hỏi** nối tiếp như một cuộc hội thoại.
@@ -733,6 +733,11 @@ Các KPI trong mục "KPI đủ bộ":
 - **Sửa thêm ngày 12/11/2026 (lần 4)**:
   - câu hỏi về chính các nguồn (*nên dẫn nguồn nào theo thứ tự*, *cần kết hợp … tài liệu nội bộ nào*): câu trả lời có thêm dòng *Thứ tự dẫn nguồn* liệt kê các căn cứ đã dẫn theo thứ tự ưu tiên (pháp luật đang có hiệu lực → quy chế/quy trình → sổ tay/FAQ), tên văn bản lấy từ metadata; bộ kiểm chứng đối chiếu dòng này với metadata và danh sách citation như dòng *Chuỗi phiên bản* – Q072 (0,52 → 0,84), Q073 (0,58 → 0,89);
   - **chuẩn hóa nhãn Ext-60 (do đội viết)**: 21 đáp án tham chiếu (Q009, Q016–Q019, Q023, Q035, Q040, Q043, Q045, Q051, Q058, Q060, Q063, Q064, Q066, Q067, Q071–Q074) được viết lại bằng đúng chữ trong Data Pack – bỏ viết tắt (NĐ, TT, CQT, KTT, HĐ, NCC), từ tiếng Anh (*link*) và từ tự đặt (*thẳng*, *rồi*, *chặn*, *nguồn cũ*), giữ nguyên ý; mỗi dòng ghi ngày sửa ở cột `label_source`, bản trước khi sửa lưu ngoài gói. Đáp án của BTC (`answer_key_sample.csv`) và các câu kế thừa từ nó **không** sửa. Baseline B0 được chấm lại trên cùng bộ nhãn.
+- **Sửa thêm ngày 12/11/2026 (lần 5) – câu gõ có dấu và không dấu chốt cùng kết quả** (kiểm trên 221 câu có dấu của các tập có nhãn, mỗi câu hỏi thêm hai dạng bỏ dấu – giữ và không giữ chữ viết tắt IN HOA; trước khi sửa 179/221 câu cho cùng quyết định, cùng nguồn và cùng mốc áp dụng, nay **221/221**; 317 câu có nhãn không câu nào đổi điểm, 799 đầu vào bất thường không lỗi sập):
+  - nhận diện câu không dấu: bỏ qua chữ viết tắt IN HOA (*HĐĐT*, *NĐ* không còn làm câu bị coi là có dấu), cho phép tới 25% số từ có dấu (câu gõ lẫn), câu ngắn từ 2 từ (*HOLD la gi?*);
+  - khôi phục dấu theo cả câu (Viterbi trên tần suất cặp âm tiết của Data Pack, bổ sung khoảng 750 cụm từ hỏi đáp thông dụng và các cụm trong chính bảng đồng nghĩa của hệ thống): độ chính xác theo từ 0,944 → 0,983; *lo dua nham* → *lỡ đưa nhầm*, *tro di* → *trở đi*, *phong ban* → *phòng ban*, *dua vao nguon nao* → *dựa vào nguồn nào*;
+  - viết tắt có chữ Đ gõ không dấu: *HDDT* → HĐĐT, *HD* → HĐ, *ND 123/2020* → NĐ; mốc trong câu không dấu (*tai ngay 15/05/2025*, *truoc*, *tu*) được nhận như câu có dấu;
+  - Guard của câu không dấu dò trên câu đã tách vế (như câu có dấu) và không chặn nhầm *hoa don khong sai* (= *hóa đơn không sai*) là *hóa đơn khống*: chỉ bỏ chặn khi lý do duy nhất là mẫu hành vi trái luật, cách đọc có dấu có trong từ vựng và từ đứng sau là vị từ của *không* phủ định (sai, hợp lệ, có…) hoặc *không* kết thúc câu hỏi có/không; *lap hoa don khong cho doi tac* vẫn bị chặn.
 - **Giới hạn của chỉ số "độ phủ ý chính"** (sau lần 4: 31 câu dưới 0,70 trên 317 câu có nhãn; trước chuẩn hóa nhãn: 36 câu, trong đó 11 câu không thể đạt 0,70 bằng trích nguyên văn kể cả khi trích toàn bộ các đoạn nhãn, vì đáp án tham chiếu của đội dùng viết tắt không có trong Data Pack (NĐ, TT, KTT, CQT, ncc, hđ), từ diễn đạt tự viết (*thẳng*, *rồi*, *workflow*, *khuyến nghị*) hoặc ý chỉ có ở văn bản đã hết hiệu lực (Q014 – *quyền sở hữu* có ở LAW05/LAW07/LAW08 nhưng không có trong LAW11 đang hiệu lực). Thử dẫn tối đa 5 đoạn thay vì 3 chỉ giảm 36 → 32 câu nhưng làm 25 câu khác dẫn sai nguồn và Citation Accuracy Stress-60 còn 0,743 nên không áp dụng; hệ thống không tự viết thêm câu chữ ngoài nguồn để tăng chỉ số. Sau khi chuẩn hóa nhãn, phần thiếu của 31 câu còn lại là nội dung tổng hợp từ nhiều nguồn mà đáp án tham chiếu viết ra (6 câu dùng đáp án BTC hoặc kế thừa từ nó: Q014, Q070, S008, R009, R026, và Q074), không còn do cách viết chữ.
 - **Đã thử và không áp dụng** (làm sai câu khác): đưa nghĩa tiếng Việt của mọi mã viết hoa vào chỉ mục (S055 kém đi); dẫn thêm từng câu riêng lẻ khớp tốt từ đoạn khác (17 câu kém đi); ưu tiên FAQ có câu hỏi trùng từ khóa (2 câu kém đi); chọn nguồn gốc của FAQ theo thứ hạng (4 câu kém đi); quy tắc bộ phận cho câu MIXED (S054 mất căn cứ pháp luật).
 - **Trạng thái trước đợt sửa 12/11 (lưu để đối chiếu)** – 7 dòng của `outputs/error_table.csv` ngày 11/11/2026 – đã thử thêm ba quy tắc chung cho các câu này nhưng đều làm sai câu khác nên không áp dụng:

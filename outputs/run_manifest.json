@@ -1,10 +1,10 @@
 {
-  "run_id": "RUN-20261112-021334-826e17",
-  "thời điểm": "2026-11-12T02:14:10",
+  "run_id": "RUN-20261112-235519-23b749",
+  "thời điểm": "2026-11-12T23:55:44",
   "phiên bản": "V1.0",
   "mã nguồn": {
     "file": "policyassist.py",
-    "sha256_12": "826e17d8d910"
+    "sha256_12": "23b7499be8a0"
   },
   "data_pack": {
     "phiên bản": "v1-snapshot-2026-10-17",
@@ -96,7 +96,7 @@
   },
   "mô hình ngôn ngữ": "không dùng (BM25 + TF-IDF ký tự, trích xuất; pipeline tất định)",
   "môi trường": {
-    "python": "3.14.8",
+    "python": "3.14.10",
     "pandas": "3.0.6",
     "numpy": "2.5.4",
     "scikit-learn": "1.9.1",

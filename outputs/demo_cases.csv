@@ -1,7 +1,7 @@
 ﻿case,mã,reference_date,câu hỏi,hành vi kỳ vọng,kỳ vọng,quyết định,citations,chunk được dẫn,độ tin cậy,latency_ms,trace_id,khớp kỳ vọng
-A – một nguồn,Q001,2026-10-17,"Theo Data Pack, chứng từ kế toán được hiểu là gì?",ANSWER,LAW01_C001,ANSWER,LAW01 – Điều 3 khoản 3,LAW01_C001,0.971,18,T20261112-021410-9397b6,Có
-B1 – nhiều nguồn,Q042,2026-10-17,Một hóa đơn đã phát hành bị sai số tiền và thuế suất. Nova Việt có được sửa trực tiếp dữ liệu hóa đơn gốc không? Hãy nêu quy trình xử lý phù hợp.,ANSWER,LAW12_C009;LAW12_C011;SIM02_C006,ANSWER,LAW12 – Điều 10 khoản 1 điểm b; LAW12 – Điều 10 khoản 1; SIM02 – Điều 7; SIM08 – FAQ04,LAW12_C009;LAW12_C011;SIM02_C006;SIM08_C006,0.969,119,T20261112-021410-8b505e,Có
-B2 – versioning,tự đặt,2025-05-15,Hướng dẫn về hóa đơn điện tử nên áp dụng theo Thông tư nào?,ANSWER,LAW09,ANSWER,LAW09 – Điều 1,LAW09_C001,0.969,19,T20261112-021410-66f093,Có
-B2 – versioning,tự đặt,2025-06-15,Hướng dẫn về hóa đơn điện tử nên áp dụng theo Thông tư nào?,ANSWER,LAW06,ANSWER,LAW06 – Điều 12 khoản 1,LAW06_C016,0.97,16,T20261112-021410-1e42a0,Có
-B2 – versioning,tự đặt,2026-08-15,Hướng dẫn về hóa đơn điện tử nên áp dụng theo Thông tư nào?,ANSWER,LAW12,ANSWER,LAW12 – Điều 24–25,LAW12_C014,0.969,25,T20261112-021410-c6ed2b,Có
-C – ABSTAIN,Q077,2026-10-17,Mã số thuế chính thức của Công ty Cổ phần Nova Việt là bao nhiêu?,ABSTAIN,,ABSTAIN,,,0.05,1,T20261112-021410-260f09,Có
+A – một nguồn,Q001,2026-10-17,"Theo Data Pack, chứng từ kế toán được hiểu là gì?",ANSWER,LAW01_C001,ANSWER,LAW01 – Điều 3 khoản 3,LAW01_C001,0.971,7,T20261112-235543-0bf926,Có
+B1 – nhiều nguồn,Q042,2026-10-17,Một hóa đơn đã phát hành bị sai số tiền và thuế suất. Nova Việt có được sửa trực tiếp dữ liệu hóa đơn gốc không? Hãy nêu quy trình xử lý phù hợp.,ANSWER,LAW12_C009;LAW12_C011;SIM02_C006,ANSWER,LAW12 – Điều 10 khoản 1 điểm b; LAW12 – Điều 10 khoản 1; SIM02 – Điều 7; SIM08 – FAQ04,LAW12_C009;LAW12_C011;SIM02_C006;SIM08_C006,0.969,49,T20261112-235543-2885d1,Có
+B2 – versioning,tự đặt,2025-05-15,Hướng dẫn về hóa đơn điện tử nên áp dụng theo Thông tư nào?,ANSWER,LAW09,ANSWER,LAW09 – Điều 1,LAW09_C001,0.969,9,T20261112-235544-5eee35,Có
+B2 – versioning,tự đặt,2025-06-15,Hướng dẫn về hóa đơn điện tử nên áp dụng theo Thông tư nào?,ANSWER,LAW06,ANSWER,LAW06 – Điều 12 khoản 1,LAW06_C016,0.97,8,T20261112-235544-7d6cdb,Có
+B2 – versioning,tự đặt,2026-08-15,Hướng dẫn về hóa đơn điện tử nên áp dụng theo Thông tư nào?,ANSWER,LAW12,ANSWER,LAW12 – Điều 24–25,LAW12_C014,0.969,8,T20261112-235544-e8eaea,Có
+C – ABSTAIN,Q077,2026-10-17,Mã số thuế chính thức của Công ty Cổ phần Nova Việt là bao nhiêu?,ABSTAIN,,ABSTAIN,,,0.05,1,T20261112-235544-46040e,Có
