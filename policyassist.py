@@ -5425,8 +5425,23 @@ h1,h2,h3{color:var(--pa-navy);}
 .pa-chip.bad{background:#FDE7E3;color:#A3300F;}
 /* ---------- vùng hội thoại ---------- */
 /* khung hội thoại chiếm hết phần còn lại của cột → đáy ô nhập câu hỏi luôn bằng đáy panel nguồn bên phải */
+/* tiêu đề trang hỏi đáp: một dòng mỏng (tiêu đề · ngày · số câu ← → chip) */
+.pa-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;min-height:32px;}
+.pa-top-t{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;}
+.pa-top .pa-h1{font-size:21px;}
+.pa-top .pa-h1-sub{margin:0;}
+.pa-top .pa-chip{padding:4px 10px;font-size:12px;}
+/* cột hội thoại cao bằng phần còn lại của màn hình (không phụ thuộc panel nguồn – panel có thể đang ẩn) */
+[data-testid="stLayoutWrapper"]:has(> .st-key-chatcol),.st-key-chatcol{height:max(480px,calc(100vh - 128px))!important;
+ flex:0 0 auto!important;flex-wrap:nowrap!important;}
+.st-key-chatcol>*{flex-shrink:0;}
+.st-key-chatcol>[data-testid="stElementContainer"]:has(script){display:none!important;}   /* script cuộn không chiếm chỗ */
 [data-testid="stLayoutWrapper"]:has(> .st-key-chatlog){flex:1 1 0!important;height:auto!important;min-height:260px!important;}
-[data-testid="stLayoutWrapper"]:has(> .st-key-srcpanel){flex:0 0 auto!important;height:max(480px,calc(100vh - 150px))!important;}
+[data-testid="stLayoutWrapper"]:has(> .st-key-srcpanel){flex:0 0 auto!important;height:max(480px,calc(100vh - 128px))!important;}
+/* hiệu ứng sinh câu trả lời (gen_css gắn cho lượt vừa hỏi) */
+@keyframes paRise{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+@keyframes paFlow{from{clip-path:inset(0 0 100% 0);}to{clip-path:inset(0 0 0 0);}}
+@keyframes paThink{0%,75%{opacity:1;}100%{opacity:0;}}
 .st-key-chatlog,.st-key-srcpanel{height:100%!important;}
 .st-key-chatlog{background:var(--pa-soft);border:1px solid var(--pa-line)!important;border-radius:16px!important;padding:4px 6px!important;}
 .st-key-srcpanel{background:#fff;border:1px solid var(--pa-line)!important;border-radius:16px!important;}
@@ -5522,12 +5537,12 @@ mark.pa-key{background:var(--pa-mark);color:inherit;padding:1px 3px;border-radiu
  border-radius:12px;padding:11px 14px;margin:0;}
 .pa-abs-grid dt{font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--pa-bad);}
 .pa-abs-grid dd{margin:3px 0 0;font-size:13.5px;line-height:1.5;}
-.pa-welcome{background:#fff;border:1px solid var(--pa-line);border-radius:16px;padding:18px 20px;margin-top:6px;}
-.pa-welcome h3{margin:0 0 6px;font-size:19px;}
-.pa-welcome p{margin:0;color:#3B4656;font-size:14.5px;line-height:1.6;}
-.pa-wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px;}
-.pa-wgrid div{background:var(--pa-soft);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.5;color:#3B4656;}
-.pa-wgrid b{display:block;color:var(--pa-navy);font-size:14px;margin-bottom:2px;}
+.pa-welcome{background:#fff;border:1px solid var(--pa-line);border-radius:14px;padding:12px 16px;margin-top:4px;}
+.pa-welcome h3{margin:0 0 4px;font-size:16.5px;}
+.pa-welcome p{margin:0;color:#3B4656;font-size:13.5px;line-height:1.5;}
+.pa-wfeat{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+.pa-wfeat span{display:inline-flex;align-items:center;gap:5px;background:var(--pa-soft);color:var(--pa-navy);border-radius:999px;
+ padding:4px 10px;font-size:12.5px;font-weight:600;}
 /* ---------- ô soạn câu hỏi ---------- */
 .st-key-composer{background:#fff;border:1px solid #DCE2EC;border-radius:16px;padding:10px 12px 8px;gap:.35rem!important;
  box-shadow:0 2px 10px #14284B0F;}
@@ -6408,7 +6423,11 @@ def run_ui():
                               "date_mode": mode})
         sess["title"] = sess.get("title") or short_title(question)
         history_save(sess)
-        ss.sel = (len(sess["turns"]) - 1, res.cited_chunks[0] if res.cited_chunks else None)
+        idx = len(sess["turns"]) - 1
+        ss.sel = (idx, None)                            # panel nguồn chỉ mở khi người dùng bấm chip [n]
+        if ss.get("focus_turn") is None:                # gửi nhiều câu một lần → giữ ở câu đầu tiên
+            ss.focus_turn = idx
+        ss.anim_turns = ss.get("anim_turns", []) + [idx]
 
     def ask_sample(qid: str):
         q = qrow[qid]
@@ -6472,9 +6491,8 @@ def run_ui():
             ss.sess, ss.sel = s, None
             if s["turns"]:
                 i = len(s["turns"]) - 1 if turn is None else min(turn, len(s["turns"]) - 1)
-                ss.sel = (i, (s["turns"][i]["res"].cited_chunks or [None])[0])
-                if turn is not None:
-                    ss.focus_turn = i
+                ss.sel = (i, None)                     # panel nguồn chỉ mở khi bấm chip [n]
+                ss.focus_turn = i                      # cuộn tới câu hỏi của lượt đó (mặc định: lượt cuối)
         ss.goto_qa = ss.hist_rerun = True              # nút nằm trong fragment của sidebar → yêu cầu vẽ lại cả trang
 
     # menu ⋮ của từng phiên trong LỊCH SỬ TRA CỨU
@@ -6599,25 +6617,33 @@ def run_ui():
         sess = ss.sess
         turns = sess["turns"]
         created = parse_date(sess.get("created")) or date.today()
-        h1, h2 = st.columns([1, 1.35], vertical_alignment="center")
-        with h1:
-            st.html(f'<div class="pa-h1">Phiên tra cứu</div><div class="pa-h1-sub">{WEEKDAY_VI[created.weekday()]}, '
-                    f'{created:%d/%m/%Y} · {len(turns)} câu hỏi'
-                    + (f' · {sum(t["res"].abstain for t in turns)} ABSTAIN' if any(t["res"].abstain for t in turns) else "")
-                    + "</div>")
-        with h2:
-            integ = (f'<span class="pa-chip ok" title="Kiểm tra toàn vẹn Data Pack (SHA-256 + cấu trúc)">{ic("verified")}Toàn vẹn '
-                     f'{n_pass}/{len(checks)}</span>' if not n_fail
-                     else f'<span class="pa-chip bad">{ic("error")}Data Pack lệch manifest ({n_fail})</span>')
-            st.html(f'<div class="pa-chips"><span class="pa-chip">Data Pack BTC · {len(dp.doc)} tài liệu · {len(dp.chunks)} chunk</span>'
-                    f'<span class="pa-chip gold">Cập nhật đến {SNAPSHOT:%d/%m/%Y}</span>{integ}</div>')
-        chat, panel = st.columns([2.6, 1], gap="medium")          # vùng tra cứu rộng, panel nguồn gọn bên phải
-        with chat:
-            focus = ss.pop("focus_turn", None)            # mở từ kết quả tìm kiếm → cuộn tới đúng lượt hỏi
-            with st.container(height=600, key="chatlog", autoscroll=bool(turns) and focus is None):
+        # tiêu đề + chip gom vào MỘT dòng mỏng → nhường chiều cao cho khung hội thoại
+        integ = (f'<span class="pa-chip ok" title="Kiểm tra toàn vẹn Data Pack (SHA-256 + cấu trúc)">{ic("verified")}Toàn vẹn '
+                 f'{n_pass}/{len(checks)}</span>' if not n_fail
+                 else f'<span class="pa-chip bad">{ic("error")}Data Pack lệch manifest ({n_fail})</span>')
+        st.html(f'<div class="pa-top"><div class="pa-top-t"><span class="pa-h1">Phiên tra cứu</span><span class="pa-h1-sub">'
+                f'{WEEKDAY_VI[created.weekday()]}, {created:%d/%m/%Y} · {len(turns)} câu hỏi'
+                + (f' · {sum(t["res"].abstain for t in turns)} ABSTAIN' if any(t["res"].abstain for t in turns) else "")
+                + f'</span></div><div class="pa-chips"><span class="pa-chip">Data Pack BTC · {len(dp.doc)} tài liệu · '
+                f'{len(dp.chunks)} chunk</span><span class="pa-chip gold">Cập nhật đến {SNAPSHOT:%d/%m/%Y}</span>{integ}</div></div>')
+        # panel nguồn chỉ hiện khi đang mở một nguồn; ẩn bằng CSS (không đổi cây phần tử → khung hội thoại giữ vị trí cuộn)
+        sel = ss.get("sel")
+        show_panel = (sel is not None and 0 <= sel[0] < len(turns) and not turns[sel[0]]["res"].abstain
+                      and sel[1] in turns[sel[0]]["res"].cited_chunks)
+        if not show_panel:
+            st.html('<style>[data-testid="stColumn"]:has(.st-key-srcpanel){display:none!important;}'
+                    '[data-testid="stColumn"]:has(.st-key-chatcol){flex:1 1 100%!important;width:100%!important;'
+                    'max-width:100%!important;}</style>')
+        anim = set(ss.pop("anim_turns", []))              # lượt vừa hỏi → hiệu ứng sinh câu trả lời
+        chat, panel = st.columns([3.3, 1], gap="medium")          # vùng tra cứu rộng, panel nguồn gọn bên phải
+        with chat, st.container(key="chatcol"):
+            focus = ss.pop("focus_turn", None)            # lượt vừa hỏi / mở từ lịch sử → cuộn tới câu hỏi của lượt đó
+            with st.container(height=600, key="chatlog"):
                 if not turns:
                     render_welcome()
                 for t, turn in enumerate(turns):
+                    if t in anim:
+                        st.html(gen_css(t))
                     render_turn(t, turn)
             render_composer()
             if focus is not None:
@@ -6642,17 +6668,33 @@ def run_ui():
                 }})();</script>""", unsafe_allow_javascript=True)
         with panel:
             with st.container(height=760, key="srcpanel"):
-                render_panel(turns)
+                if show_panel:
+                    render_panel(turns)
+
+    def gen_css(t: int) -> str:
+        """Hiệu ứng 'đang sinh câu trả lời' cho lượt vừa hỏi: dòng 'đang soạn' → các khối hiện lần lượt (~1 giây)."""
+        def s(suffix: str = "") -> str:
+            return ",".join(f".st-key-{p}-{t}{suffix}" for p in ("card", "cardx"))
+        rules = [f"{s()}{{position:relative;}}",
+                 f"{s('::before')}{{content:'Đang soạn câu trả lời';position:absolute;left:18px;top:50px;font-size:13.5px;"
+                 f"font-weight:600;color:var(--pa-muted);pointer-events:none;animation:paThink .42s ease forwards;}}",
+                 f"{s('>*')}{{animation:paRise .3s cubic-bezier(.2,.7,.3,1) both;}}",
+                 f"{s(' .pa-steps .stp')}{{animation:paRise .18s ease both;}}",
+                 f"{s(' .pa-concl p')}{{animation:paFlow .5s ease-out .45s both;}}",
+                 f"{s(' .pa-bhead')}{{animation:paFlow .6s ease-out .6s both;}}"]
+        rules += [f"{s(f'>*:nth-child({i})')}{{animation-delay:{.36 + .09 * (i - 1):.2f}s;}}" for i in range(1, 13)]
+        rules += [f"{s(f' .pa-steps .stp:nth-child({i})')}{{animation-delay:{.03 * i:.2f}s;}}" for i in range(1, 16)]
+        return "<style>@media (prefers-reduced-motion:no-preference){" + "".join(rules) + "}</style>"
 
     def render_welcome():
         st.html('<div class="pa-welcome"><h3>Tra cứu chính sách tài chính – kế toán – thuế có dẫn nguồn</h3>'
-                '<p>Hỏi bằng tiếng Việt, có thể viết tắt (HĐĐT, TT, NĐ, MST) hoặc gõ không dấu. Mỗi câu trả lời trích nguyên văn '
-                'từ Data Pack của BTC, gắn nguồn bấm mở được và được kiểm tra hiệu lực theo ngày tham chiếu.</p>'
-                '<div class="pa-wgrid"><div><b>' + ic("link") + 'Citation mở nguồn</b>Bấm [1], [2]… để xem đoạn gốc, nhãn hiệu lực, chuỗi phiên bản '
-                'và toàn văn.</div><div><b>' + ic("history") + 'Đúng phiên bản</b>CHRONOS chọn văn bản còn hiệu lực tại ngày tham chiếu, cảnh báo khi '
-                'văn bản đã bị thay thế.</div><div><b>' + ic("block") + 'Biết từ chối</b>Không đủ căn cứ hoặc hỏi dữ liệu thực tế → ABSTAIN, '
-                'không bịa thông tin.</div></div></div>')
-        st.html('<div class="pa-lbl" style="margin:8px 2px 0">THỬ NHANH VỚI CÂU HỎI MẪU CỦA BTC</div>')
+                '<p>Hỏi bằng tiếng Việt, viết tắt (HĐĐT, TT, NĐ, MST) hoặc không dấu đều được. Câu trả lời trích nguyên văn '
+                'từ Data Pack của BTC và được kiểm tra hiệu lực theo ngày tham chiếu.</p>'
+                '<div class="pa-wfeat"><span>' + ic("link") + 'Bấm [1], [2]… để mở đoạn gốc</span>'
+                '<span>' + ic("history") + 'Đúng phiên bản theo ngày</span>'
+                '<span>' + ic("block") + 'Không đủ căn cứ → ABSTAIN</span>'
+                '<span>' + ic("account_balance") + 'Ưu tiên: Luật › Nghị định › Thông tư › Quy chế › Sổ tay</span></div></div>')
+        st.html('<div class="pa-lbl" style="margin:4px 2px 0">THỬ NHANH VỚI CÂU HỎI MẪU CỦA BTC</div>')
         for qid in FEATURED_SAMPLES:
             if qid in qrow:
                 q = qrow[qid]

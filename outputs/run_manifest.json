@@ -1,10 +1,10 @@
 {
-  "run_id": "RUN-20261112-235519-23b749",
-  "thời điểm": "2026-11-12T23:55:44",
+  "run_id": "RUN-20261115-005841-2850c1",
+  "thời điểm": "2026-11-15T00:59:35",
   "phiên bản": "V1.0",
   "mã nguồn": {
     "file": "policyassist.py",
-    "sha256_12": "23b7499be8a0"
+    "sha256_12": "2850c163ff7e"
   },
   "data_pack": {
     "phiên bản": "v1-snapshot-2026-10-17",

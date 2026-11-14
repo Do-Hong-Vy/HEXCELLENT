@@ -37,7 +37,7 @@ Một lệnh `python policyassist.py eval` đo **mọi tập có nhãn** cho h�
 Lệnh này chạy kèm kiểm định ghép cặp, khoảng tin cậy 95%, ablation B0 → B6 và các kịch bản demo. Báo cáo nằm ở `outputs/eval_report.md`, số liệu ở `outputs/kpi_table.csv`.
 
 Thông tin lần chạy:
-- run_id: `RUN-20261112-235519-23b749` (lần chạy cuối; sha256 mã nguồn `23b7499be8a0`, khớp `outputs/run_manifest.json`).
+- run_id: `RUN-20261115-004740-2850c1` (lần chạy cuối; sha256 mã nguồn `2850c163ff7e`, khớp `outputs/run_manifest.json`).
 - Corpus `08eaac52973a` (6 file CSV, cách tính của đội) và `7357afec5ef0` (toàn bộ Data Pack) – hai dấu vân tay của cùng một bộ dữ liệu.
 - Đo trên bộ câu hỏi mẫu, không phải người dùng thật.
 
@@ -57,7 +57,7 @@ Mỗi ô ghi giá trị, kèm (tổng điểm hoặc số câu đúng / số câ
 | 4. Unsupported Answer Rate | **0,000** (0/26) | 0,000 (0/50) | 0,000 (0/76) | 0,000 (0/52) | ≤ 0,10 (đội) |
 | 5. Abstention F1 (Precision / Recall) | **1,000 (1,000 / 1,000)** | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | 1,000 (1,000 / 1,000) | ≥ 0,90 (đội) |
 | 6. Versioning Accuracy | **1,000** (4/4) | 1,000 (6/6) | 1,000 (10/10) | 1,000 (14/14) | ≥ 0,90 (đội) |
-| 7. Latency trung bình / p95 | **18 / 46 ms** | 20 / 43 ms | 19 / 45 ms | 20 / 42 ms | TB ≤ 10.000 ms (đề thi) |
+| 7. Latency trung bình / p95 | **19 / 51 ms** | 22 / 48 ms | 21 / 48 ms | 21 / 44 ms | TB ≤ 10.000 ms (đề thi) |
 | Source Priority – câu MIXED (chỉ số phụ) | 0,667 (2/3) | 0,444 (4/9) | 0,500 (6/12) | 1,000 (1/1) | ≥ 0,85 (đội) |
 | Quyết định ANSWER/ABSTAIN đúng | 1,000 (30/30) | 1,000 (60/60) | 1,000 (90/90) | 1,000 (60/60) | |
 
@@ -146,7 +146,7 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 | 4 | Unsupported Answer Rate (thấp là tốt) | **0,000** | 0,327 | ≤ 0,10 (đội đề xuất) | 0/37 câu đã trả lời |
 | 5 | Abstention Quality (F1 lớp ABSTAIN) | **1,000** | 0,000 | ≥ 0,90 (đội đề xuất) | P 1,000 · R 1,000 · TP 18 · FP 0 · FN 0 |
 | 6 | Versioning Accuracy | **1,000** | 0,200 | ≥ 0,90 (đội đề xuất) | 10/10 câu |
-| 7 | Latency trung bình | **18 ms** | 5 ms | ≤ 10 giây (đề thi) | p95 47 ms · 145 lượt đo |
+| 7 | Latency trung bình | **19 ms** | 6 ms | ≤ 10 giây (đề thi) | p95 49 ms · 145 lượt đo |
 
 **Nguồn của các chỉ số kèm** (dòng nhỏ dưới mỗi ô; cùng tập Dev-30 + Probe-25 với giá trị chính):
 - MRR@5 và Recall@5 theo văn bản: 26 câu ANSWER của Dev-30.
@@ -175,13 +175,13 @@ Mục **Cách đo từng KPI – công thức** cuối trang trình bày mục t
 | Cấu hình | Recall@5 | MRR@5 | Answer | Citation | Unsupported | Abstention F1 | Versioning | Source Priority | Latency TB |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | B0 – BM25 thuần | 0,610 | 0,616 | 0,611 | 0,607 | 0,156 | 0,000 | 0,40 | 0,083 | 7 ms |
-| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0,725 | 0,701 | 0,654 | 0,682 | 0,156 | 0,000 | 0,40 | 0,083 | 10 ms |
-| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,722 | 0,800 | 0,156 | 0,000 | 0,90 | 0,333 | 11 ms |
-| B2′ – B1 + lọc cứng theo ngày | 0,766 | 0,732 | 0,665 | 0,728 | 0,156 | 0,000 | 0,60 | 0,083 | 10 ms |
-| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,910 | 0,884 | 0,757 | 0,956 | 0,156 | 0,000 | 1,00 | 0,083 | 21 ms |
-| B4 – + Guard, cổng đủ căn cứ | 0,910 | 0,884 | 0,757 | 0,956 | 0,000 | 1,000 | 1,00 | 0,083 | 19 ms |
-| B5 – + soạn nhiều căn cứ, câu quyết định có/không, kiểm toán citation | 0,917 | 0,884 | 0,824 | 0,931 | 0,000 | 1,000 | 1,00 | 0,500 | 20 ms |
-| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,917** | **0,884** | **0,824** | **0,931** | **0,000** | **1,000** | **1,00** | **0,500** | 19 ms |
+| B1 – + truy hồi lai, chuẩn hóa truy vấn | 0,725 | 0,701 | 0,654 | 0,682 | 0,156 | 0,000 | 0,40 | 0,083 | 11 ms |
+| B2 – + CHRONOS (chuyển hướng phiên bản) | 0,797 | 0,777 | 0,722 | 0,800 | 0,156 | 0,000 | 0,90 | 0,333 | 12 ms |
+| B2′ – B1 + lọc cứng theo ngày | 0,766 | 0,732 | 0,665 | 0,728 | 0,156 | 0,000 | 0,60 | 0,083 | 11 ms |
+| B3 – + xếp hạng thẩm quyền, cấu trúc Điều, truy nguồn FAQ | 0,910 | 0,884 | 0,757 | 0,956 | 0,156 | 0,000 | 1,00 | 0,083 | 23 ms |
+| B4 – + Guard, cổng đủ căn cứ | 0,910 | 0,884 | 0,757 | 0,956 | 0,000 | 1,000 | 1,00 | 0,083 | 21 ms |
+| B5 – + soạn nhiều căn cứ, câu quyết định có/không, kiểm toán citation | 0,917 | 0,884 | 0,824 | 0,931 | 0,000 | 1,000 | 1,00 | 0,500 | 21 ms |
+| **B6 – + ngưỡng độ tin cậy (hệ thống nộp bài)** | **0,917** | **0,884** | **0,824** | **0,931** | **0,000** | **1,000** | **1,00** | **0,500** | 21 ms |
 
 - Mỗi khối cải thiện một nhóm KPI riêng:
   - B1 tăng Recall@5 (+0,115: 0,610 → 0,725).
@@ -367,7 +367,7 @@ python policyassist.py ask "Nếu hóa đơn điện tử đã lập bị sai m�
 
 Giao diện tông **xanh navy**, bố cục như các ứng dụng chat AI. Thanh trên cùng có 5 trang: **Hỏi đáp · Xuất bài nộp · Đánh giá KPI · Kho tài liệu · Nhật ký & toàn vẹn**.
 
-Trang Hỏi đáp dành phần lớn bề ngang (~70%) cho vùng hội thoại; panel **Nguồn trích dẫn** gọn ở bên phải. Biểu tượng trên giao diện dùng bộ icon Material Symbols có sẵn trong Streamlit (không dùng emoji).
+Trang Hỏi đáp dành gần hết bề ngang cho vùng hội thoại (~77% khi panel nguồn đang mở, toàn bộ khi panel đóng); tiêu đề phiên và các chip Data Pack gom vào một dòng mỏng để khung hội thoại cao gần bằng màn hình. Panel **Nguồn trích dẫn** chỉ hiện khi bấm một chip nguồn. Biểu tượng trên giao diện dùng bộ icon Material Symbols có sẵn trong Streamlit (không dùng emoji).
 
 ### Cột bên trái – phiên tra cứu và lịch sử
 
@@ -375,7 +375,7 @@ Trang Hỏi đáp dành phần lớn bề ngang (~70%) cho vùng hội thoại; 
 - **Ô tìm kiếm** (trên cùng, ngay dưới logo): kết quả cập nhật theo **từng ký tự gõ** – kể cả khi bộ gõ tiếng Việt đang ghép chữ, không phải gõ hết từ – trong **tên phiên, câu hỏi và câu trả lời** của mọi phiên đã lưu.
   - Không phân biệt hoa/thường; gõ có dấu hay không dấu đều được (*hoa don* tìm ra *Hóa đơn*) và cho cùng kết quả (221/221 câu kiểm thử giống nhau về quyết định, nguồn, mốc); hiểu viết tắt (*HĐĐT, MST, GTGT…*).
   - Mỗi kết quả hiện tên phiên và đoạn trích *Hỏi: …* / *Đáp: …* chứa từ khóa, từ khóa được tô vàng.
-  - Bấm một kết quả: mở phiên, cuộn tới đúng câu hỏi chứa từ khóa và hiện nguồn của câu đó ở panel bên phải. Bấm nút xoá trong ô (hoặc phím Esc) để quay lại lịch sử.
+  - Bấm một kết quả: mở phiên, cuộn tới đúng câu hỏi chứa từ khóa (bấm chip nguồn để xem nguồn ở panel bên phải). Bấm nút xoá trong ô (hoặc phím Esc) để quay lại lịch sử.
 - **Tra cứu mới** (nút vàng, dưới ô tìm kiếm): mở một phiên mới. Mỗi phiên chứa **nhiều câu hỏi** nối tiếp như một cuộc hội thoại.
 - **LỊCH SỬ TRA CỨU**: các phiên được nhóm theo ngày (*Hôm nay*, *Hôm qua*, *Thứ…*), phiên đã ghim nằm trong nhóm **Đã ghim** ở đầu. Mỗi mục hiện tiêu đề (câu hỏi đầu), giờ, số câu và số câu ABSTAIN. Bấm để mở lại toàn bộ phiên, kể cả nguồn trích dẫn.
 - **Menu ⋮** của từng phiên (hiện khi rê chuột lên phiên; luôn hiện ở phiên đang mở): **Ghim / Bỏ ghim**, **Đổi tên** (hộp thoại nhập tên mới), **Xoá** (hộp thoại xác nhận; audit log vẫn giữ nguyên).
@@ -388,6 +388,7 @@ Trang Hỏi đáp dành phần lớn bề ngang (~70%) cho vùng hội thoại; 
 - Ô câu hỏi cao một dòng, tự cao thêm khi câu dài hoặc nhiều dòng (tối đa khoảng 6 dòng); nút **Gửi** ngay bên phải (hoặc nhấn Ctrl+Enter).
 - Được viết tắt (HĐĐT, TT, NĐ, MST, IT…), viết tắt khẩu ngữ (*ncc, hđ, bb, đntt, CQT…*), chen thuật ngữ tiếng Anh (*payment request, e-invoice, SoD…*) và gõ không dấu; mốc ngầm như *hôm qua, tháng trước, năm ngoái* được quy đổi theo ngày tham chiếu.
 - **Hỏi nhiều câu cùng lúc**: mỗi câu một dòng; mỗi câu thành một lượt riêng trong phiên.
+- **Sau khi gửi**: khung hội thoại dừng ở câu hỏi vừa gửi (không nhảy xuống cuối câu trả lời); câu trả lời hiện với hiệu ứng *Đang soạn câu trả lời* → dải PIPELINE sáng lần lượt → các khối hiện dần từ trên xuống (khoảng 1 giây; không chạy khi hệ điều hành bật giảm chuyển động).
 
 **Hàng tùy chọn** ngay dưới ô hỏi: `Ngày tham chiếu [17/10/2026]  ☐ Tự động  …  Câu mẫu`.
 
@@ -417,7 +418,7 @@ Ngày tham chiếu quyết định văn bản nào còn hiệu lực:
     - câu hỏi phiên bản → văn bản áp dụng tại mốc.
   - **CĂN CỨ PHÁP LUẬT** (xanh) và **QUY TRÌNH NỘI BỘ** (tím, nhãn *Nova Việt – tài liệu nội bộ giả lập*). Câu khớp kết luận được tô vàng. Số hiệu văn bản, ngày, con số/thời hạn, mã trạng thái và từ cấm/giới hạn ("không được", "không vượt quá"…) được tô đậm.
   - **LƯU Ý HIỆU LỰC**: văn bản được chọn theo ngày, văn bản bị thay thế, tài liệu nội bộ dẫn chiếu luật đã hết hiệu lực.
-- **Chip nguồn `[1] LAW12 – Điều 10 khoản 1 điểm b`**: bấm để mở nguồn ở **panel bên phải**.
+- **Chip nguồn `[1] LAW12 – Điều 10 khoản 1 điểm b`**: bấm để mở nguồn ở **panel bên phải** (panel chỉ hiện khi đang mở một nguồn; nút **Đóng** thu panel lại, vùng hội thoại giãn hết bề ngang).
 - **Chân thẻ**: độ tin cậy (màu theo ngưỡng), thời gian xử lý, **Hữu ích / Chưa đúng** (ghi `logs/feedback.jsonl`), **Chi tiết** (Pipeline trace, Evidence Ledger, cổng G1–G7, Citation Audit).
 - **Thẻ ABSTAIN** (viền đứt): câu mở đầu chuẩn *"Không đủ căn cứ trong Data Pack để xác định …"* nêu rõ điều không xác định được (vd. *"… mã số thuế chính thức của Công ty Cổ phần Nova Việt"*; không tách được thì *"thông tin này"*), lý do, bước dừng, "Không có nguồn dẫn".
   - **Gợi ý hỏi lại**: các câu mẫu cùng chủ đề mà Data Pack có căn cứ, bấm để hỏi ngay.
