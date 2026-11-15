@@ -5438,10 +5438,6 @@ h1,h2,h3{color:var(--pa-navy);}
 .st-key-chatcol>[data-testid="stElementContainer"]:has(script){display:none!important;}   /* script cuộn không chiếm chỗ */
 [data-testid="stLayoutWrapper"]:has(> .st-key-chatlog){flex:1 1 0!important;height:auto!important;min-height:260px!important;}
 [data-testid="stLayoutWrapper"]:has(> .st-key-srcpanel){flex:0 0 auto!important;height:max(480px,calc(100vh - 128px))!important;}
-/* hiệu ứng sinh câu trả lời (gen_css gắn cho lượt vừa hỏi) */
-@keyframes paRise{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-@keyframes paFlow{from{clip-path:inset(0 0 100% 0);}to{clip-path:inset(0 0 0 0);}}
-@keyframes paThink{0%,75%{opacity:1;}100%{opacity:0;}}
 .st-key-chatlog,.st-key-srcpanel{height:100%!important;}
 .st-key-chatlog{background:var(--pa-soft);border:1px solid var(--pa-line)!important;border-radius:16px!important;padding:4px 6px!important;}
 .st-key-srcpanel{background:#fff;border:1px solid var(--pa-line)!important;border-radius:16px!important;}
@@ -6402,6 +6398,11 @@ def run_ui():
     ss.setdefault("sess", new_session())
     ss.setdefault("sel", None)
     ss.setdefault("q_text", "")
+    def qkey() -> str:
+        """Khóa hiện hành của ô câu hỏi. Đổi sau mỗi lần gửi / điền câu mẫu: trình duyệt còn giữ giá trị của ô cũ và gửi lại
+        ở lần bấm Gửi sau (ô trông trống vẫn gửi câu trước) – khóa mới làm giá trị cũ thuộc về widget đã bỏ."""
+        g = ss.get("q_gen", 0)
+        return "q_text" if not g else f"q_text-{g}"
     ss.setdefault("q_date_txt", f"{SNAPSHOT:%d/%m/%Y}")   # ngày tham chiếu (chuỗi dd/mm/yyyy) mặc định = ngày chụp Data Pack
     ss.setdefault("date_seen", ss.q_date_txt)   # chuỗi gần nhất nhận từ ô ngày
     ss.setdefault("date_gen", 0)                # tăng khi Python tự đặt ngày (chọn câu mẫu) để ô ngày hiện lại
@@ -6427,14 +6428,13 @@ def run_ui():
         ss.sel = (idx, None)                            # panel nguồn chỉ mở khi người dùng bấm chip [n]
         if ss.get("focus_turn") is None:                # gửi nhiều câu một lần → giữ ở câu đầu tiên
             ss.focus_turn = idx
-        ss.anim_turns = ss.get("anim_turns", []) + [idx]
 
     def ask_sample(qid: str):
         q = qrow[qid]
         ask(q.question_text, parse_date(q.reference_date), "sample")
 
     def on_submit():
-        qs_ = split_questions(ss.get("q_text", ""))
+        qs_ = split_questions(ss.get(qkey(), ""))
         if not qs_:
             ss.flash = "Hãy nhập câu hỏi trước khi gửi."
             return
@@ -6452,17 +6452,17 @@ def run_ui():
             ask(q, ref, "auto" if auto else "manual")
         if len(qs_) > 10:
             ss.flash = "Mỗi lần gửi tối đa 10 câu – đã xử lý 10 câu đầu."
-        ss.q_text = ""
+        ss.q_gen = ss.get("q_gen", 0) + 1            # ô câu hỏi mới, trống
 
-    def on_pick():
-        qid = ss.get("pick")
+    def on_pick(key: str = "pick"):
+        qid = ss.get(key)
         if qid:
             q = qrow[qid]
-            ss.q_text, ss.auto_date = q.question_text, False
+            ss.q_gen = ss.get("q_gen", 0) + 1
+            ss[qkey()], ss.auto_date = q.question_text, False
             ss.q_date_txt = f"{parse_date(q.reference_date) or SNAPSHOT:%d/%m/%Y}"
             ss.date_gen += 1
-            ss.pick_gen = ss.get("pick_gen", 0) + 1       # đổi khóa của hộp "Câu mẫu" → hộp tự thu lại sau khi chọn
-        ss.pick = None
+            ss.pick_gen = ss.get("pick_gen", 0) + 1       # đổi khóa hộp "Câu mẫu" + hộp chọn → thu lại, lần sau trống
 
     def select(t: int, cid: str | None):
         ss.sel = (t, cid)
@@ -6634,7 +6634,6 @@ def run_ui():
             st.html('<style>[data-testid="stColumn"]:has(.st-key-srcpanel){display:none!important;}'
                     '[data-testid="stColumn"]:has(.st-key-chatcol){flex:1 1 100%!important;width:100%!important;'
                     'max-width:100%!important;}</style>')
-        anim = set(ss.pop("anim_turns", []))              # lượt vừa hỏi → hiệu ứng sinh câu trả lời
         chat, panel = st.columns([3.3, 1], gap="medium")          # vùng tra cứu rộng, panel nguồn gọn bên phải
         with chat, st.container(key="chatcol"):
             focus = ss.pop("focus_turn", None)            # lượt vừa hỏi / mở từ lịch sử → cuộn tới câu hỏi của lượt đó
@@ -6642,8 +6641,6 @@ def run_ui():
                 if not turns:
                     render_welcome()
                 for t, turn in enumerate(turns):
-                    if t in anim:
-                        st.html(gen_css(t))
                     render_turn(t, turn)
             render_composer()
             if focus is not None:
@@ -6670,21 +6667,6 @@ def run_ui():
             with st.container(height=760, key="srcpanel"):
                 if show_panel:
                     render_panel(turns)
-
-    def gen_css(t: int) -> str:
-        """Hiệu ứng 'đang sinh câu trả lời' cho lượt vừa hỏi: dòng 'đang soạn' → các khối hiện lần lượt (~1 giây)."""
-        def s(suffix: str = "") -> str:
-            return ",".join(f".st-key-{p}-{t}{suffix}" for p in ("card", "cardx"))
-        rules = [f"{s()}{{position:relative;}}",
-                 f"{s('::before')}{{content:'Đang soạn câu trả lời';position:absolute;left:18px;top:50px;font-size:13.5px;"
-                 f"font-weight:600;color:var(--pa-muted);pointer-events:none;animation:paThink .42s ease forwards;}}",
-                 f"{s('>*')}{{animation:paRise .3s cubic-bezier(.2,.7,.3,1) both;}}",
-                 f"{s(' .pa-steps .stp')}{{animation:paRise .18s ease both;}}",
-                 f"{s(' .pa-concl p')}{{animation:paFlow .5s ease-out .45s both;}}",
-                 f"{s(' .pa-bhead')}{{animation:paFlow .6s ease-out .6s both;}}"]
-        rules += [f"{s(f'>*:nth-child({i})')}{{animation-delay:{.36 + .09 * (i - 1):.2f}s;}}" for i in range(1, 13)]
-        rules += [f"{s(f' .pa-steps .stp:nth-child({i})')}{{animation-delay:{.03 * i:.2f}s;}}" for i in range(1, 16)]
-        return "<style>@media (prefers-reduced-motion:no-preference){" + "".join(rules) + "}</style>"
 
     def render_welcome():
         st.html('<div class="pa-welcome"><h3>Tra cứu chính sách tài chính – kế toán – thuế có dẫn nguồn</h3>'
@@ -6875,7 +6857,7 @@ def run_ui():
             # hàng 1: ô câu hỏi + nút Gửi (Ctrl+Enter để gửi)
             with st.form("ask", border=False):
                 with st.container(horizontal=True, vertical_alignment="bottom", gap="small", key="askrow"):
-                    st.text_area("Câu hỏi", key="q_text", height=68, label_visibility="collapsed",     # CSS thu về một dòng
+                    st.text_area("Câu hỏi", key=qkey(), height=68, label_visibility="collapsed",     # CSS thu về một dòng
                                  placeholder="Nhập câu hỏi…")
                     st.form_submit_button("Gửi", type="primary", icon=":material/send:", on_click=on_submit, key="send")
             # hàng 2 (mảnh): ngày tham chiếu quyết định văn bản nào còn hiệu lực
@@ -6897,7 +6879,10 @@ def run_ui():
                 st.html(f'<span class="pa-hint">{hint}</span>', width="stretch")
                 with st.popover("Câu mẫu", icon=":material/list_alt:", key=f"samplepop{ss.get('pick_gen', 0)}",
                                 help="Chọn 1 trong 90 câu hỏi mẫu của BTC (tự điền câu hỏi và ngày)"):
-                    st.selectbox("Câu hỏi mẫu của BTC", list(qrow), index=None, key="pick", on_change=on_pick,
+                    # mỗi lần chọn xong, hộp chọn mang khóa mới → lựa chọn cũ mà trình duyệt còn giữ thuộc widget đã bỏ,
+                    # không kích hoạt lại on_pick (trước đây bấm Gửi khi ô trống vẫn gửi lại câu mẫu vừa chọn)
+                    pk = "pick" if not ss.get("pick_gen") else f"pick-{ss.pick_gen}"
+                    st.selectbox("Câu hỏi mẫu của BTC", list(qrow), index=None, key=pk, on_change=on_pick, args=(pk,),
                                  format_func=lambda x: f"{x} · {qrow[x].question_text}",
                                  placeholder="Gõ để tìm trong 90 câu hỏi mẫu…")
 
